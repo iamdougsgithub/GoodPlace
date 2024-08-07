@@ -7,6 +7,11 @@ Bu dizin tüm uygulama içerisinde kullanıcalacak olan componentler'i içerir.
 ### assets
 Uygulama içerisinde kullanılan resimler, animasyonlar ve fontları içerir.
 
+
+
+### constants
+Uygulama içerisinde padding,border radius ve enum gibi sabit olarak kullanılacak değerleri içeir.
+
 #### * `asset_path_enum.dart`
 Uygulamada kullanılan asset'lerin path'lerini kolayca kullanabilmek için oluşturuldu.
 
@@ -17,9 +22,6 @@ Uygulamada kullanılan asset'lerin path'lerini kolayca kullanabilmek için oluş
 #### * `app_border_radius.dart`
 
 #### * `app_paddings.dart`
-
-### constants
-Uygulama içerisinde padding,border radius ve enum gibi sabit olarak kullanılacak değerleri içeir.
 
 ### extensions 
 Tüm uygulamada kullanılacak *extension*'ları içerir.
