@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/error_texts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -106,8 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              AppErrorText.errorMessageConverter(
+                  "The email address is already in use by another account."),
             ),
             Icon(Icons.show_chart),
             Icon(Icons.bar_chart),
