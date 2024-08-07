@@ -29,16 +29,19 @@ class ExpandedFilledButton extends StatelessWidget {
       child: FilledButton.icon(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.topLeft,
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppPaddings.mediumPaddingValue),
         ),
         onPressed: onPressed,
-        iconAlignment: IconAlignment.start,
         icon: icon,
-        label: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: AppPaddings.smallPaddingValue,
-          ),
-          child: Center(
+        label: Container(
+          width: double.infinity,
+          color: Colors.red,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: AppPaddings.smallPaddingValue,
+            ),
             child: Text(
               label,
             ),
@@ -55,7 +58,6 @@ class ExpandedFilledButton extends StatelessWidget {
 ///
 /// ! NOT : Sadece [Row] widget içinde kullanılabilir.
 ///
-
 class ExpandedOutlinedButton extends StatelessWidget {
   const ExpandedOutlinedButton({
     super.key,
@@ -92,6 +94,56 @@ class ExpandedOutlinedButton extends StatelessWidget {
             child: Text(
               label,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ExpandedOutlinedButtonWithIcon extends StatelessWidget {
+  const ExpandedOutlinedButtonWithIcon({
+    super.key,
+    this.onPressed,
+    required this.label,
+    this.color,
+    required this.icon,
+  });
+  final void Function()? onPressed;
+  final String label;
+  final Color? color;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    assert(context.findAncestorWidgetOfExactType<Row>() != null,
+        "Bu widget [Row] içerisinde olmalidir. !!!!!");
+
+    /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
+    return Expanded(
+      child: OutlinedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          // alignment: Alignment.center,
+        ),
+        onPressed: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppPaddings.smallPaddingValue,
+          ),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: icon,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  label,
+                ),
+              ),
+            ],
           ),
         ),
       ),

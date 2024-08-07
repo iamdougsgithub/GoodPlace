@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Spacer(),
+          // Spacer(),
           // AssetImageContainer(
           //   path: AppAssets.welcomePageImage,
           //   width: context.dynamicWidth(1),
@@ -60,9 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // ),
           Row(
             children: [
-              ExpandedFilledButtonWithIcon(
+              ExpandedOutlinedButtonWithIcon(
                 onPressed: () {},
-                label: "asd",
+                label: "Google Sign In",
+                icon: Icon(Icons.g_mobiledata_sharp),
               ),
             ],
           ),
