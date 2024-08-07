@@ -37,7 +37,7 @@ Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının an
 Bu class'ın kullanım amacı Firebase'de genel olarak kullandığımız instance'lara
 daha kolay bir şekilde ulaşmak
 
- ### İçerik
+ ##### İçerik
  `firestore = FirebaseFirestore.instance`
 
  `firebaseAuth = FirebaseAuth.instance`
@@ -45,7 +45,7 @@ daha kolay bir şekilde ulaşmak
  `User? get currentUser => firebaseAuth.currentUser`
 
 `storage = FirebaseStorage.instance`
-### Kullanım Şekli
+##### Kullanım Şekli
 ```
  class SomeFirebase extends FirebaseUtils{
  addCollection(){
