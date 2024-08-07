@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
+import 'package:good_place/core/utils/widgets/custom_buttons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,7 +54,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppAssets.calendarIcon,
+            Row(
+              children: [
+                ExpandedFilledButton(
+                  label: "asd",
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            const Gap(16),
+            Row(
+              children: [
+                ExpandedOutlinedButton(
+                  label: "asd",
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            const Gap(16),
+            Row(
+              children: [
+                ExpandedOutlinedButtonWithIcon(
+                  label: "asd",
+                  icon: Icon(Icons.abc),
+                  // child: Text("asdasdasdasd"),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ],
         ),
       ),
