@@ -7,12 +7,22 @@ Bu dizin tüm uygulama içerisinde kullanıcalacak olan componentler'i içerir.
 ### assets
 Uygulama içerisinde kullanılan resimler, animasyonlar ve fontları içerir.
 
+#### * `asset_path_enum.dart`
+Uygulamada kullanılan asset'lerin path'lerini kolayca kullanabilmek için oluşturuldu.
+// !NOT! : Bu enum sadece `app_assets.dart`dosyası içerisinde erişilebilir.
+
+#### * `app_assets.dart`
+
+#### * `app_border_radius.dart`
+
+#### * `app_paddings.dart`
+
 ### constants
 Uygulama içerisinde padding,border radius ve enum gibi sabit olarak kullanılacak değerleri içeir.
 
 ### extensions 
 Tüm uygulamada kullanılacak *extension*'ları içerir.
-#### context_extension.dart
+#### `context_extension.dart`
 * Bu extension'u kullanarak contexte'bağlı olan bazı metodları context.{method} ile kullanabiliriz.
 
 *Örnek*: 
@@ -21,10 +31,10 @@ Tüm uygulamada kullanılacak *extension*'ları içerir.
 
 ### resources
 Tekrar tekrar kullanılacak olan servisleri içerir.
-#### error_texts.dart
+#### `error_texts.dart`
 Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının anlayabileceği şekilde ona göstermek için `AppErrorText` class'ını kullanıyoruz.
 
-**Kullanım Şekli :**
+##### Kullanım Şekli
 ```
   try {
   data = someMethod();
@@ -32,7 +42,7 @@ Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının an
    print(AppErrorText.errorMessageConverter(errorCode))
   }
 ```
-#### firebase_utils.dart
+#### `firebase_utils.dart`
 
 Bu class'ın kullanım amacı Firebase'de genel olarak kullandığımız instance'lara
 daha kolay bir şekilde ulaşmak
