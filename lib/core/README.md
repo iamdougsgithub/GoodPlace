@@ -32,7 +32,30 @@ Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının an
    print(AppErrorText.errorMessageConverter(errorCode))
   }
 ```
+#### firebase_utils.dart
 
+Bu class'ın kullanım amacı Firebase'de genel olarak kullandığımız instance'lara
+daha kolay bir şekilde ulaşmak
+
+ ### İçerik
+ `firestore = FirebaseFirestore.instance`
+
+ `firebaseAuth = FirebaseAuth.instance`
+
+ `User? get currentUser => firebaseAuth.currentUser`
+
+`storage = FirebaseStorage.instance`
+### Kullanım Şekli
+```
+ class SomeFirebase extends FirebaseUtils{
+ addCollection(){
+   firestore.collection('collectionPath');
+ }
+ authMethod(){
+ firebaseAuth.signInWithEmailAndPassword(email: email, password: password)
+ }
+ }
+```
 
 ### utils
 Uygulamada ortak olarak kullanılacak olan widget,model,mixin gibi dosyaları içerir.
