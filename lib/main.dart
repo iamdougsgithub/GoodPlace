@@ -112,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Icon(Icons.bar_chart),
             Icon(Icons.calendar_today_outlined),
             Icon(Icons.check),
+            Image.asset("lib/core/assets/images/auth_screens_image.png"),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
