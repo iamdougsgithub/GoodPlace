@@ -16,12 +16,23 @@ Tüm uygulamada kullanılacak *extension*'ları içerir.
 * Bu extension'u kullanarak contexte'bağlı olan bazı metodları context.{method} ile kullanabiliriz.
 
 *Örnek*: 
-* Theme'e ulaşmak için Theme.of(context).theme yerine context.theme kullanbiliriz.
-* MediaQuery için MediaQuery.of(context) yerine context.mediaQuery kullanbiliriz.
+* Theme'e ulaşmak için `Theme.of(context).theme` yerine `context.theme` kullanbiliriz.
+* MediaQuery için `MediaQuery.of(context)` yerine `context.mediaQuery` kullanbiliriz.
 
 ### resources
 Tekrar tekrar kullanılacak olan servisleri içerir.
-`sdasda`
+#### error_texts.dart
+Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının anlayabileceği şekilde ona göstermek için `AppErrorText` class'ını kullanıyoruz.
+
+**Kullanım Şekli :**
+```
+  try {
+  data = someMethod();
+  }catch(errorCode){
+   print(AppErrorText.errorMessageConverter(errorCode))
+  }
+```
+
 
 ### utils
 Uygulamada ortak olarak kullanılacak olan widget,model,mixin gibi dosyaları içerir.
