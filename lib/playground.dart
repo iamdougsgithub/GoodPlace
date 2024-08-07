@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/main.dart';
 
 import 'core/constants/app_assets.dart';
 import 'core/constants/app_paddings.dart';
@@ -17,16 +19,20 @@ class Playground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      // ),
       body: Padding(
         padding: AppPaddings.authScreenHorizontalPadding,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.s,
           children: [
             AssetImageContainer(
-              path: AppAssets.passwordShowIcon,
-              width: 32,
-              height: 32,
-              fit: BoxFit.contain,
+              path: AppAssets.onboardingFirstPageImage,
+              width: context.dynamicWidth(1),
+              height: context.dynamicHeight(0.3),
+              fit: BoxFit.fill,
             ),
             EmailField(),
             PasswordField(),

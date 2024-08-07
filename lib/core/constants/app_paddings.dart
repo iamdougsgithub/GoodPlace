@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppPaddings {
   /// Sign In , Sign Up ve Welcome sayfalarında kullanılan horizontal padding.
+  ///
   /// Padding : 20 px
   static const EdgeInsets authScreenHorizontalPadding =
       EdgeInsets.symmetric(horizontal: 20);
