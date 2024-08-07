@@ -3,10 +3,15 @@
 part of '../app_assets.dart';
 
 enum _AssetsPathEnum {
+  /// Icons
   googleIcon("${_rootIconPath}ic_google.png"),
 
   /// Average per daily card'ında kullanılan icon.
   averagePerDailyCardIcon("${_rootIconPath}ic_avarage_per_daily.png"),
+  passwordShow("${_rootIconPath}ic_password_shown.png"),
+  passwordHide("${_rootIconPath}ic_password_hide.png"),
+
+  /// Images
 
   /// Sign In ve Sign Up sayfalarında kullanılan image
   authTopBackgroundImage("${_rootImagePath}auth_screens_image.png"),
@@ -26,7 +31,3 @@ enum _AssetsPathEnum {
   /// Uygulama içerisinde kullanılan resimlerin Path'leri bu enumda toplandı.
   const _AssetsPathEnum(this.path);
 }
-  // Icon(Icons.show_chart),
-  //           Icon(Icons.bar_chart),
-  //           Icon(Icons.calendar_today_outlined),
-  //           Icon(Icons.check),

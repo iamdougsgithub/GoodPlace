@@ -7,6 +7,8 @@ class AppAssets {
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
   static String welcomePageImage = _AssetsPathEnum.welcomePageImage.path;
+  static String passwordHideIcon = _AssetsPathEnum.passwordHide.path;
+  static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
 
   /// TODO : Bunlara renk ekle
   static Widget chartIcon = const Icon(Icons.show_chart);

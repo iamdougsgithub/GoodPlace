@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'core/constants/app_assets.dart';
-import 'core/extensions/context_extension.dart';
+import 'core/constants/app_paddings.dart';
 import 'core/utils/widgets/custom_buttons.dart';
+import 'core/utils/widgets/custom_text_form_field.dart';
 import 'core/utils/widgets/image_container.dart';
 
 /// Burası sadece bazı widgetları sergilemek ve test etmek için var.
@@ -16,43 +17,49 @@ class Playground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AssetImageContainer(
-            path: AppAssets.welcomePageImage,
-            width: context.dynamicWidth(1),
-            height: context.dynamicHeight(0.65),
-            fit: BoxFit.fill,
-          ),
-          Gap(10),
-          Row(
-            children: [
-              ExpandedOutlinedButton(
-                onPressed: () {},
-                label: "Label",
-              ),
-            ],
-          ),
-          Gap(10),
-          Row(
-            children: [
-              ExpandedFilledButton(
-                onPressed: () {},
-                label: "Label",
-              ),
-            ],
-          ),
-          Gap(10),
-          Row(
-            children: [
-              ExpandedOutlinedButtonWithIcon(
-                onPressed: () {},
-                label: "Label",
-                icon: Icon(Icons.g_mobiledata_sharp),
-              ),
-            ],
-          ),
-        ],
+      body: Padding(
+        padding: AppPaddings.authScreenHorizontalPadding,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AssetImageContainer(
+              path: AppAssets.passwordShowIcon,
+              width: 32,
+              height: 32,
+              fit: BoxFit.contain,
+            ),
+            EmailField(),
+            PasswordField(),
+            Gap(10),
+            Row(
+              children: [
+                ExpandedOutlinedButton(
+                  onPressed: () {},
+                  label: "Label",
+                ),
+              ],
+            ),
+            Gap(10),
+            Row(
+              children: [
+                ExpandedFilledButton(
+                  onPressed: () {},
+                  label: "Label",
+                ),
+              ],
+            ),
+            Gap(10),
+            Row(
+              children: [
+                ExpandedOutlinedButtonWithIcon(
+                  onPressed: () {},
+                  label: "Label",
+                  icon: Icon(Icons.g_mobiledata_sharp),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
