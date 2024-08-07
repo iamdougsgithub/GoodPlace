@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
 
 void main() {
   runApp(const MyApp());
@@ -108,11 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
+            context.dynamicHeight(0.3),
             Icon(Icons.show_chart),
             Icon(Icons.bar_chart),
             Icon(Icons.calendar_today_outlined),
             Icon(Icons.check),
-            Image.asset("lib/core/assets/images/auth_screens_image.png"),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
