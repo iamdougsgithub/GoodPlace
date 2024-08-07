@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/main.dart';
 
 import 'core/constants/app_assets.dart';
 import 'core/constants/app_paddings.dart';
+import 'core/extensions/context_extension.dart';
 import 'core/utils/widgets/custom_buttons.dart';
 import 'core/utils/widgets/custom_text_form_field.dart';
 import 'core/utils/widgets/image_container.dart';
@@ -23,49 +22,46 @@ class Playground extends StatelessWidget {
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       // ),
-      body: Padding(
-        padding: AppPaddings.authScreenHorizontalPadding,
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.s,
-          children: [
-            AssetImageContainer(
-              path: AppAssets.onboardingFirstPageImage,
-              width: context.dynamicWidth(1),
-              height: context.dynamicHeight(0.3),
-              fit: BoxFit.fill,
-            ),
-            EmailField(),
-            PasswordField(),
-            Gap(10),
-            Row(
-              children: [
-                ExpandedOutlinedButton(
-                  onPressed: () {},
-                  label: "Label",
-                ),
-              ],
-            ),
-            Gap(10),
-            Row(
-              children: [
-                ExpandedFilledButton(
-                  onPressed: () {},
-                  label: "Label",
-                ),
-              ],
-            ),
-            Gap(10),
-            Row(
-              children: [
-                ExpandedOutlinedButtonWithIcon(
-                  onPressed: () {},
-                  label: "Label",
-                  icon: Icon(Icons.g_mobiledata_sharp),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.s,
+        children: [
+          AssetImageContainer(
+            path: AppAssets.onboardingFirstPageImage,
+            width: context.dynamicWidth(1),
+            height: context.dynamicHeight(0.45),
+            fit: BoxFit.fill,
+          ),
+          EmailField(),
+          PasswordField(),
+          Gap(10),
+          Row(
+            children: [
+              ExpandedOutlinedButton(
+                onPressed: () {},
+                label: "Label",
+              ),
+            ],
+          ),
+          Gap(10),
+          Row(
+            children: [
+              ExpandedFilledButton(
+                onPressed: () {},
+                label: "Label",
+              ),
+            ],
+          ),
+          Gap(10),
+          Row(
+            children: [
+              ExpandedOutlinedButtonWithIcon(
+                onPressed: () {},
+                label: "Label",
+                icon: Icon(Icons.g_mobiledata_sharp),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
