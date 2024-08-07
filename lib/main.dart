@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/playground.dart';
 import 'core/constants/app_assets.dart';
 import 'core/extensions/context_extension.dart';
 import 'core/utils/widgets/custom_buttons.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Playground(),
     );
   }
 }
@@ -59,10 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Gap(10),
           Row(
             children: [
-              ExpandedOutlinedButtonWithIcon(
+              ExpandedOutlinedButton(
                 onPressed: () {},
                 label: "Google Sign In",
-                icon: Icon(Icons.g_mobiledata_sharp),
+                // icon: Icon(Icons.g_mobiledata_sharp),
               ),
             ],
           ),

@@ -12,12 +12,10 @@ class ExpandedFilledButton extends StatelessWidget {
     this.onPressed,
     required this.label,
     this.color,
-    this.icon,
   });
   final void Function()? onPressed;
   final String label;
   final Color? color;
-  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +24,17 @@ class ExpandedFilledButton extends StatelessWidget {
 
     /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
-      child: FilledButton.icon(
+      child: FilledButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppPaddings.mediumPaddingValue),
         ),
         onPressed: onPressed,
-        icon: icon,
-        label: Container(
-          width: double.infinity,
-          color: Colors.red,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: AppPaddings.smallPaddingValue,
-            ),
-            child: Text(
-              label,
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppPaddings.smallPaddingValue,
+          ),
+          child: Text(
+            label,
           ),
         ),
       ),
@@ -57,19 +47,16 @@ class ExpandedFilledButton extends StatelessWidget {
 /// genişliğini alır.
 ///
 /// ! NOT : Sadece [Row] widget içinde kullanılabilir.
-///
 class ExpandedOutlinedButton extends StatelessWidget {
   const ExpandedOutlinedButton({
     super.key,
     this.onPressed,
     required this.label,
     this.color,
-    this.icon,
   });
   final void Function()? onPressed;
   final String label;
   final Color? color;
-  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -78,15 +65,13 @@ class ExpandedOutlinedButton extends StatelessWidget {
 
     /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
-      child: OutlinedButton.icon(
+      child: OutlinedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          alignment: Alignment.centerLeft,
         ),
         onPressed: onPressed,
         iconAlignment: IconAlignment.start,
-        icon: icon,
-        label: Padding(
+        child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppPaddings.smallPaddingValue,
           ),
