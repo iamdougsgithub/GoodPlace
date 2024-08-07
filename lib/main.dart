@@ -4,6 +4,7 @@ import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/utils/widgets/custom_buttons.dart';
+import 'package:good_place/core/utils/widgets/image_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,44 +47,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: [
-                ExpandedFilledButton(
-                  label: "asd",
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            const Gap(16),
-            Row(
-              children: [
-                ExpandedOutlinedButton(
-                  label: "asd",
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            const Gap(16),
-            Row(
-              children: [
-                ExpandedOutlinedButtonWithIcon(
-                  label: "asd",
-                  icon: Icon(Icons.abc),
-                  // child: Text("asdasdasdasd"),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ],
-        ),
+      extendBody: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Spacer(),
+          AssetImageContainer(
+            path: AppAssets.welcomePageImage,
+            width: context.dynamicWidth(1),
+            height: context.dynamicHeight(0.65),
+            fit: BoxFit.fill,
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

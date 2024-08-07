@@ -6,7 +6,7 @@ class AppAssets {
   static String googleIcon = _AssetsPathEnum.googleIcon.path;
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
-  static String bg = _AssetsPathEnum.welcomePageImage.path;
+  static String welcomePageImage = _AssetsPathEnum.welcomePageImage.path;
 
   /// TODO : Bunlara renk ekle
   static Widget chartIcon = const Icon(Icons.show_chart);
