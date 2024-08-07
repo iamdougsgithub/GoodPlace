@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının
-/// anlayabileceği şekilde ona göstermek için [AppErrorText] class'ını kullanıyoruz.
+/// anlayabileceği şekilde ona göstermek için `AppErrorText` class'ını kullanıyoruz.
 class AppErrorText {
   AppErrorText();
 
