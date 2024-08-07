@@ -52,11 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Spacer(),
-          AssetImageContainer(
-            path: AppAssets.welcomePageImage,
-            width: context.dynamicWidth(1),
-            height: context.dynamicHeight(0.65),
-            fit: BoxFit.fill,
+          // AssetImageContainer(
+          //   path: AppAssets.welcomePageImage,
+          //   width: context.dynamicWidth(1),
+          //   height: context.dynamicHeight(0.65),
+          //   fit: BoxFit.fill,
+          // ),
+          Row(
+            children: [
+              ExpandedFilledButtonWithIcon(
+                onPressed: () {},
+                label: "asd",
+              ),
+            ],
           ),
         ],
       ),
