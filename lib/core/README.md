@@ -14,12 +14,14 @@ Uygulama içerisinde padding,border radius ve enum gibi sabit olarak kullanılac
 Tüm uygulamada kullanılacak *extension*'ları içerir.
 #### context_extension.dart
 * Bu extension'u kullanarak contexte'bağlı olan bazı metodları context.{method} ile kullanabiliriz.
-*Örnek* : 
+
+*Örnek*: 
 * Theme'e ulaşmak için Theme.of(context).theme yerine context.theme kullanbiliriz.
 * MediaQuery için MediaQuery.of(context) yerine context.mediaQuery kullanbiliriz.
 
 ### resources
 Tekrar tekrar kullanılacak olan servisleri içerir.
+`sdasda`
 
 ### utils
 Uygulamada ortak olarak kullanılacak olan widget,model,mixin gibi dosyaları içerir.
