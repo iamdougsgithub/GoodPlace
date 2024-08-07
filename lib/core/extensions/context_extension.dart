@@ -44,7 +44,11 @@ extension MediaQueryExtension on BuildContext {
    *
    * Ekran genişliğine göre [double] değer döner.
    */
-  double dynamicWidth(double? val) => screenSize.width * (val ?? 1);
+  double dynamicWidth(double? val) {
+    val ??= 1;
+    assert(val <= 1, "Val 1'den büyük olamaz !!! ");
+    return screenSize.width * (val);
+  }
 
   /// Bir component'e ekran yüksekliğine göre değişen bir [height] değeri vermek istediğimizde.
   /// bu method'u kullanabiliriz.
@@ -59,7 +63,11 @@ extension MediaQueryExtension on BuildContext {
   /// `[MediaQuery.of(this).size.height] x val`
   ///
   /// Ekran yüksekliğine göre [double] değer döner.
-  double dynamicHeight(double? val) => screenSize.height * (val ?? 1);
+  double dynamicHeight(double? val) {
+    val ??= 1;
+    assert(val <= 1, "Val 1'den büyük olamaz !!! ");
+    return screenSize.height * (val);
+  }
 }
 
 extension ScaffoldMessengerExtension on BuildContext {

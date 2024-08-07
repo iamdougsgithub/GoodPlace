@@ -22,3 +22,7 @@ enum AssetsEnum {
   /// Uygulama içerisinde kullanılan resimlerin Path'leri bu enumda toplandı.
   const AssetsEnum(this.path);
 }
+  // Icon(Icons.show_chart),
+  //           Icon(Icons.bar_chart),
+  //           Icon(Icons.calendar_today_outlined),
+  //           Icon(Icons.check),
