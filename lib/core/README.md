@@ -9,6 +9,7 @@ Uygulama içerisinde kullanılan resimler, animasyonlar ve fontları içerir.
 
 #### * `asset_path_enum.dart`
 Uygulamada kullanılan asset'lerin path'lerini kolayca kullanabilmek için oluşturuldu.
+
 // !NOT! : Bu enum sadece `app_assets.dart`dosyası içerisinde erişilebilir.
 
 #### * `app_assets.dart`
