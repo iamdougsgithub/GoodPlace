@@ -1,4 +1,8 @@
-enum AssetsEnum {
+// ignore_for_file: unused_field
+
+part of '../app_assets.dart';
+
+enum _AssetsPathEnum {
   googleIcon("${_rootIconPath}ic_google.png"),
 
   /// Average per daily card'ında kullanılan icon.
@@ -20,7 +24,7 @@ enum AssetsEnum {
   final String path;
 
   /// Uygulama içerisinde kullanılan resimlerin Path'leri bu enumda toplandı.
-  const AssetsEnum(this.path);
+  const _AssetsPathEnum(this.path);
 }
   // Icon(Icons.show_chart),
   //           Icon(Icons.bar_chart),

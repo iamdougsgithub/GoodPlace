@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 
@@ -51,18 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              AppErrorText.errorMessageConverter(
-                  "The email address is already in use by another account."),
-            ),
-            Icon(Icons.show_chart),
-            Icon(Icons.bar_chart),
-            Icon(Icons.calendar_today_outlined),
-            Icon(Icons.check),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            AppAssets.calendarIcon,
           ],
         ),
       ),
