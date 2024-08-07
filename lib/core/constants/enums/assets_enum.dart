@@ -19,6 +19,6 @@ enum AssetsEnum {
 
   final String path;
 
-  /// This enum contains Asset paths.
+  /// Uygulama içerisinde kullanılan resimlerin Path'leri bu enumda toplandı.
   const AssetsEnum(this.path);
 }
