@@ -24,6 +24,15 @@ Uygulama içerisinde padding,border radius ve enum gibi sabit olarak kullanılac
 Tüm uygulamada kullanılacak *extension*'ları içerir.
 #### `context_extension.dart`
 * Bu extension'u kullanarak contexte'bağlı olan bazı metodları context.{method} ile kullanabiliriz.
+ ##### İçerik
+`theme => Theme.of(this)`
+`textTheme => Theme.of(this).textTheme`
+` mediaQuery => MediaQuery.of(this)`
+`screenSize => mediaQuery.size`
+`keyboardSize => mediaQuery.viewInsets.bottom`
+`dynamicWidth`
+`dynamicHeight` 
+`navigator => Navigator.of(this)` 
 
 *Örnek*: 
 * Theme'e ulaşmak için `Theme.of(context).theme` yerine `context.theme` kullanbiliriz.
