@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/resourcers/error_texts.dart';
-import 'package:good_place/core/utils/widgets/custom_buttons.dart';
-import 'package:good_place/core/utils/widgets/image_container.dart';
+import 'core/constants/app_assets.dart';
+import 'core/extensions/context_extension.dart';
+import 'core/utils/widgets/custom_buttons.dart';
+import 'core/utils/widgets/image_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,13 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // Spacer(),
-          // AssetImageContainer(
-          //   path: AppAssets.welcomePageImage,
-          //   width: context.dynamicWidth(1),
-          //   height: context.dynamicHeight(0.65),
-          //   fit: BoxFit.fill,
-          // ),
+          AssetImageContainer(
+            path: AppAssets.welcomePageImage,
+            width: context.dynamicWidth(1),
+            height: context.dynamicHeight(0.65),
+            fit: BoxFit.fill,
+          ),
+          Gap(10),
           Row(
             children: [
               ExpandedOutlinedButtonWithIcon(
