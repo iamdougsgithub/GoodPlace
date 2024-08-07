@@ -109,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            context.dynamicHeight(0.3),
             Icon(Icons.show_chart),
             Icon(Icons.bar_chart),
             Icon(Icons.calendar_today_outlined),
