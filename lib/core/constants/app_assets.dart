@@ -7,6 +7,9 @@ class AppAssets {
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
   static String welcomePageImage = _AssetsPathEnum.welcomePageImage.path;
+  static String authTopBackgroundImage =
+      _AssetsPathEnum.authTopBackgroundImage.path;
+
   static String onboardingFirstPageImage =
       _AssetsPathEnum.onboardingFirstPageImage.path;
   static String onboardingSecondPageImage =
