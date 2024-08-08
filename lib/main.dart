@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/config/theme.dart';
 import 'config/routes.dart';
 
 void main() {
@@ -12,10 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme().theme,
       routes: AppRoutes().routes,
     );
   }

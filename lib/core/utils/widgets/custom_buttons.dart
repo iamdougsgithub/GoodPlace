@@ -66,7 +66,7 @@ class ExpandedOutlinedButton extends StatelessWidget {
     /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
       child: OutlinedButton(
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           backgroundColor: color,
         ),
         onPressed: onPressed,
@@ -107,7 +107,7 @@ class ExpandedOutlinedButtonWithIcon extends StatelessWidget {
     /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
       child: OutlinedButton(
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           backgroundColor: color,
           // alignment: Alignment.center,
         ),
