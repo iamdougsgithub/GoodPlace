@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
 import '../../constants/app_paddings.dart';
 
 ///
@@ -107,23 +108,21 @@ class ExpandedOutlinedButtonWithIcon extends StatelessWidget {
     /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
       child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          backgroundColor: color,
-          // alignment: Alignment.center,
-        ),
+        // style: context.theme.outlinedButtonTheme.style,
         onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppPaddings.smallPaddingValue,
           ),
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Align(
                 alignment: Alignment.centerLeft,
                 child: icon,
               ),
               Align(
-                alignment: Alignment.center,
+                // alignment: Alignment.center,
                 child: Text(
                   label,
                 ),

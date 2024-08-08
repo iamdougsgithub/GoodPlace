@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -32,7 +33,11 @@ class SignUpPage extends StatelessWidget {
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text
-          Text(orLogInWithEmail),
+          Text(
+            orLogInWithEmail,
+            style: context.textTheme.labelLarge
+                ?.copyWith(color: AppColors.lightTextColor),
+          ),
           const Gap(AppPaddings.largePaddingValue),
           // form
           Form(
@@ -56,9 +61,13 @@ class SignUpPage extends StatelessWidget {
                     Text.rich(
                       TextSpan(
                         text: iHaveRead,
+                        style: context.textTheme.labelLarge
+                            ?.copyWith(color: AppColors.lightTextColor),
                         children: [
                           TextSpan(
                             text: privacyPolicy,
+                            style: context.textTheme.labelLarge
+                                ?.copyWith(color: AppColors.primaryButtonColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 print('SIGN UP tapped');
@@ -94,9 +103,13 @@ class SignUpPage extends StatelessWidget {
           Text.rich(
             TextSpan(
               text: alreadyHaveAnAccount,
+              style: context.textTheme.labelLarge
+                  ?.copyWith(color: AppColors.lightTextColor),
               children: [
                 TextSpan(
                   text: signIn,
+                  style: context.textTheme.labelLarge
+                      ?.copyWith(color: AppColors.primaryButtonColor),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('SIGN UP tapped');

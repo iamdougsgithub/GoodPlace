@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/config/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -16,7 +18,7 @@ class SignInPage extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final String title = "Welcome Back";
+  final String title = "Welcome Back!";
   final String orLoginWithEmail = "OR LOG IN WITH EMAIL";
   final String buttonLabel = "LOG IN";
   final String forgotPassword = "Forgot Password";
@@ -33,7 +35,12 @@ class SignInPage extends StatelessWidget {
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text
-          Text(orLoginWithEmail),
+          Text(
+            orLoginWithEmail,
+            style: context.textTheme.labelLarge?.copyWith(
+              color: AppColors.lightTextColor,
+            ),
+          ),
           const Gap(AppPaddings.largePaddingValue),
           // form
           Form(
@@ -75,9 +82,14 @@ class SignInPage extends StatelessWidget {
           Text.rich(
             TextSpan(
               text: dontHaveAnAccount,
+              style: context.textTheme.labelLarge
+                  ?.copyWith(color: AppColors.lightTextColor),
               children: [
                 TextSpan(
                   text: signUp,
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.primaryButtonColor,
+                  ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('SIGN UP tapped');
