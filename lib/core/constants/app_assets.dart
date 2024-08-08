@@ -7,6 +7,8 @@ class AppAssets {
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
   static String welcomePageImage = _AssetsPathEnum.welcomePageImage.path;
+
+  //onboarding
   static String onboardingFirstPageImage =
       _AssetsPathEnum.onboardingFirstPageImage.path;
   static String onboardingSecondPageImage =
@@ -15,6 +17,7 @@ class AppAssets {
       _AssetsPathEnum.onboardingThirdPageImage.path;
   static String onboardingFourthPageImage =
       _AssetsPathEnum.onboardingFourthPageImage.path;
+  static String onboardingSkipIcon = _AssetsPathEnum.onboardingSkipIcon.path;
 
   static String passwordHideIcon = _AssetsPathEnum.passwordHide.path;
   static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
