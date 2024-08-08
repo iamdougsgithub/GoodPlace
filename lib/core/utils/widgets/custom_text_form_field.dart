@@ -73,7 +73,6 @@ class EmailField extends _CustomFormField {
   Iterable<String>? get autofillHints => [AutofillHints.email];
 }
 
-// FIXME : Klavye kapanınca obscure tekrardan false oluyor.
 class PasswordField extends _CustomFormField {
   PasswordField({
     super.key,
