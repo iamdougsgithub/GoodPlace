@@ -10,6 +10,7 @@ import '../widgets/google_button.dart';
 import 'auth_base_view.dart';
 
 class SignUpPage extends StatelessWidget {
+  static const routeName = "sign-up";
   SignUpPage({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
