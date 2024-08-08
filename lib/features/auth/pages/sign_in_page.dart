@@ -1,23 +1,29 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/features/auth/enums/auth_type_enum.dart';
-import 'package:good_place/features/auth/pages/auth_base_view.dart';
-import 'package:good_place/features/auth/widgets/google_button.dart';
 
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
+import '../widgets/google_button.dart';
+import 'auth_base_view.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final String title = "Welcome Back";
+  final String orLoginWithEmail = "OR LOG IN WITH EMAIL";
+  final String buttonLabel = "LOG IN";
+  final String forgotPassword = "Forgot Password";
+  final String dontHaveAnAccount = 'DON’T HAVE AN ACCOUNT? ';
+  final String signUp = 'SIGN UP';
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
-      title: "Welcome Back",
+      title: title,
       child: Column(
         children: [
           // Google Button
@@ -25,7 +31,7 @@ class SignInPage extends StatelessWidget {
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text
-          const Text("OR LOG IN WITH EMAIL"),
+          Text(orLoginWithEmail),
           const Gap(AppPaddings.largePaddingValue),
           // form
           Form(
@@ -45,19 +51,18 @@ class SignInPage extends StatelessWidget {
           Row(
             children: [
               ExpandedFilledButton(
-                label: "LOG IN",
+                label: buttonLabel,
                 onPressed: () {},
               ),
             ],
           ),
           //Forgot Password
-
           Column(
             children: [
               const Gap(AppPaddings.smallPaddingValue),
               TextButton(
                 onPressed: () {},
-                child: const Text("Forgot Password"),
+                child: Text(forgotPassword),
               ),
             ],
           ),
@@ -65,13 +70,12 @@ class SignInPage extends StatelessWidget {
             context.dynamicHeight(0.14),
           ),
           //DON’T HAVE AN ACCOUNT?
-
           Text.rich(
             TextSpan(
-              text: "DON’T HAVE AN ACCOUNT? ",
+              text: dontHaveAnAccount,
               children: [
                 TextSpan(
-                  text: "SIGN UP",
+                  text: signUp,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('SIGN UP tapped');

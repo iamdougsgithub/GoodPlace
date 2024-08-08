@@ -19,7 +19,7 @@ class AuthAppBar extends StatelessWidget {
       clipBehavior: Clip.none,
       titleSpacing: 0,
       scrolledUnderElevation: 0,
-      toolbarHeight: context.dynamicHeight(0.3),
+      toolbarHeight: context.dynamicHeight(0.25),
       // TODO : Bunu da theme içerisine taşı.
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
@@ -32,6 +32,7 @@ class AuthAppBar extends StatelessWidget {
         children: [
           AssetImageContainer(
             path: AppAssets.authTopBackgroundImage,
+            fit: BoxFit.fill,
           ),
           Text(
             title,

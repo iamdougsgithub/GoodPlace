@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
 
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
 import '../widgets/google_button.dart';
@@ -13,10 +13,17 @@ class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final String title = "Create your account ";
+  final String orLogInWithEmail = "OR LOG IN WITH EMAIL";
+  final String iHaveRead = "I have read the ";
+  final String privacyPolicy = "Privacy Policy";
+  final String buttonLabel = "GET STARTED";
+  final String alreadyHaveAnAccount = "ALREADY HAVE AN ACCOUNT? ";
+  final String signIn = "SIGN IN";
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
-      title: "Create your account ",
+      title: title,
       child: Column(
         children: [
           // Google Button
@@ -24,7 +31,7 @@ class SignUpPage extends StatelessWidget {
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text
-          const Text("OR LOG IN WITH EMAIL"),
+          Text(orLogInWithEmail),
           const Gap(AppPaddings.largePaddingValue),
           // form
           Form(
@@ -33,13 +40,8 @@ class SignUpPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // name field
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    NormalTextFormField(),
-                    const Gap(AppPaddings.smallPaddingValue),
-                  ],
-                ),
+                NormalTextFormField(),
+                const Gap(AppPaddings.smallPaddingValue),
                 // email field
                 EmailField(),
                 const Gap(AppPaddings.smallPaddingValue),
@@ -52,10 +54,10 @@ class SignUpPage extends StatelessWidget {
                   children: [
                     Text.rich(
                       TextSpan(
-                        text: "I have read the ",
+                        text: iHaveRead,
                         children: [
                           TextSpan(
-                            text: "Privacy Policy",
+                            text: privacyPolicy,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 print('SIGN UP tapped');
@@ -78,7 +80,7 @@ class SignUpPage extends StatelessWidget {
           Row(
             children: [
               ExpandedFilledButton(
-                label: "GET STARTED",
+                label: buttonLabel,
                 onPressed: () {},
               ),
             ],
@@ -90,10 +92,10 @@ class SignUpPage extends StatelessWidget {
           ),
           Text.rich(
             TextSpan(
-              text: "ALREADY HAVE AN ACCOUNT? ",
+              text: alreadyHaveAnAccount,
               children: [
                 TextSpan(
-                  text: "SIGN IN",
+                  text: signIn,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('SIGN UP tapped');
