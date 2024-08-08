@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/pages/sign_in_page.dart';
+import 'package:good_place/features/auth/pages/welcome_page.dart';
 
 import 'features/auth/pages/sign_up.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignUpPage(),
+      home: WelcomePage(),
     );
   }
 }
