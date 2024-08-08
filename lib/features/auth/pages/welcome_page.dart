@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/image_container.dart';
 
@@ -75,6 +77,7 @@ class WelcomePage extends StatelessWidget {
           AssetImageContainer(
             path: AppAssets.welcomePageImage,
             fit: BoxFit.fill,
+            width: context.dynamicWidth(1),
           ),
         ],
       ),
