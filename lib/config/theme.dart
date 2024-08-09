@@ -7,13 +7,13 @@ class AppTheme {
   final ThemeData theme = ThemeData(
     textTheme: AppTextStyles().textTheme,
     inputDecorationTheme: _inputDecorationTheme,
-    outlinedButtonTheme: outlinedButtonTheme(),
-    filledButtonTheme: filledButtonTheme(),
-    textButtonTheme: textButtonTheme(),
-    checkboxTheme: checkBoxTheme(),
+    outlinedButtonTheme: _outlinedButtonTheme(),
+    filledButtonTheme: _filledButtonTheme(),
+    textButtonTheme: _textButtonTheme(),
+    checkboxTheme: _checkBoxTheme(),
   );
 
-  static CheckboxThemeData checkBoxTheme() {
+  static CheckboxThemeData _checkBoxTheme() {
     return CheckboxThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
@@ -25,7 +25,7 @@ class AppTheme {
     );
   }
 
-  static TextButtonThemeData textButtonTheme() {
+  static TextButtonThemeData _textButtonTheme() {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.darkTextColor,
@@ -33,7 +33,7 @@ class AppTheme {
     );
   }
 
-  static FilledButtonThemeData filledButtonTheme() {
+  static FilledButtonThemeData _filledButtonTheme() {
     return FilledButtonThemeData(
       style: FilledButton.styleFrom(
         foregroundColor: AppColors.primaryButtonTextColor,
@@ -41,7 +41,7 @@ class AppTheme {
     );
   }
 
-  static OutlinedButtonThemeData outlinedButtonTheme() {
+  static OutlinedButtonThemeData _outlinedButtonTheme() {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.darkTextColor,

@@ -38,19 +38,19 @@ class AuthBaseView extends StatelessWidget {
   }
 
   ThemeData authTheme(BuildContext context) {
-    return AppTheme().theme.copyWith(
-          appBarTheme: AppBarTheme(
-            titleSpacing: 0,
-            scrolledUnderElevation: 0,
-            toolbarHeight: context.dynamicHeight(0.3),
-            centerTitle: true,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.dark,
-              systemNavigationBarColor: AppColors.authScaffoldColor,
-            ),
-            backgroundColor: Colors.transparent,
-          ),
-          scaffoldBackgroundColor: AppColors.authScaffoldColor,
-        );
+    return context.theme.copyWith(
+      appBarTheme: AppBarTheme(
+        titleSpacing: 0,
+        scrolledUnderElevation: 0,
+        toolbarHeight: context.dynamicHeight(0.3),
+        centerTitle: true,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: AppColors.authScaffoldColor,
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+      scaffoldBackgroundColor: AppColors.authScaffoldColor,
+    );
   }
 }
