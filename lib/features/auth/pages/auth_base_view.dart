@@ -46,6 +46,7 @@ class AuthBaseView extends StatelessWidget {
         centerTitle: true,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
           systemNavigationBarColor: AppColors.authScaffoldColor,
         ),
         backgroundColor: Colors.transparent,

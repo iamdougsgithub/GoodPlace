@@ -98,7 +98,7 @@ class SignUpPage extends StatelessWidget {
 
           //ALREADY HAVE AN ACCOUNT?
           Gap(
-            context.dynamicHeight(0.05),
+            context.dynamicHeight(0.02),
           ),
           Text.rich(
             TextSpan(

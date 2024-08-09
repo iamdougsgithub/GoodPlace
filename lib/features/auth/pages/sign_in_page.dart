@@ -76,7 +76,7 @@ class SignInPage extends StatelessWidget {
             ],
           ),
           Gap(
-            context.dynamicHeight(0.14),
+            context.dynamicHeight(0.1),
           ),
           //DON’T HAVE AN ACCOUNT?
           Text.rich(
