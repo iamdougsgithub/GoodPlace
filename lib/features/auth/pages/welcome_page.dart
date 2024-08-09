@@ -13,14 +13,9 @@ import '../../../core/utils/widgets/image_container.dart';
 import '../../onboarding/onboarding_page.dart';
 import 'sign_in_page.dart';
 
-class WelcomePage extends StatefulWidget {
+class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
-  @override
-  State<WelcomePage> createState() => _WelcomePageState();
-}
-
-class _WelcomePageState extends State<WelcomePage> {
   final String hiWelcome = "Hi, Welcome";
 
   final String toGoodPlace = "to GoodPlace";
@@ -33,16 +28,17 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: theme(),
+      data: welcomePageTheme(),
       child: _Body(
-          buttonLabel: buttonLabel,
-          hiWelcome: hiWelcome,
-          toGoodPlace: toGoodPlace,
-          desc: desc),
+        buttonLabel: buttonLabel,
+        hiWelcome: hiWelcome,
+        toGoodPlace: toGoodPlace,
+        bodyText: desc,
+      ),
     );
   }
 
-  ThemeData theme() => ThemeData(
+  ThemeData welcomePageTheme() => ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.welcomeScaffoldColor,
           systemOverlayStyle: SystemUiOverlayStyle(
@@ -78,13 +74,13 @@ class _Body extends StatefulWidget {
     required this.buttonLabel,
     required this.hiWelcome,
     required this.toGoodPlace,
-    required this.desc,
+    required this.bodyText,
   });
 
   final String buttonLabel;
   final String hiWelcome;
   final String toGoodPlace;
-  final String desc;
+  final String bodyText;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -102,10 +98,12 @@ class _BodyState extends State<_Body> {
 
   onPressed() async {
     await _checkOnboardingStatus();
-    if (_isOnboardingCompleted) {
-      context.navigator.pushNamed(SignInPage.routeName);
-    } else {
-      context.navigator.pushNamed(OnboardingPage.routeName);
+    if (mounted) {
+      if (_isOnboardingCompleted) {
+        context.navigator.pushNamed(SignInPage.routeName);
+      } else {
+        context.navigator.pushNamed(OnboardingPage.routeName);
+      }
     }
   }
 
@@ -152,7 +150,7 @@ class _BodyState extends State<_Body> {
                 const Gap(AppPaddings.smallPaddingValue),
                 //desc
                 Text(
-                  widget.desc,
+                  widget.bodyText,
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyLarge,
                 ),
