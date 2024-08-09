@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/widgets/image_container.dart';
 import 'package:good_place/features/auth/pages/sign_in_page.dart';
@@ -34,38 +35,33 @@ class OnboardingPage extends StatelessWidget {
                           child: AssetImageContainer(
                             path: content.image,
                             width: double.infinity,
-                            height: null, //422,
+                            height: null,
                             fit: BoxFit.fill,
                           ),
                         ),
                         const SizedBox(height: 28),
                         // Onboarding Text
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 28.0, right: 32.0),
+                          padding: AppPaddings.authScreenHorizontalPadding,
+                          // const EdgeInsets.only(left: 28.0, right: 32.0),
                           child: SizedBox(
                             width: 315,
                             height: 114,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  content.title,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF1D1617),
-                                  ),
-                                ),
+                                //title
+                                Text(content.title,
+                                    style: context.textTheme
+                                        .titleMedium //Color(0xFF1D1617),
+                                    ),
                                 const SizedBox(height: 8),
-                                Text(
-                                  content.description,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xFF7B6F72),
-                                  ),
-                                ),
+                                //body
+                                Text(content.description,
+                                    style: context.textTheme
+                                        .bodyMedium //Color(0xFF7B6F72),
+
+                                    ),
                               ],
                             ),
                           ),
@@ -92,10 +88,11 @@ class OnboardingPage extends StatelessWidget {
                             viewModel.nextPage();
                           }
                         },
+                        /*
                         style: TextButton.styleFrom(
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(16),
-                        ),
+                        ),*/
                         child: AssetImageContainer(
                           path: AppAssets.onboardingSkipIcon,
                           width: 60,

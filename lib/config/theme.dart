@@ -83,7 +83,7 @@ class AppColors {
   static const Color orangeTextColor = Color(0xffFFECCC);
 
   /// #EBEAEC
-  static const Color grayTextColor = Color(0xffEBEAEC);
+  static const Color grayTextColor = Color(0xFF7B6F72);
 
   /// #F6F1FB
   static const Color primaryButtonTextColor = Color(0xffF6F1FB);
