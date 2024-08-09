@@ -92,10 +92,6 @@ class _Body extends StatefulWidget {
 
 class _BodyState extends State<_Body> {
   bool _isOnboardingCompleted = false;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Future<void> _checkOnboardingStatus() async {
     final prefs = await SharedPreferences.getInstance();
@@ -104,17 +100,12 @@ class _BodyState extends State<_Body> {
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _checkOnboardingStatus();
-  }
-
-  onPressed() {
+  onPressed() async {
+    await _checkOnboardingStatus();
     if (_isOnboardingCompleted) {
-      context.navigator.pushReplacementNamed(SignInPage.routeName);
+      context.navigator.pushNamed(SignInPage.routeName);
     } else {
-      context.navigator.pushReplacementNamed(OnboardingPage.routeName);
+      context.navigator.pushNamed(OnboardingPage.routeName);
     }
   }
 
