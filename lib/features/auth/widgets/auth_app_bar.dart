@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:good_place/config/theme.dart';
 
 import '../../../core/constants/app_assets.dart';
-import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/image_container.dart';
 
 class AuthAppBar extends StatelessWidget {

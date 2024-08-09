@@ -21,11 +21,9 @@ class AuthBaseView extends StatelessWidget {
     return Theme(
       data: authTheme(context),
       child: Scaffold(
-        //TODO: Burayı da theme'den al
-
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(
-            context.dynamicHeight(0.25),
+            context.dynamicHeight(0.3),
           ),
           child: AuthAppBar(title: title),
         ),
@@ -44,7 +42,7 @@ class AuthBaseView extends StatelessWidget {
           appBarTheme: AppBarTheme(
             titleSpacing: 0,
             scrolledUnderElevation: 0,
-            toolbarHeight: context.dynamicHeight(0.25),
+            toolbarHeight: context.dynamicHeight(0.3),
             centerTitle: true,
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.dark,
