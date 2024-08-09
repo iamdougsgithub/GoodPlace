@@ -9,6 +9,7 @@ import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
 import '../widgets/google_button.dart';
 import 'auth_base_view.dart';
+import 'sign_in_page.dart';
 
 class SignUpPage extends StatelessWidget {
   static const routeName = "sign-up";
@@ -22,6 +23,10 @@ class SignUpPage extends StatelessWidget {
   final String buttonLabel = "GET STARTED";
   final String alreadyHaveAnAccount = "ALREADY HAVE AN ACCOUNT? ";
   final String signIn = "SIGN IN";
+
+  void onSignInTapped(BuildContext context) =>
+      context.navigator.pushReplacementNamed(SignInPage.routeName);
+
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
@@ -46,7 +51,9 @@ class SignUpPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // name field
-                NormalTextFormField(),
+                NormalTextFormField(
+                  label: "Name",
+                ),
                 const Gap(AppPaddings.smallPaddingValue),
                 // email field
                 EmailField(),
@@ -65,14 +72,11 @@ class SignUpPage extends StatelessWidget {
                             ?.copyWith(color: AppColors.lightTextColor),
                         children: [
                           TextSpan(
-                            text: privacyPolicy,
-                            style: context.textTheme.labelLarge
-                                ?.copyWith(color: AppColors.primaryButtonColor),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('SIGN UP tapped');
-                              },
-                          )
+                              text: privacyPolicy,
+                              style: context.textTheme.labelLarge?.copyWith(
+                                  color: AppColors.primaryButtonColor),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => {})
                         ],
                       ),
                     ),
@@ -98,7 +102,7 @@ class SignUpPage extends StatelessWidget {
 
           //ALREADY HAVE AN ACCOUNT?
           Gap(
-            context.dynamicHeight(0.05),
+            context.dynamicHeight(0.02),
           ),
           Text.rich(
             TextSpan(
@@ -111,9 +115,9 @@ class SignUpPage extends StatelessWidget {
                   style: context.textTheme.labelLarge
                       ?.copyWith(color: AppColors.primaryButtonColor),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      print('SIGN UP tapped');
-                    },
+                    ..onTap = () => onSignInTapped(
+                          context,
+                        ),
                 )
               ],
             ),
