@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/features/onboarding/onboarding_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +10,7 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/image_container.dart';
+import '../../onboarding/onboarding_page.dart';
 import 'sign_in_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -120,7 +120,7 @@ class _BodyState extends State<_Body> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// Get Starte Button
+            /// Get Started Button
             ExpandedFilledButton(
               label: widget.buttonLabel,
               onPressed: () => onPressed(),
