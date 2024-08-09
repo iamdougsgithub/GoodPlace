@@ -1,79 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:good_place/features/onboarding/onboarding_page.dart';
 import 'package:good_place/playground.dart';
-import 'core/constants/app_assets.dart';
-import 'core/extensions/context_extension.dart';
-import 'core/utils/widgets/custom_buttons.dart';
-import 'core/utils/widgets/image_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Playground(),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
+class _MyAppState extends State<MyApp> {
+  bool _isOnboardingCompleted = false;
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  void initState() {
+    super.initState();
+    _checkOnboardingStatus();
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  Future<void> _checkOnboardingStatus() async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _counter++;
+      _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AssetImageContainer(
-            path: AppAssets.welcomePageImage,
-            width: context.dynamicWidth(1),
-            height: context.dynamicHeight(0.65),
-            fit: BoxFit.fill,
-          ),
-          Gap(10),
-          Row(
-            children: [
-              ExpandedOutlinedButton(
-                onPressed: () {},
-                label: "Google Sign In",
-                // icon: Icon(Icons.g_mobiledata_sharp),
-              ),
-            ],
-          ),
-        ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: //const Playground(),
+          _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
     );
   }
 }

@@ -17,10 +17,10 @@ enum _AssetsPathEnum {
   authTopBackgroundImage("${_rootImagePath}auth_screens_image.png"),
   welcomePageImage("${_rootImagePath}img_welcome.png"),
 
-  onboardingFirstPageImage("${_rootImagePath}img_onbarding_1.png"),
-  onboardingSecondPageImage("${_rootImagePath}img_onbarding_2.png"),
-  onboardingThirdPageImage("${_rootImagePath}img_onbarding_3.png"),
-  onboardingFourthPageImage("${_rootImagePath}img_onbarding_4.png"),
+  onboardingFirstPageImage("${_rootImagePath}img_onboarding_1.png"),
+  onboardingSecondPageImage("${_rootImagePath}img_onboarding_2.png"),
+  onboardingThirdPageImage("${_rootImagePath}img_onboarding_3.png"),
+  onboardingFourthPageImage("${_rootImagePath}img_onboarding_4.png"),
   onboardingSkipIcon("${_rootIconPath}skip_button_onboarding.png"),
   ;
 
