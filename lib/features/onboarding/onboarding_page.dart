@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/utils/widgets/custom_buttons.dart';
 import 'package:good_place/core/utils/widgets/image_container.dart';
+import 'package:good_place/features/auth/pages/sign_in_page.dart';
 import 'package:good_place/features/onboarding/onboarding_view_model.dart';
 import 'package:good_place/playground.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingPage extends StatelessWidget {
+  static const routeName = "onboarding";
   const OnboardingPage({super.key});
 
   @override
@@ -84,11 +88,8 @@ class OnboardingPage extends StatelessWidget {
                           if (viewModel.currentIndex ==
                               viewModel.onboardingContents.length - 1) {
                             viewModel.completeOnboarding();
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Playground()),
-                            );
+                            context.navigator
+                                .pushReplacementNamed(SignInPage.routeName);
                           } else {
                             viewModel.nextPage();
                           }

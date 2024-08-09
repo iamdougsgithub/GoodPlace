@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/onboarding/onboarding_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_assets.dart';
@@ -11,15 +13,23 @@ import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/image_container.dart';
 import 'sign_in_page.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
-// TODO : Buraya da Theme uygula.
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
   final String hiWelcome = "Hi, Welcome";
+
   final String toGoodPlace = "to GoodPlace";
+
   final String desc =
       "Explore the app, Find some peace of mind to achieve good habits.";
+
   final String buttonLabel = "GET STARTED";
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -63,7 +73,7 @@ class WelcomePage extends StatelessWidget {
       );
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     required this.buttonLabel,
     required this.hiWelcome,
@@ -75,6 +85,39 @@ class _Body extends StatelessWidget {
   final String hiWelcome;
   final String toGoodPlace;
   final String desc;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  bool _isOnboardingCompleted = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> _checkOnboardingStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
+    });
+    print(_isOnboardingCompleted);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _checkOnboardingStatus();
+  }
+
+  onPressed() {
+    if (_isOnboardingCompleted) {
+      context.navigator.pushReplacementNamed(SignInPage.routeName);
+    } else {
+      context.navigator.pushReplacementNamed(OnboardingPage.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +132,8 @@ class _Body extends StatelessWidget {
           children: [
             /// Get Starte Button
             ExpandedFilledButton(
-              label: buttonLabel,
-              onPressed: () => context.navigator.pushNamed(
-                SignInPage.routeName,
-              ),
+              label: widget.buttonLabel,
+              onPressed: () => onPressed(),
             ),
           ],
         ),
@@ -111,17 +152,17 @@ class _Body extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  hiWelcome,
+                  widget.hiWelcome,
                   style: context.textTheme.titleLarge,
                 ),
                 Text(
-                  toGoodPlace,
+                  widget.toGoodPlace,
                   style: context.textTheme.titleMedium,
                 ),
                 const Gap(AppPaddings.smallPaddingValue),
                 //desc
                 Text(
-                  desc,
+                  widget.desc,
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyLarge,
                 ),

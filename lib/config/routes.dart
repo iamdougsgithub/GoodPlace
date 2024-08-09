@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../features/auth/pages/sign_in_page.dart';
 import '../features/auth/pages/sign_up.dart';
 import '../features/auth/pages/welcome_page.dart';
+import '../features/onboarding/onboarding_page.dart';
 
 ///
 /// ### Kullanım
@@ -19,6 +20,7 @@ class AppRoutes {
     "/": (_) => const WelcomePage(),
     SignInPage.routeName: (_) => SignInPage(),
     SignUpPage.routeName: (_) => SignUpPage(),
+    OnboardingPage.routeName: (_) => const OnboardingPage(),
   };
 
   Map<String, Widget Function(BuildContext)> get routes => _routes;

@@ -17,19 +17,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isOnboardingCompleted = false;
-  @override
-  void initState() {
-    super.initState();
-    _checkOnboardingStatus();
-  }
+  // bool _isOnboardingCompleted = false;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _checkOnboardingStatus();
+  // }
 
-  Future<void> _checkOnboardingStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
-    });
-  }
+  // Future<void> _checkOnboardingStatus() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: AppTheme().theme,
       routes: AppRoutes().routes,
-      home: //const Playground(),
-          _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
+      // home: //const Playground(),
+      //     _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
     );
   }
 }

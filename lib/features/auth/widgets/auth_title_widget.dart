@@ -20,7 +20,7 @@ class AuthTitleWidget extends StatelessWidget {
         AssetImageContainer(
           path: AppAssets.authTopBackgroundImage,
           fit: BoxFit.fill,
-          height: context.dynamicHeight(0.33),
+          height: context.dynamicHeight(0.3),
           width: context.dynamicWidth(1),
         ),
         Text(
