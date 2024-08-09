@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "428931836064",
+    "project_id": "goodplace-milu",
+    "storage_bucket": "goodplace-milu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428931836064:android:f966c278f192be214ac1c5",
+        "android_client_info": {
+          "package_name": "com.example.good_place"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428931836064-2tf5is823mhb7sgpvbkl28uib88nibt7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.good_place",
+            "certificate_hash": "d10d0f9b4fb4491810132d3f864bd47d494aad61"
+          }
+        },
+        {
+          "client_id": "428931836064-n722cs4a2td2rldq67cvmle823q157uf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeIud9WuTMR2_neK47gWVIWRxF49MPIts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428931836064-15h3hr5j9d8ud53seji01q06d5isk0ln.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428931836064-vm7paa26bsjelik8b0hgtr12kh7eoe6m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.goodPlace"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
