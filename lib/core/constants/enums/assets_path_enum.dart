@@ -17,7 +17,7 @@ enum _AssetsPathEnum {
   authTopBackgroundImage("${_rootImagePath}auth_screens_image.png"),
   welcomePageImage("${_rootImagePath}img_welcome.png"),
 
-  onboardingFirstPageImage("${_rootImagePath}img_Onbarding_1.png"),
+  onboardingFirstPageImage("${_rootImagePath}img_onboarding_1.png"),
   onboardingSecondPageImage("${_rootImagePath}img_Onbarding_2.png"),
   onboardingThirdPageImage("${_rootImagePath}img_Onbarding_3.png"),
   onboardingFourthPageImage("${_rootImagePath}img_Onbarding_4.png"),

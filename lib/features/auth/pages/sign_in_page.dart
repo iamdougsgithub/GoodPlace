@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/config/theme.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:good_place/features/auth/pages/sign_up.dart';
+import '../../../config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -24,6 +24,10 @@ class SignInPage extends StatelessWidget {
   final String forgotPassword = "Forgot Password";
   final String dontHaveAnAccount = 'DON’T HAVE AN ACCOUNT? ';
   final String signUp = 'SIGN UP';
+
+  void onSignUpTapped(BuildContext context) =>
+      context.navigator.pushReplacementNamed(SignUpPage.routeName);
+
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
@@ -56,7 +60,7 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           const Gap(AppPaddings.mediumPaddingValue),
-          // button
+          // Login button
           Row(
             children: [
               ExpandedFilledButton(
@@ -91,9 +95,7 @@ class SignInPage extends StatelessWidget {
                     color: AppColors.primaryButtonColor,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      print('SIGN UP tapped');
-                    },
+                    ..onTap = () => onSignUpTapped(context),
                 )
               ],
             ),

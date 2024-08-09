@@ -15,19 +15,19 @@ class AuthAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       clipBehavior: Clip.none,
-      title: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          AssetImageContainer(
-            path: AppAssets.authTopBackgroundImage,
-            fit: BoxFit.fill,
-          ),
-          Text(
-            title,
-          ),
-        ],
-      ),
+      // title: Stack(
+      //   clipBehavior: Clip.none,
+      //   alignment: Alignment.center,
+      //   children: [
+      //     AssetImageContainer(
+      //       path: AppAssets.authTopBackgroundImage,
+      //       fit: BoxFit.fill,
+      //     ),
+      //     Text(
+      //       title,
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

@@ -107,9 +107,19 @@ class AppTextStyles {
       fontWeight: FontWeight.bold,
       color: AppColors.darkTextColor,
     ),
+    titleMedium: GoogleFonts.rubik(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: AppColors.darkTextColor,
+    ),
     labelLarge: GoogleFonts.rubik(
       fontWeight: FontWeight.w500,
       fontSize: 14,
+    ),
+    bodyMedium: GoogleFonts.rubik(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.grayTextColor,
     ),
   );
 }

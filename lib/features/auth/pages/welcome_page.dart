@@ -9,6 +9,7 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/image_container.dart';
+import 'sign_in_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -21,14 +22,6 @@ class WelcomePage extends StatelessWidget {
   final String buttonLabel = "GET STARTED";
   @override
   Widget build(BuildContext context) {
-    // TODO : bunu da theme içinde hallet.
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Color(0xff8C96FF),
-      ),
-    );
     return Theme(
       data: theme(),
       child: _Body(
@@ -40,6 +33,14 @@ class WelcomePage extends StatelessWidget {
   }
 
   ThemeData theme() => ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.welcomeScaffoldColor,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
+            systemNavigationBarColor: AppColors.welcomeScaffoldColor,
+          ),
+        ),
         textTheme: TextTheme(
           bodyLarge: GoogleFonts.rubik(
             fontSize: 16,
@@ -64,7 +65,6 @@ class WelcomePage extends StatelessWidget {
 
 class _Body extends StatelessWidget {
   const _Body({
-    super.key,
     required this.buttonLabel,
     required this.hiWelcome,
     required this.toGoodPlace,
@@ -80,15 +80,19 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      extendBodyBehindAppBar: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: AppPaddings.authScreenHorizontalPadding,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            /// Get Starte Button
             ExpandedFilledButton(
               label: buttonLabel,
-              onPressed: () {},
+              onPressed: () => context.navigator.pushNamed(
+                SignInPage.routeName,
+              ),
             ),
           ],
         ),
@@ -132,6 +136,7 @@ class _Body extends StatelessWidget {
             path: AppAssets.welcomePageImage,
             fit: BoxFit.fill,
             width: context.dynamicWidth(1),
+            height: context.dynamicHeight(0.6),
           ),
         ],
       ),
