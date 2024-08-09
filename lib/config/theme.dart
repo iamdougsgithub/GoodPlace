@@ -59,6 +59,8 @@ class AppTheme {
         ),
         labelStyle: GoogleFonts.rubik(
           color: AppColors.lightTextColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
         ),
         hintStyle: GoogleFonts.rubik(color: AppColors.darkTextColor),
       );
