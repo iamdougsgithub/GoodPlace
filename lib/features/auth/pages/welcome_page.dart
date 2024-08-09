@@ -102,7 +102,6 @@ class _BodyState extends State<_Body> {
     setState(() {
       _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
     });
-    print(_isOnboardingCompleted);
   }
 
   @override

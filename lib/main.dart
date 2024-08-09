@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:good_place/features/onboarding/onboarding_page.dart';
-import 'package:good_place/playground.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:good_place/config/theme.dart';
 import 'config/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

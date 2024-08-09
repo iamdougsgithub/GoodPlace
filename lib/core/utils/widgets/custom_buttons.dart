@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
 import '../../constants/app_paddings.dart';
 
 ///

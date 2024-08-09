@@ -36,7 +36,7 @@ class OnboardingViewModel extends ChangeNotifier {
 
   Future<void> completeOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboardingComplete', true);
+    await prefs.setBool('onboardingCompleted', true);
   }
 
   void nextPage() {
