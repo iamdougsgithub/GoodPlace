@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
