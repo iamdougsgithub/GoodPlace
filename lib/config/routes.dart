@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/features/auth/firebase/auth_manager.dart';
 
 import '../features/auth/pages/sign_in_page.dart';
 import '../features/auth/pages/sign_up.dart';
@@ -21,6 +22,7 @@ class AppRoutes {
     SignInPage.routeName: (_) => SignInPage(),
     SignUpPage.routeName: (_) => SignUpPage(),
     OnboardingPage.routeName: (_) => const OnboardingPage(),
+    AuthManager.routeName: (_) => const AuthManager(),
   };
 
   Map<String, Widget Function(BuildContext)> get routes => _routes;
