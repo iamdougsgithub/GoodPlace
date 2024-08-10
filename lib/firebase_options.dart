@@ -59,10 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBhcMPCZdpQRNGC2ZjeCmMk96Oyl7FiciM',
-    appId: '1:428931836064:ios:85c510770192162d4ac1c5',
+    appId: '1:428931836064:ios:d8fdb31d6de8f09a4ac1c5',
     messagingSenderId: '428931836064',
     projectId: 'goodplace-milu',
     storageBucket: 'goodplace-milu.appspot.com',
+    androidClientId: '428931836064-2tf5is823mhb7sgpvbkl28uib88nibt7.apps.googleusercontent.com',
+    iosClientId: '428931836064-vm7paa26bsjelik8b0hgtr12kh7eoe6m.apps.googleusercontent.com',
     iosBundleId: 'com.example.goodPlace',
   );
 
