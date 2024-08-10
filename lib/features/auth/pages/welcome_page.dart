@@ -14,6 +14,7 @@ import '../../onboarding/onboarding_page.dart';
 import 'sign_in_page.dart';
 
 class WelcomePage extends StatelessWidget {
+  static const routeName = "welcome";
   const WelcomePage({super.key});
 
   final String hiWelcome = "Hi, Welcome";

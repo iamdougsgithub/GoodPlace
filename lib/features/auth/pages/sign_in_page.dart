@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/pages/sign_up.dart';
 import '../../../config/theme.dart';
 
@@ -24,6 +25,11 @@ class SignInPage extends StatelessWidget {
   final String forgotPassword = "Forgot Password";
   final String dontHaveAnAccount = 'DON’T HAVE AN ACCOUNT? ';
   final String signUp = 'SIGN UP';
+
+  onTap() async {
+    await AuthService().createUserWithEmailAndPassword(
+        email: "m.emrec45@gmail.com", password: "password");
+  }
 
   void onSignUpTapped(BuildContext context) =>
       context.navigator.pushReplacementNamed(SignUpPage.routeName);
@@ -65,7 +71,7 @@ class SignInPage extends StatelessWidget {
             children: [
               ExpandedFilledButton(
                 label: buttonLabel,
-                onPressed: () {},
+                onPressed: () => onTap(),
               ),
             ],
           ),
