@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/logger.dart';
