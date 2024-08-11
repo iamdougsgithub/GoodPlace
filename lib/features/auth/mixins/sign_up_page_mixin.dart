@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:toastification/toastification.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
@@ -38,9 +39,15 @@ mixin SignUpPageMixin on State<SignUpPage> {
     if (mounted) {
       if (formKey.currentState!.validate()) {
         if (checkBoxValue == true) {
-          /// SignUp
+          AuthService().createUserWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text,
+            name: nameController.text,
+          );
         } else {
-          Toast.errToast("Please accept Privacy Policy", "");
+          Toast.errToast(
+            title: "Please accept Privacy Policy",
+          );
         }
       }
     }

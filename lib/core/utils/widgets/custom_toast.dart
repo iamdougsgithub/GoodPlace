@@ -4,9 +4,9 @@ import 'package:toastification/toastification.dart';
 
 class Toast {
   /// Error Toast
-  static ToastificationItem errToast(
+  static ToastificationItem errToast({
     String? title,
-    String? desc, {
+    String? desc,
     bool dismissible = true,
     AlignmentGeometry alignment = Alignment.bottomCenter,
     EdgeInsetsGeometry? margin,
@@ -27,9 +27,9 @@ class Toast {
         margin: margin,
       );
 
-  static ToastificationItem succToast(
+  static ToastificationItem succToast({
     String? title,
-    String? desc, {
+    String? desc,
     bool dismissible = true,
     AlignmentGeometry alignment = Alignment.bottomCenter,
     EdgeInsetsGeometry? margin,

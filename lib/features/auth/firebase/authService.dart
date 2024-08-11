@@ -1,5 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:good_place/core/resourcers/error_texts.dart';
+import 'package:good_place/core/utils/widgets/custom_toast.dart';
+import 'package:good_place/logger.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -12,11 +18,19 @@ class AuthService {
   Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
+    required String name,
   }) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await _firebaseAuth.currentUser?.updateDisplayName(name);
+    } on FirebaseAuthException catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+    } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
+    }
   }
 
   Future<void> signInWithEmailAndPassword({
@@ -41,6 +55,20 @@ class AuthService {
   Future<void> deleteUser() async {
     await _firebaseAuth.currentUser!.delete();
   }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final credential = await GoogleSignInService().signIn();
+
+      await _firebaseAuth.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+    } catch (e) {
+      logger.e(e);
+      Toast.errToast(title: e.toString());
+    }
+  }
+
 // ileride anonim kullanıcı girişi eklemek istersek kullanabiliriz.
 /* 
   Future<User?> signInAnonymously() async {
