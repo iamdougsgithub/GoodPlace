@@ -14,38 +14,28 @@ class AuthService {
   User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-  // Register
-  Future<User?> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
-    try {
-      UserCredential result = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      User? user = result.user;
-      return user;
-    } catch (e) {
-      print('Register Error: $e');
-      return null;
-    }
-  }
 
-  /*Future<void> createUserWithEmailAndPassword({
+  // Register
+  Future<User?> createUserWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
   }) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential result = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
       await _firebaseAuth.currentUser?.updateDisplayName(name);
+      User? user = result.user;
+      return user;
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+      return null;
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
+      return null;
     }
   }
-*/
+
   // Login
   Future<User?> signInWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -60,17 +50,6 @@ class AuthService {
     }
   }
 
-/*
-  Future<void> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-  }
-*/
   Future<void> signOut() async {
     if (_googleSignIn.currentUser != null) {
       try {
