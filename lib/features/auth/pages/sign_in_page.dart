@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/features/auth/pages/sign_up.dart';
+import 'package:good_place/features/auth/mixins/sign_in_page_mixin.dart';
 import '../../../config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -11,23 +11,16 @@ import '../../../core/utils/widgets/custom_text_form_field.dart';
 import '../widgets/google_button.dart';
 import 'auth_base_view.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   static const routeName = "sign-in";
 
   SignInPage({super.key});
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
 
-  final String title = "Welcome Back!";
-  final String orLoginWithEmail = "OR LOG IN WITH EMAIL";
-  final String buttonLabel = "LOG IN";
-  final String forgotPassword = "Forgot Password";
-  final String dontHaveAnAccount = 'DON’T HAVE AN ACCOUNT? ';
-  final String signUp = 'SIGN UP';
-
-  void onSignUpTapped(BuildContext context) =>
-      context.navigator.pushReplacementNamed(SignUpPage.routeName);
-
+class _SignInPageState extends State<SignInPage> with SignInPageMixin {
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
@@ -35,7 +28,7 @@ class SignInPage extends StatelessWidget {
       child: Column(
         children: [
           // Google Button
-          // TODO: Google button logic ekle.
+
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text
@@ -52,10 +45,14 @@ class SignInPage extends StatelessWidget {
             child: Column(
               children: [
                 // email field
-                EmailField(),
+                EmailField(
+                  controller: emailController,
+                ),
                 const Gap(AppPaddings.smallPaddingValue),
                 // Password Field
-                PasswordField(),
+                PasswordField(
+                  controller: passwordController,
+                ),
               ],
             ),
           ),
@@ -65,7 +62,7 @@ class SignInPage extends StatelessWidget {
             children: [
               ExpandedFilledButton(
                 label: buttonLabel,
-                onPressed: () {},
+                onPressed: () => onLoginTapped(),
               ),
             ],
           ),

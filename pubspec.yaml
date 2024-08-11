@@ -43,6 +43,10 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
   dio: ^5.5.0+1
+  google_sign_in: ^6.2.1
+  logger: ^2.4.0
+  email_validator: ^3.0.0
+  toastification: ^2.1.0
 
 
 dev_dependencies:

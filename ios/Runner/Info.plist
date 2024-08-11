@@ -2,7 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CFBundleDevelopmentRegion</key>
+
+
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Good Place</string>
@@ -45,5 +48,21 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<key>GIDClientID</key>
+	<string>428931836064-vm7paa26bsjelik8b0hgtr12kh7eoe6m.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+
+	<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		
+			<string>com.googleusercontent.apps.428931836064-vm7paa26bsjelik8b0hgtr12kh7eoe6m</string>
+		</array>
+	</dict>
+</array>
 </dict>
 </plist>

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 
 import 'core/constants/app_assets.dart';
 import 'core/constants/app_paddings.dart';
@@ -55,7 +56,7 @@ class Playground extends StatelessWidget {
           Row(
             children: [
               ExpandedOutlinedButtonWithIcon(
-                onPressed: () {},
+                onPressed: () => AuthService().signOut(),
                 label: "Label",
                 icon: Icon(Icons.g_mobiledata_sharp),
               ),
