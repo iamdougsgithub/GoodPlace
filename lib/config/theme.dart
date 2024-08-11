@@ -67,6 +67,10 @@ class AppTheme {
 }
 
 class AppColors {
+  static Color errLight = const Color(0xffEC928E);
+  static Color errDark = const Color(0xffB3261E);
+  static Color succDark = const Color(0xff2C6D22);
+
   //Scaffold colors
   /// #FFFFFF
   static const Color authScaffoldColor = Color(0xffFFFFFF);

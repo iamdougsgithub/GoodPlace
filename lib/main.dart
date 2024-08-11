@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:good_place/config/theme.dart';
+import 'package:toastification/toastification.dart';
 import 'config/routes.dart';
 
 void main() async {
@@ -23,13 +24,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: AppTheme().theme,
-      routes: AppRoutes().routes,
-      // home: //const Playground(),
-      //     _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
+    return ToastificationWrapper(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: AppTheme().theme,
+        routes: AppRoutes().routes,
+        // home: //const Playground(),
+        //     _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
+      ),
     );
   }
 }

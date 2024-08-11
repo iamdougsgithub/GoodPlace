@@ -45,6 +45,7 @@ dependencies:
   google_sign_in: ^6.2.1
   logger: ^2.4.0
   email_validator: ^3.0.0
+  toastification: ^2.1.0
 
 
 dev_dependencies:

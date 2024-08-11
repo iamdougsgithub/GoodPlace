@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../mixins/sign_up_page_mixin.dart';
 import '../../../core/utils/mixins/form_validators_mixin.dart';
 import '../../../config/theme.dart';
 
@@ -10,30 +11,16 @@ import '../../../core/utils/widgets/custom_buttons.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
 import '../widgets/google_button.dart';
 import 'auth_base_view.dart';
-import 'sign_in_page.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   static const routeName = "sign-up";
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final String title = "Create your account ";
-  final String orLogInWithEmail = "OR LOG IN WITH EMAIL";
-  final String iHaveRead = "I have read the ";
-  final String privacyPolicy = "Privacy Policy";
-  final String buttonLabel = "GET STARTED";
-  final String alreadyHaveAnAccount = "ALREADY HAVE AN ACCOUNT? ";
-  final String signIn = "SIGN IN";
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  void onSignInTapped(BuildContext context) =>
-      context.navigator.pushReplacementNamed(SignInPage.routeName);
-
-  void onGetStartedTapped() {}
-
+class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
   @override
   Widget build(BuildContext context) {
     return AuthBaseView(
@@ -61,6 +48,12 @@ class SignUpPage extends StatelessWidget {
             nameController: nameController,
             emailController: emailController,
             passwordController: passwordController,
+          ),
+          _PrivacyPolicyCheckBox(
+            iHaveRead: iHaveRead,
+            privacyPolicy: privacyPolicy,
+            checkBoxVal: checkBoxValue,
+            changeCheckBoxVal: changeCheckBoxState,
           ),
           const Gap(AppPaddings.mediumPaddingValue),
 
@@ -115,6 +108,7 @@ class _SignUpForm extends StatelessWidget with FormValidatorsMixin {
   });
 
   final GlobalKey<FormState> formKey;
+
   final String iHaveRead;
   final String privacyPolicy;
   final TextEditingController nameController;
@@ -148,31 +142,65 @@ class _SignUpForm extends StatelessWidget with FormValidatorsMixin {
           ),
           const Gap(AppPaddings.smallPaddingValue),
           // I have read the Privacy Policy
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text.rich(
-                TextSpan(
-                  text: iHaveRead,
-                  style: context.textTheme.labelLarge
-                      ?.copyWith(color: AppColors.lightTextColor),
-                  children: [
-                    TextSpan(
-                        text: privacyPolicy,
-                        style: context.textTheme.labelLarge
-                            ?.copyWith(color: AppColors.primaryButtonColor),
-                        recognizer: TapGestureRecognizer()..onTap = () => {})
-                  ],
-                ),
-              ),
-              Checkbox.adaptive(
-                value: false,
-                onChanged: (_) {},
-              ),
-            ],
-          )
         ],
       ),
+    );
+  }
+}
+
+class _PrivacyPolicyCheckBox extends StatefulWidget {
+  const _PrivacyPolicyCheckBox({
+    required this.iHaveRead,
+    required this.privacyPolicy,
+    required this.checkBoxVal,
+    required this.changeCheckBoxVal,
+  });
+  final bool checkBoxVal;
+  final void Function(bool) changeCheckBoxVal;
+  final String iHaveRead;
+  final String privacyPolicy;
+
+  @override
+  State<_PrivacyPolicyCheckBox> createState() => _PrivacyPolicyCheckBoxState();
+}
+
+class _PrivacyPolicyCheckBoxState extends State<_PrivacyPolicyCheckBox> {
+  late bool? val;
+  @override
+  void initState() {
+    super.initState();
+    val = widget.checkBoxVal;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text.rich(
+          TextSpan(
+            text: widget.iHaveRead,
+            style: context.textTheme.labelLarge
+                ?.copyWith(color: AppColors.lightTextColor),
+            children: [
+              TextSpan(
+                  text: widget.privacyPolicy,
+                  style: context.textTheme.labelLarge
+                      ?.copyWith(color: AppColors.primaryButtonColor),
+                  recognizer: TapGestureRecognizer()..onTap = () => {})
+            ],
+          ),
+        ),
+        Checkbox.adaptive(
+          value: val,
+          onChanged: (newVal) {
+            widget.changeCheckBoxVal(newVal ??= false);
+            setState(() {
+              val = newVal;
+            });
+          },
+        ),
+      ],
     );
   }
 }
