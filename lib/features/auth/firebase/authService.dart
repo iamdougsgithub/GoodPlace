@@ -14,8 +14,21 @@ class AuthService {
   User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  // Register
+  Future<User?> createUserWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      UserCredential result = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return user;
+    } catch (e) {
+      print('Register Error: $e');
+      return null;
+    }
+  }
 
-  Future<void> createUserWithEmailAndPassword({
+  /*Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
@@ -32,7 +45,22 @@ class AuthService {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
+*/
+  // Login
+  Future<User?> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User? user = result.user;
+      return user;
+    } catch (e) {
+      print('Sign In Error: $e');
+      return null;
+    }
+  }
 
+/*
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -42,13 +70,21 @@ class AuthService {
       password: password,
     );
   }
-
+*/
   Future<void> signOut() async {
     if (_googleSignIn.currentUser != null) {
-      await _googleSignIn.signOut();
-      await _googleSignIn.disconnect();
+      try {
+        await _googleSignIn.signOut();
+        await _googleSignIn.disconnect();
+      } catch (e) {
+        print('Sign Out Error: $e');
+      }
     } else {
-      await _firebaseAuth.signOut();
+      try {
+        await _firebaseAuth.signOut();
+      } catch (e) {
+        print('Sign Out Error: $e');
+      }
     }
   }
 

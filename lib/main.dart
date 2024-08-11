@@ -30,8 +30,6 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: AppTheme().theme,
         routes: AppRoutes().routes,
-        // home: //const Playground(),
-        //     _isOnboardingCompleted ? const Playground() : const OnboardingPage(),
       ),
     );
   }
