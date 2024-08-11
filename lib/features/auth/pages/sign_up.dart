@@ -1,8 +1,7 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/logger.dart';
+import '../../../core/utils/mixins/form_validators_mixin.dart';
 import '../../../config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -33,9 +32,7 @@ class SignUpPage extends StatelessWidget {
   void onSignInTapped(BuildContext context) =>
       context.navigator.pushReplacementNamed(SignInPage.routeName);
 
-  void onGetStartedTapped() {
-    logger.i("message");
-  }
+  void onGetStartedTapped() {}
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +104,7 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
-class _SignUpForm extends StatelessWidget {
+class _SignUpForm extends StatelessWidget with FormValidatorsMixin {
   const _SignUpForm({
     required this.formKey,
     required this.iHaveRead,
@@ -123,33 +120,6 @@ class _SignUpForm extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-
-  String? nameValidator(String? val) {
-    val ??= "";
-    if (val.isEmpty) {
-      return "Name field can't be empty !";
-    } else {
-      return null;
-    }
-  }
-
-  String? emailValidator(String? val) {
-    val ??= "";
-    if (!EmailValidator.validate(val)) {
-      return "Please provide a valid email address.\nEx:xxx@x.com";
-    } else {
-      return null;
-    }
-  }
-
-  String? passwordValidator(String? val) {
-    val ??= "";
-    if (val.length < 6) {
-      return "Password must be longer than 6 characters !";
-    } else {
-      return null;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
