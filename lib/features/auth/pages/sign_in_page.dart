@@ -27,7 +27,7 @@ class SignInPage extends StatelessWidget {
   final String signUp = 'SIGN UP';
 
   onTap() async {
-    await AuthService().createUserWithEmailAndPassword(
+    await AuthService().signInWithEmailAndPassword(
         email: "m.emrec45@gmail.com", password: "password");
   }
 

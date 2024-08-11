@@ -62,7 +62,7 @@ class AppTheme {
           fontSize: 16,
           fontWeight: FontWeight.w300,
         ),
-        hintStyle: GoogleFonts.rubik(color: AppColors.darkTextColor),
+        hintStyle: AppTextStyles().textTheme.labelSmall,
       );
 }
 
@@ -103,22 +103,68 @@ class AppColors {
 }
 
 class AppTextStyles {
+  static TextStyle font(
+          {Paint? background,
+          Color? backgroundColor,
+          Color? color,
+          TextDecoration? decoration,
+          Color? decorationColor,
+          TextDecorationStyle? decorationStyle,
+          double? decorationThickness,
+          List<FontFeature>? fontFeatures,
+          double? fontSize,
+          FontStyle? fontStyle,
+          FontWeight? fontWeight,
+          Paint? foreground,
+          double? height,
+          double? letterSpacing,
+          Locale? locale,
+          List<Shadow>? shadows,
+          TextBaseline? textBaseline,
+          TextStyle? textStyle,
+          double? wordSpacing}) =>
+      GoogleFonts.rubik(
+        background: background,
+        backgroundColor: backgroundColor,
+        color: color,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        decorationThickness: decorationThickness,
+        fontFeatures: fontFeatures,
+        fontSize: fontSize,
+        fontStyle: fontStyle,
+        fontWeight: fontWeight,
+        foreground: foreground,
+        height: height,
+        letterSpacing: letterSpacing,
+        locale: locale,
+        shadows: shadows,
+        textBaseline: textBaseline,
+        textStyle: textStyle,
+        wordSpacing: wordSpacing,
+      );
   TextTheme textTheme = TextTheme(
-    titleLarge: GoogleFonts.rubik(
+    titleLarge: font(
       fontSize: 28,
       fontWeight: FontWeight.bold,
       color: AppColors.darkTextColor,
     ),
-    titleMedium: GoogleFonts.rubik(
+    titleMedium: font(
       fontSize: 24,
       fontWeight: FontWeight.bold,
       color: AppColors.darkTextColor,
     ),
-    labelLarge: GoogleFonts.rubik(
+    labelLarge: font(
       fontWeight: FontWeight.w500,
       fontSize: 14,
     ),
-    bodyMedium: GoogleFonts.rubik(
+    labelSmall: font(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: AppColors.grayTextColor,
+    ),
+    bodyMedium: font(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       color: AppColors.grayTextColor,

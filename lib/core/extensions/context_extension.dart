@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-/**
- * [BuildContext] üzerine yapılmış bir extension.
- * Bu extension sayesinde theme ve textTheme'e erişmek için
- * [Theme.of(this)] kullanmaya gerek kalmıyor.
- * Direkt olarak [context.theme] yada [context.textTheme] ile kullanılabiliyor
- */
+/// [BuildContext] üzerine yapılmış bir extension.
+/// Bu extension sayesinde theme ve textTheme'e erişmek için
+/// [Theme.of(this)] kullanmaya gerek kalmıyor.
+/// Direkt olarak [context.theme] yada [context.textTheme] ile kullanılabiliyor
 extension ContextExtension on BuildContext {
   /// [Theme.of(this)] kullanmak için.
   ThemeData get theme => Theme.of(this);
@@ -26,24 +24,22 @@ extension MediaQueryExtension on BuildContext {
   ///[MediaQuery.of(this)].viewInsets.bottom;
   double get keyboardSize => mediaQuery.viewInsets.bottom;
 
-  /**
-   * Bir component'e ekran genişliğine göre değişen bir [width] değeri vermek istediğimizde.
-   * bu method'u kullanabiliriz.
-   *
-   * **Kullanım şekli** :
-   *```
-   * Container(
-   *
-   * Bu [Container] ekran genişliğinin 0.3'ü kadar bir genişlik alacak.
-   *
-   *   width : context.dynamicWidth(0.3)
-   *
-   * )
-   *```
-   * `[MediaQuery.of(this).size.width] x val`
-   *
-   * Ekran genişliğine göre [double] değer döner.
-   */
+  /// Bir component'e ekran genişliğine göre değişen bir [width] değeri vermek istediğimizde.
+  /// bu method'u kullanabiliriz.
+  ///
+  /// **Kullanım şekli** :
+  ///```
+  /// Container(
+  ///
+  /// Bu [Container] ekran genişliğinin 0.3'ü kadar bir genişlik alacak.
+  ///
+  ///   width : context.dynamicWidth(0.3)
+  ///
+  /// )
+  ///```
+  /// `[MediaQuery.of(this).size.width] x val`
+  ///
+  /// Ekran genişliğine göre [double] değer döner.
   double dynamicWidth(double? val) {
     val ??= 1;
     assert(val <= 1, "Val 1'den büyük olamaz !!! ");

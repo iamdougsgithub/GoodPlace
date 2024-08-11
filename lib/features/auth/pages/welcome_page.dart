@@ -52,7 +52,7 @@ class WelcomePage extends StatelessWidget {
           bodyLarge: GoogleFonts.rubik(
             fontSize: 16,
             fontWeight: FontWeight.w300,
-            color: AppColors.grayTextColor,
+            color: AppColors.secondaryButtonColor,
           ),
           titleLarge: GoogleFonts.rubik(
             color: AppColors.orangeTextColor,
