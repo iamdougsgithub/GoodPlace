@@ -12,11 +12,12 @@ class StatGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.85,
+        // childAspectRatio: 0.85,
         mainAxisSpacing: AppPaddings.smallPaddingValue,
         crossAxisSpacing: AppPaddings.smallPaddingValue,
+        // mainAxisExtent: context.dynamicHeight(0.3),
       ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -54,37 +55,39 @@ class _StatCard extends StatelessWidget {
   final Widget icon;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadius.largeBorderRadius,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppPaddings.smallPaddingValue,
-          vertical: AppPaddings.mediumPaddingValue,
+    return FittedBox(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: AppBorderRadius.largeBorderRadius,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// icon
-            icon,
-            const Gap(AppPaddings.smallPaddingValue),
-            Text(
-              data,
-              style: context.textTheme.titleMedium?.copyWith(
-                color: AppColors.homeScaffoldColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppPaddings.smallPaddingValue,
+            vertical: AppPaddings.mediumPaddingValue,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// icon
+              icon,
+              const Gap(AppPaddings.smallPaddingValue),
+              Text(
+                data,
+                style: context.textTheme.titleMedium?.copyWith(
+                  color: AppColors.homeScaffoldColor,
+                ),
               ),
-            ),
-            const Gap(AppPaddings.smallPaddingValue),
+              const Gap(AppPaddings.smallPaddingValue),
 
-            /// label
-            Text(
-              label,
-              style: context.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
+              /// label
+              Text(
+                label,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

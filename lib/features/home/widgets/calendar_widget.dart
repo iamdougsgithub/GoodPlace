@@ -20,7 +20,7 @@ class CalendarWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const _Calendar(),
+            _Calendar(),
             const Gap(AppPaddings.smallPaddingValue),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

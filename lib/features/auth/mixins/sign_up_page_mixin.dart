@@ -46,6 +46,7 @@ mixin SignUpPageMixin on State<SignUpPage> {
             name: nameController.text,
           )
               .then((user) {
+            /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
             if (user != null) {
               context.navigator.pushReplacementNamed("/");
             }

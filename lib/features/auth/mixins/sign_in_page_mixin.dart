@@ -28,6 +28,7 @@ mixin SignInPageMixin on State<SignInPage> {
         .signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text)
         .then((user) {
+      /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
       if (user != null) {
         context.navigator.pushReplacementNamed("/");
       }
