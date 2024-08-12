@@ -31,7 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  # flutter_advanced_calendar:
+  #   path: lib/packages/flutter_advanced_calendar/
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -47,8 +48,9 @@ dependencies:
   logger: ^2.4.0
   email_validator: ^3.0.0
   toastification: ^2.1.0
-  flutter_advanced_calendar: ^1.4.1
+  # flutter_advanced_calendar: ^1.4.1
   skeletonizer: ^1.4.2
+  intl: ^0.19.0
   
 
 

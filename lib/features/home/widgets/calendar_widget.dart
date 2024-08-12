@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/packages/flutter_advanced_calendar/lib/flutter_advanced_calendar.dart';
 import '../../../config/theme.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -20,7 +20,7 @@ class CalendarWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            _Calendar(),
+            const _Calendar(),
             const Gap(AppPaddings.smallPaddingValue),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
