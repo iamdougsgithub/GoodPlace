@@ -78,6 +78,9 @@ class AppColors {
   /// #8E97FD
   static const Color welcomeScaffoldColor = Color(0xff8E97FD);
 
+  /// #4D57C8
+  static const Color homeScaffoldColor = Color(0xff4D57C8);
+
   // Text Colors
   /// #3F414E
   static const Color darkTextColor = Color(0xff3F414E);
