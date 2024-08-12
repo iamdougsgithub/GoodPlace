@@ -1,12 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/home/widgets/calendar_widget.dart';
 import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
 import 'package:good_place/features/home/widgets/stat_grid_widget.dart';
 import 'package:good_place/features/home/widgets/streak_card_widget.dart';
-import 'package:good_place/logger.dart';
 
 import '../../../config/theme.dart';
 
@@ -30,7 +29,12 @@ class _HomePageState extends State<HomePage> {
           appBarTitle,
         ),
       ),
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: ElevatedButton(
+          onPressed: () => FirebaseAuth.instance.signOut(),
+          child: Text("Sign Out"),
+        ),
+      ),
       body: const SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.homeScreenHorizontalPadding,
@@ -42,12 +46,13 @@ class _HomePageState extends State<HomePage> {
 
               /// Motivation Card
               MotivationCardWidget(),
+              Gap(AppPaddings.mediumPaddingValue),
 
               /// Streak Card
               StreakCardWidget(),
+              Gap(AppPaddings.mediumPaddingValue),
 
               /// Grid
-
               StatGridWidget(),
             ],
           ),

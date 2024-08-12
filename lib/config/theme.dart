@@ -11,10 +11,14 @@ class AppTheme {
     filledButtonTheme: _filledButtonTheme(),
     textButtonTheme: _textButtonTheme(),
     checkboxTheme: _checkBoxTheme(),
-    datePickerTheme: DatePickerThemeData(
-      backgroundColor: Colors.red,
-    ),
+    cardTheme: _cardTheme(),
   );
+
+  static CardTheme _cardTheme() {
+    return const CardTheme(
+      color: Colors.white,
+    );
+  }
 
   static CheckboxThemeData _checkBoxTheme() {
     return CheckboxThemeData(

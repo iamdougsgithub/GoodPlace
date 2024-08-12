@@ -7,6 +7,7 @@ class AppAssets {
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
   static String welcomePageImage = _AssetsPathEnum.welcomePageImage.path;
+  static String streakCardImage = _AssetsPathEnum.streakCardImage.path;
   static String authTopBackgroundImage =
       _AssetsPathEnum.authTopBackgroundImage.path;
   static String onboardingFirstPageImage =
@@ -22,8 +23,16 @@ class AppAssets {
   static String passwordHideIcon = _AssetsPathEnum.passwordHide.path;
   static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
 
-  /// TODO : Bunlara renk ekle
-  static Widget chartIcon = const Icon(Icons.show_chart);
-  static Widget calendarIcon = const Icon(Icons.calendar_today_outlined);
-  static Widget checkIcon = const Icon(Icons.check);
+  static Widget chartIcon = const Icon(
+    Icons.show_chart,
+    color: Color(0xffF3E339),
+  );
+  static Widget calendarIcon = const Icon(
+    Icons.calendar_today_outlined,
+    color: Color(0xffFFB8B8),
+  );
+  static Widget checkIcon = const Icon(
+    Icons.check,
+    color: Color(0xffD4EE81),
+  );
 }

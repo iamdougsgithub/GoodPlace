@@ -16,6 +16,7 @@ enum _AssetsPathEnum {
   /// Sign In ve Sign Up sayfalarında kullanılan image
   authTopBackgroundImage("${_rootImagePath}auth_screens_image.png"),
   welcomePageImage("${_rootImagePath}img_welcome.png"),
+  streakCardImage("${_rootImagePath}streak_card_image.png"),
 
   onboardingFirstPageImage("${_rootImagePath}img_onboarding_1.png"),
   onboardingSecondPageImage("${_rootImagePath}img_onboarding_2.png"),

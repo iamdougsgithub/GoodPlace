@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_border_radius.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/home/quotable_api_service.dart';
@@ -18,6 +19,8 @@ class MotivationCardWidget extends StatelessWidget {
                 minWidth: double.infinity,
               ),
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: AppBorderRadius.smallBorderRadius),
                 child: Padding(
                   padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
                   child: Column(

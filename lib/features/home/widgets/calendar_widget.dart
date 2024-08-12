@@ -84,9 +84,10 @@ class __CalendarState extends State<_Calendar> {
   @override
   Widget build(BuildContext context) {
     return AdvancedCalendar(
+      weekDaysStyle: context.textTheme.bodySmall,
       headerStyle: context.textTheme.labelLarge,
       todayStyle: context.textTheme.labelLarge,
-      calendarTextStyle: context.textTheme.bodyLarge,
+      calendarTextStyle: context.textTheme.bodyMedium,
       startWeekDay: 1,
       innerDot: true,
       controller: controller,
