@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/home/widgets/calendar_widget.dart';
@@ -30,13 +31,14 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: const Drawer(),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.homeScreenHorizontalPadding,
-          child: const Column(
+          child: Column(
             children: [
               /// Calendar
               CalendarWidget(),
+              Gap(AppPaddings.mediumPaddingValue),
 
               /// Motivation Card
               MotivationCardWidget(),

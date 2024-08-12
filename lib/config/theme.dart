@@ -187,5 +187,10 @@ class AppTextStyles {
       fontWeight: FontWeight.w400,
       color: AppColors.grayTextColor,
     ),
+    bodySmall: font(
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: AppColors.homeScaffoldColor,
+    ),
   );
 }

@@ -48,6 +48,7 @@ dependencies:
   email_validator: ^3.0.0
   toastification: ^2.1.0
   flutter_advanced_calendar: ^1.4.1
+  skeletonizer: ^1.4.2
   
 
 
