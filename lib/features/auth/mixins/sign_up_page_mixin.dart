@@ -45,8 +45,10 @@ mixin SignUpPageMixin on State<SignUpPage> {
             password: passwordController.text,
             name: nameController.text,
           )
-              .then((_) {
-            context.navigator.pushReplacementNamed("/");
+              .then((user) {
+            if (user != null) {
+              context.navigator.pushReplacementNamed("/");
+            }
           });
         } else {
           Toast.errToast(

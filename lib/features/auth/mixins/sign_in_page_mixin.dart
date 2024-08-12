@@ -27,8 +27,10 @@ mixin SignInPageMixin on State<SignInPage> {
     await AuthService()
         .signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text)
-        .then((_) {
-      context.navigator.pushReplacementNamed("/");
+        .then((user) {
+      if (user != null) {
+        context.navigator.pushReplacementNamed("/");
+      }
     });
   }
 
