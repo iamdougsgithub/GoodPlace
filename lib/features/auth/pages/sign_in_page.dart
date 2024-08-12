@@ -14,7 +14,7 @@ import 'auth_base_view.dart';
 class SignInPage extends StatefulWidget {
   static const routeName = "sign-in";
 
-  SignInPage({super.key});
+  const SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -27,8 +27,7 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
       title: title,
       child: Column(
         children: [
-          // Google Button
-
+          /// Google Button
           const GoogleButton(),
           const Gap(AppPaddings.largePaddingValue),
           // log in with email text

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../config/theme.dart';
 import '../../constants/app_paddings.dart';
+
+enum ButtonType {
+  primary,
+  secondary,
+}
 
 ///
 /// [ExpandedFilledButton] içerisinde bulunduğu [Row]'un tüm
@@ -12,21 +18,28 @@ class ExpandedFilledButton extends StatelessWidget {
     this.onPressed,
     required this.label,
     this.color,
+    this.buttonType = ButtonType.primary,
   });
   final void Function()? onPressed;
   final String label;
   final Color? color;
+  final ButtonType? buttonType;
 
   @override
   Widget build(BuildContext context) {
     assert(context.findAncestorWidgetOfExactType<Row>() != null,
         "Bu widget [Row] içerisinde olmalidir. !!!!!");
 
-    /// TODO : Bu butonun rengi,ileride theme içerisinden gelecek.
     return Expanded(
       child: FilledButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
+          foregroundColor: buttonType == ButtonType.primary
+              ? AppColors.primaryButtonTextColor
+              : AppColors.darkTextColor,
+          backgroundColor: color ??
+              (buttonType == ButtonType.primary
+                  ? AppColors.primaryButtonColor
+                  : AppColors.secondaryButtonColor),
         ),
         onPressed: onPressed,
         child: Padding(

@@ -23,7 +23,6 @@ class AuthBaseView extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          // clipBehavior: Clip.none,
           leadingWidth: 75,
           leading: GestureDetector(
             onTap: () => context.pop(),

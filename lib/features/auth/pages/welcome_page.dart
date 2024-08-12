@@ -122,6 +122,7 @@ class _BodyState extends State<_Body> {
             /// Get Started Button
             ExpandedFilledButton(
               label: widget.buttonLabel,
+              buttonType: ButtonType.secondary,
               onPressed: () => onPressed(),
             ),
           ],
