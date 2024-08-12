@@ -32,28 +32,54 @@ abstract class _CustomFormField extends TextFormField {
 
   @override
   AutovalidateMode get autovalidateMode => AutovalidateMode.onUserInteraction;
-
+  bool validated = false;
   @override
-  FormFieldBuilder<String> get builder => (_) => TextFormField(
-        decoration: InputDecoration(
-          label: Text(label),
-          hintText: hintText,
-          icon: icon,
-          suffix: suffix,
-          constraints: constraints,
-          alignLabelWithHint: true,
-        ),
-        autofillHints: autofillHints,
-        autovalidateMode: autovalidateMode,
-        controller: controller,
-        keyboardType: keyboardType,
-        validator: validator,
-        textInputAction: textInputAction,
-        expands: expands,
-        minLines: expands ? null : 1,
-        maxLines: expands ? null : 1,
-        textAlignVertical: TextAlignVertical.top,
-      );
+  FormFieldBuilder<String> get builder =>
+      (_) => StatefulBuilder(builder: (context, setState) {
+            return TextFormField(
+              decoration: InputDecoration(
+                label: Text(label),
+                hintText: hintText,
+                icon: icon,
+                suffix: validator != null
+                    ? validated
+                        ? AppAssets.textFieldCheckIcon
+                        : AppAssets.textFieldXIcon
+                    : suffix,
+                constraints: constraints,
+                alignLabelWithHint: true,
+              ),
+              onChanged: (value) {
+                if (validator != null) {
+                  var validatorValue = validator!(value);
+
+                  if (validatorValue == null) {
+                    setState(
+                      () {
+                        validated = true;
+                      },
+                    );
+                  } else {
+                    setState(
+                      () {
+                        validated = false;
+                      },
+                    );
+                  }
+                }
+              },
+              autofillHints: autofillHints,
+              autovalidateMode: autovalidateMode,
+              controller: controller,
+              keyboardType: keyboardType,
+              validator: validator,
+              textInputAction: textInputAction,
+              expands: expands,
+              minLines: expands ? null : 1,
+              maxLines: expands ? null : 1,
+              textAlignVertical: TextAlignVertical.top,
+            );
+          });
 }
 
 class EmailField extends _CustomFormField {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../config/theme.dart';
+
 part "enums/assets_path_enum.dart";
 
 class AppAssets {
@@ -34,5 +36,13 @@ class AppAssets {
   static Widget checkIcon = const Icon(
     Icons.check,
     color: Color(0xffD4EE81),
+  );
+  static Widget textFieldCheckIcon = Icon(
+    Icons.check,
+    color: AppColors.succDark,
+  );
+  static Widget textFieldXIcon = Icon(
+    Icons.cancel_outlined,
+    color: AppColors.errDark,
   );
 }
