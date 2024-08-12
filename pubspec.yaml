@@ -47,6 +47,8 @@ dependencies:
   logger: ^2.4.0
   email_validator: ^3.0.0
   toastification: ^2.1.0
+  flutter_advanced_calendar: ^1.4.1
+  
 
 
 dev_dependencies:

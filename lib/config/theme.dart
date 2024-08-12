@@ -11,6 +11,9 @@ class AppTheme {
     filledButtonTheme: _filledButtonTheme(),
     textButtonTheme: _textButtonTheme(),
     checkboxTheme: _checkBoxTheme(),
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: Colors.red,
+    ),
   );
 
   static CheckboxThemeData _checkBoxTheme() {
@@ -162,6 +165,9 @@ class AppTextStyles {
       fontWeight: FontWeight.bold,
       color: AppColors.darkTextColor,
     ),
+    titleSmall: font(
+        // fontSize: 20,
+        ),
     labelLarge: font(
       fontWeight: FontWeight.w500,
       fontSize: 14,
@@ -170,6 +176,11 @@ class AppTextStyles {
       fontSize: 14,
       fontWeight: FontWeight.w300,
       color: AppColors.grayTextColor,
+    ),
+    bodyLarge: font(
+      foreground: Paint()..color = AppColors.homeScaffoldColor,
+      // color: Colors.red,
+      fontSize: 16,
     ),
     bodyMedium: font(
       fontSize: 14,
