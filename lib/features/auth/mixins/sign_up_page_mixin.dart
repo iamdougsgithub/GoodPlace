@@ -39,11 +39,15 @@ mixin SignUpPageMixin on State<SignUpPage> {
     if (mounted) {
       if (formKey.currentState!.validate()) {
         if (checkBoxValue == true) {
-          AuthService().createUserWithEmailAndPassword(
+          AuthService()
+              .createUserWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text,
             name: nameController.text,
-          );
+          )
+              .then((_) {
+            context.navigator.pushReplacementNamed("/");
+          });
         } else {
           Toast.errToast(
             title: "Please accept Privacy Policy",

@@ -43,6 +43,8 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       return user;
+    } on FirebaseAuthException catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {
       print('Sign In Error: $e');
       return null;

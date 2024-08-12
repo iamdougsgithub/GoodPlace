@@ -24,8 +24,12 @@ mixin SignInPageMixin on State<SignInPage> {
   final TextEditingController passwordController = TextEditingController();
 
   onLoginTapped() async {
-    await AuthService().signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+    await AuthService()
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((_) {
+      context.navigator.pushReplacementNamed("/");
+    });
   }
 
   void onSignUpTapped(BuildContext context) =>

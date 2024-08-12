@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
+        /// TODO : bunu sil
         child: ElevatedButton(
           onPressed: () => FirebaseAuth.instance.signOut(),
           child: Text("Sign Out"),
