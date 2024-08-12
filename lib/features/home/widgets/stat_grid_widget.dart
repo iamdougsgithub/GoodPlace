@@ -56,6 +56,7 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
+      fit: BoxFit.fill,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: AppBorderRadius.largeBorderRadius,
