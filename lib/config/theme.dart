@@ -155,6 +155,11 @@ class AppTextStyles {
         wordSpacing: wordSpacing,
       );
   TextTheme textTheme = TextTheme(
+    headlineMedium: font(
+      fontSize: 31,
+      color: AppColors.darkTextColor,
+      fontWeight: FontWeight.w600,
+    ),
     titleLarge: font(
       fontSize: 28,
       fontWeight: FontWeight.bold,
