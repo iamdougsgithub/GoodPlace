@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/home/widgets/my_habits_section.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/calendar_widget.dart';
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
               /// Calendar
               CalendarWidget(),
               // Gap(AppPaddings.mediumPaddingValue),
+              MyHabitsSection(),
 
               /// Motivation Card
               MotivationCardWidget(),
