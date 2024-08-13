@@ -66,6 +66,7 @@ class _HabitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.symmetric(
         horizontal: AppPaddings.xxsmallPaddingValue,
       ),
@@ -81,34 +82,31 @@ class _HabitCard extends StatelessWidget {
         ),
       ),
       child: ColoredBox(
-        color: AppColors.darkTextColor.withOpacity(0.3),
+        color: AppColors.darkTextColor.withOpacity(0.5),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: AppPaddings.xxsmallPaddingValue,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(
-                  AppPaddings.xxsmallPaddingValue,
+          child: Padding(
+            padding: const EdgeInsets.all(
+              AppPaddings.xxsmallPaddingValue,
+            ),
+            child: CheckboxMenuButton(
+              style: const ButtonStyle(
+                alignment: Alignment.bottomCenter,
+                padding: WidgetStatePropertyAll(EdgeInsets.zero),
+              ),
+              value: false,
+              onChanged: (_) {},
+
+              /// Habit name
+              child: Text(
+                "Habit Name",
+                style: context.textTheme.labelLarge?.copyWith(
+                  color: Colors.white,
                 ),
-                child: CheckboxMenuButton(
-                  style: const ButtonStyle(
-                    alignment: Alignment.bottomCenter,
-                    padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                  ),
-                  value: false,
-                  onChanged: (_) {},
-                  child: Text(
-                    "Habit Name",
-                    style: context.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
