@@ -84,31 +84,25 @@ class _HabitCard extends StatelessWidget {
         child: ColoredBox(
           color: AppColors.darkTextColor.withOpacity(0.5),
           child: Padding(
-            padding: const EdgeInsets.all(
-              AppPaddings.xxsmallPaddingValue,
-            ),
-            child: CheckboxMenuButton(
-              style: const ButtonStyle(
-                  alignment: Alignment.bottomCenter,
-                  padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity()),
-              value: false,
-              onChanged: (_) {
-                logger.i("asdad");
-              },
-
-              /// Habit name
-              child: FittedBox(
-                child: Text(
-                  "Habit Name",
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppPaddings.xxsmallPaddingValue,
               ),
-            ),
-          ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    "Habit Name",
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                  value: false,
+                  onChanged: (_) {
+                    logger.i("message");
+                  },
+                ),
+              )),
         ),
       ),
     );
