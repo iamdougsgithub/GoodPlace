@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homeScaffoldColor,
+      floatingActionButton: fab(),
       appBar: appBar(),
       drawer: drawer(),
       body: const SingleChildScrollView(
@@ -55,6 +56,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  FloatingActionButton fab() {
+    return FloatingActionButton(
+      onPressed: () {},
+      backgroundColor: AppColors.primaryButtonColor,
+      child: AppAssets.fabAddIcon,
     );
   }
 

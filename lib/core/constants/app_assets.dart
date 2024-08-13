@@ -33,6 +33,11 @@ class AppAssets {
     Icons.cancel_outlined,
     color: AppColors.errDark,
   );
+  static Widget fabAddIcon = const Icon(
+    Icons.add,
+    color: AppColors.secondaryButtonColor,
+  );
+
   static String goodAfternoonIcon = _AssetsPathEnum.goodAfternoonIcon.path;
   static String goodMorningIcon = _AssetsPathEnum.goodMorningIcon.path;
   static String goodNightIcon = _AssetsPathEnum.goodNightIcon.path;
