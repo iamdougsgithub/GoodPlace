@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               /// Calendar
               CalendarWidget(),
-              Gap(AppPaddings.mediumPaddingValue),
+              // Gap(AppPaddings.mediumPaddingValue),
 
               /// Motivation Card
               MotivationCardWidget(),

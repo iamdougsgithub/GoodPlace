@@ -98,7 +98,7 @@ class AppColors {
   /// #FFECCC
   static const Color orangeTextColor = Color(0xffFFECCC);
 
-  /// #EBEAEC
+  /// #7B6F72
   static const Color grayTextColor = Color(0xFF7B6F72);
 
   /// #F6F1FB
