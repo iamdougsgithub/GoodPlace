@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
+  static const Gap gap = Gap(AppPaddings.smallPaddingValue);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,16 +40,17 @@ class _HomePageState extends State<HomePage> {
 
               /// Calendar
               CalendarWidget(),
-              // Gap(AppPaddings.mediumPaddingValue),
+              gap,
+              MotivationCardWidget(),
+              gap,
               MyHabitsSection(),
 
               /// Motivation Card
-              MotivationCardWidget(),
-              Gap(AppPaddings.mediumPaddingValue),
+              gap,
 
               /// Streak Card
               StreakCardWidget(),
-              Gap(AppPaddings.mediumPaddingValue),
+              gap,
 
               /// Grid
               StatGridWidget(),

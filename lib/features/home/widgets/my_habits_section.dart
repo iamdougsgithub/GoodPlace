@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_border_radius.dart';
@@ -70,15 +71,17 @@ class _HabitCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: AppBorderRadius.smallBorderRadius,
-        image: DecorationImage(
+
+        /// TODO : burası değişecek
+        image: const DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage(
-            AppAssets.welcomePageImage,
+          image: NetworkImage(
+            "https://plus.unsplash.com/premium_photo-1665990294432-c4baf9088c50?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           ),
         ),
       ),
       child: ColoredBox(
-        color: AppColors.darkTextColor.withOpacity(0.2),
+        color: AppColors.darkTextColor.withOpacity(0.3),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: AppPaddings.xxsmallPaddingValue,
@@ -86,21 +89,24 @@ class _HabitCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
+              Padding(
+                padding: const EdgeInsets.all(
+                  AppPaddings.xxsmallPaddingValue,
+                ),
+                child: CheckboxMenuButton(
+                  style: const ButtonStyle(
+                    alignment: Alignment.bottomCenter,
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                  ),
+                  value: false,
+                  onChanged: (_) {},
+                  child: Text(
                     "Habit Name",
                     style: context.textTheme.labelLarge?.copyWith(
                       color: Colors.white,
                     ),
                   ),
-                  Checkbox(
-                    value: false,
-                    onChanged: (_) {},
-                  )
-                ],
+                ),
               )
             ],
           ),
