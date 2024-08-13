@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/utils/widgets/image_container.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -20,30 +24,56 @@ class MotivationCardWidget extends StatelessWidget {
               ),
               child: Card(
                 shape: RoundedRectangleBorder(
-                    borderRadius: AppBorderRadius.smallBorderRadius),
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// Content
-                      Text(
-                        snapshot.data!.content,
-                        style: context.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w500,
+                  borderRadius: AppBorderRadius.smallBorderRadius,
+                ),
+                child: Stack(
+                  children: [
+                    /// Background image
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: AssetImageContainer(
+                        path: AppAssets.motivationCardBgImage,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Transform.rotate(
+                        angle: pi,
+                        child: AssetImageContainer(
+                          path: AppAssets.motivationCardBgImage,
                         ),
                       ),
+                    ),
 
-                      /// Author
-                      Text(
-                        "- ${snapshot.data!.author}",
-                        style: context.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                        ),
+                    /// content
+                    Padding(
+                      padding:
+                          const EdgeInsets.all(AppPaddings.smallPaddingValue),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Content
+                          Text(
+                            snapshot.data!.content,
+                            style: context.textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+
+                          /// Author
+                          Text(
+                            "- ${snapshot.data!.author}",
+                            style: context.textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

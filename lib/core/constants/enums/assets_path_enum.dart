@@ -21,6 +21,7 @@ enum _AssetsPathEnum {
   authTopBackgroundImage("${_rootImagePath}auth_screens_image.png"),
   welcomePageImage("${_rootImagePath}img_welcome.png"),
   streakCardImage("${_rootImagePath}streak_card_image.png"),
+  motivationCardBgImage("${_rootImagePath}img_motivation_card_bg.png"),
 
   onboardingFirstPageImage("${_rootImagePath}img_onboarding_1.png"),
   onboardingSecondPageImage("${_rootImagePath}img_onboarding_2.png"),

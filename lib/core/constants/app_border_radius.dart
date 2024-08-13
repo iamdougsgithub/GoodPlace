@@ -9,12 +9,12 @@ class AppBorderRadius {
   /// xSmall circular border radius
   /// value : 8px
   static BorderRadius xsmallBorderRadius =
-      BorderRadius.circular(xsmallBorderRadiusValue);
+      BorderRadius.circular(xxsmallBorderRadiusValue);
 
   /// Small circular border radius
   /// value : 10px
   static BorderRadius smallBorderRadius =
-      BorderRadius.circular(smallBorderRadiusValue);
+      BorderRadius.circular(xsmallBorderRadiusValue);
 
   /// Medium circular border radius
   /// value : 22px
@@ -27,8 +27,9 @@ class AppBorderRadius {
       BorderRadius.circular(largeBorderRadiusValue);
 
   static const double textFieldBorderRadiusValue = 15.0;
-  static const double xsmallBorderRadiusValue = 8.0;
-  static const double smallBorderRadiusValue = 10.0;
+  static const double xxsmallBorderRadiusValue = 8.0;
+  static const double xsmallBorderRadiusValue = 10.0;
+  static const double smallBorderRadiusValue = 16.0;
   static const double mediumBorderRadiusValue = 22.0;
   static const double largeBorderRadiusValue = 30.0;
 }

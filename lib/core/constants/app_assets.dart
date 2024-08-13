@@ -48,6 +48,8 @@ class AppAssets {
   static String streakCardImage = _AssetsPathEnum.streakCardImage.path;
   static String authTopBackgroundImage =
       _AssetsPathEnum.authTopBackgroundImage.path;
+  static String motivationCardBgImage =
+      _AssetsPathEnum.motivationCardBgImage.path;
   static String onboardingFirstPageImage =
       _AssetsPathEnum.onboardingFirstPageImage.path;
   static String onboardingSecondPageImage =
