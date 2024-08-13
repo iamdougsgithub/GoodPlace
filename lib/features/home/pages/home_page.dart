@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/widgets/image_container.dart';
-import 'package:good_place/features/home/widgets/calendar_widget.dart';
-import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
-import 'package:good_place/features/home/widgets/stat_grid_widget.dart';
-import 'package:good_place/features/home/widgets/streak_card_widget.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../widgets/calendar_widget.dart';
+import '../widgets/motivation_card_widget.dart';
+import '../widgets/stat_grid_widget.dart';
+import '../widgets/streak_card_widget.dart';
 
 import '../../../config/theme.dart';
 import '../widgets/welcome_text.dart';
