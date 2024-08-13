@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:good_place/config/theme.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
@@ -17,35 +18,50 @@ class StreakCardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.fill,
-              image: AssetImage(
-                AppAssets.streakCardImage,
-              )),
+            filterQuality: FilterQuality.high,
+            fit: BoxFit.fill,
+            image: AssetImage(
+              AppAssets.welcomePageImage,
+            ),
+          ),
           color: Colors.white,
           borderRadius:
               BorderRadius.circular(AppBorderRadius.mediumBorderRadiusValue),
         ),
-        child: Padding(
-          padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "1 Day",
-                style: context.textTheme.headlineMedium,
-              ),
-              Text(
-                "Your current streak",
-              ),
-              Text(
-                "1 Day",
-                style: context.textTheme.labelLarge?.copyWith(
-                  fontSize: 16,
+        child: ColoredBox(
+          color: AppColors.darkTextColor.withOpacity(0.1),
+          child: Padding(
+            padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "1 Day",
+                  style: context.textTheme.headlineMedium?.copyWith(
+                    color: AppColors.textFieldFillColor,
+                  ),
                 ),
-              ),
-              Text("Your longest streak"),
-            ],
+                Text(
+                  "Your current streak",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.secondaryButtonColor,
+                  ),
+                ),
+                Text(
+                  "1 Day",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    fontSize: 16,
+                    color: AppColors.textFieldFillColor,
+                  ),
+                ),
+                Text(
+                  "Your longest streak",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.secondaryButtonColor,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
