@@ -109,8 +109,6 @@ class __CalendarState extends State<_Calendar> {
 
       /// TODO : Burayı firebase'den al
       eventLoader: (day) {
-        logger.i(day);
-
         return [
           // Text("a"),
         ];

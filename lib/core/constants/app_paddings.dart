@@ -18,6 +18,9 @@ class AppPaddings {
   static const EdgeInsets homeScreenHorizontalPadding =
       EdgeInsets.symmetric(horizontal: 8);
 
+  /// 4 px.
+  static const double xxsmallPaddingValue = 4.0;
+
   /// 20 px.
   static const double smallPaddingValue = 20.0;
 
