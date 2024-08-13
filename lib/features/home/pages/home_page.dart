@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/utils/widgets/custom_buttons.dart';
 import 'package:good_place/features/home/widgets/my_habits_section.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/calendar_widget.dart';
+import '../widgets/i_drawer.dart';
 import '../widgets/motivation_card_widget.dart';
 import '../widgets/stat_grid_widget.dart';
 import '../widgets/streak_card_widget.dart';
@@ -28,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.homeScaffoldColor,
       floatingActionButton: fab(),
       appBar: appBar(),
-      drawer: drawer(),
+      drawer: IDrawer(context: context),
       body: const SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.homeScreenHorizontalPadding,
@@ -66,16 +69,6 @@ class _HomePageState extends State<HomePage> {
       onPressed: () {},
       backgroundColor: AppColors.primaryButtonColor,
       child: AppAssets.fabAddIcon,
-    );
-  }
-
-  Drawer drawer() {
-    return Drawer(
-      /// TODO : bunu sil
-      child: ElevatedButton(
-        onPressed: () => FirebaseAuth.instance.signOut(),
-        child: Text("Sign Out"),
-      ),
     );
   }
 
