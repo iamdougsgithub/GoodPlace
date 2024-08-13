@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ToastificationWrapper(
       child: MaterialApp(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme().theme,
         routes: AppRoutes().routes,
