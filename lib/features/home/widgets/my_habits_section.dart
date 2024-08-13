@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
-import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_border_radius.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/widgets/image_container.dart';
+import 'package:good_place/logger.dart';
 
 class MyHabitsSection extends StatelessWidget {
   const MyHabitsSection({super.key});
@@ -17,7 +15,7 @@ class MyHabitsSection extends StatelessWidget {
         /// Title Row
         titleRow(context),
         SizedBox(
-          height: context.dynamicHeight(0.1),
+          height: context.dynamicHeight(0.15),
           child: ListView(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -65,45 +63,48 @@ class _HabitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      margin: const EdgeInsets.symmetric(
-        horizontal: AppPaddings.xxsmallPaddingValue,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: AppBorderRadius.smallBorderRadius,
+    return AspectRatio(
+      aspectRatio: 16 / 10,
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        margin: const EdgeInsets.symmetric(
+          horizontal: AppPaddings.xxsmallPaddingValue,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: AppBorderRadius.smallBorderRadius,
 
-        /// TODO : burası değişecek
-        image: const DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(
-            "https://plus.unsplash.com/premium_photo-1665990294432-c4baf9088c50?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          /// TODO : burası değişecek
+          image: const DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+              "https://plus.unsplash.com/premium_photo-1665990294432-c4baf9088c50?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            ),
           ),
         ),
-      ),
-      child: ColoredBox(
-        color: AppColors.darkTextColor.withOpacity(0.5),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppPaddings.xxsmallPaddingValue,
-          ),
+        child: ColoredBox(
+          color: AppColors.darkTextColor.withOpacity(0.5),
           child: Padding(
             padding: const EdgeInsets.all(
               AppPaddings.xxsmallPaddingValue,
             ),
             child: CheckboxMenuButton(
               style: const ButtonStyle(
-                alignment: Alignment.bottomCenter,
-                padding: WidgetStatePropertyAll(EdgeInsets.zero),
-              ),
+                  alignment: Alignment.bottomCenter,
+                  padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: VisualDensity()),
               value: false,
-              onChanged: (_) {},
+              onChanged: (_) {
+                logger.i("asdad");
+              },
 
               /// Habit name
-              child: Text(
-                "Habit Name",
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
+              child: FittedBox(
+                child: Text(
+                  "Habit Name",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

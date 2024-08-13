@@ -27,7 +27,6 @@ class WelcomeText extends StatelessWidget {
 
         /// TODO : Bu logic kısmından alınacak
         // Welcoming Text
-
         Text(
           welcomingText,
           style: context.textTheme.bodyLarge?.copyWith(
