@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 
@@ -17,7 +18,8 @@ class AuthManager extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
-          return const HomePage(); // TODO: Home page hazırlandığında buraya o eklenecek
+          // TODO: Home page ile değiştir.
+          return const MyHabitsPage();
         } else {
           return const WelcomePage();
         }

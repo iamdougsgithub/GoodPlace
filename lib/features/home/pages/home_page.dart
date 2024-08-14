@@ -13,6 +13,7 @@ import '../../../config/theme.dart';
 import '../widgets/welcome_text.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = "home";
   const HomePage({super.key});
 
   @override
@@ -28,7 +29,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.homeScaffoldColor,
       floatingActionButton: fab(),
       appBar: appBar(),
-      drawer: IDrawer(context: context),
+      drawer: IDrawer(
+        context: context,
+        selectedIndex: 0,
+      ),
       body: const SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.homeScreenHorizontalPadding,

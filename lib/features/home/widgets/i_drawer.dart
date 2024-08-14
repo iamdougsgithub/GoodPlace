@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
@@ -9,8 +11,9 @@ class IDrawer extends StatefulWidget {
   const IDrawer({
     super.key,
     required this.context,
+    required this.selectedIndex,
   });
-
+  final int selectedIndex;
   final BuildContext context;
 
   @override
@@ -18,19 +21,22 @@ class IDrawer extends StatefulWidget {
 }
 
 class _IDrawerState extends State<IDrawer> {
-  int selectedIndex = 0;
+  late int selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.selectedIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
       selectedIndex: selectedIndex,
-      onDestinationSelected: (value) {
-        setState(() {
-          selectedIndex = value;
-        });
-      },
+      onDestinationSelected: onDestinationSelected,
       indicatorColor: AppColors.primaryButtonColor,
       children: [
         userTile(context),
+        const Divider(),
         NavigationDrawerDestination(
           icon: AppAssets.homeIcon,
           label: const Text(
@@ -45,6 +51,21 @@ class _IDrawerState extends State<IDrawer> {
         ),
       ],
     );
+  }
+
+  void onDestinationSelected(value) {
+    // setState(() {
+    //   // selectedIndex = value;
+    // });
+    switch (value) {
+      case 0:
+        context.navigator.pushReplacementNamed(HomePage.routeName);
+        break;
+      case 1:
+        context.navigator.pushReplacementNamed(MyHabitsPage.routeName);
+        break;
+      default:
+    }
   }
 
   ListTile userTile(BuildContext context) {
