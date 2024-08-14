@@ -12,12 +12,10 @@ class StatGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        // childAspectRatio: 0.85,
         mainAxisSpacing: AppPaddings.smallPaddingValue,
         crossAxisSpacing: AppPaddings.smallPaddingValue,
-        // mainAxisExtent: context.dynamicHeight(0.3),
       ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

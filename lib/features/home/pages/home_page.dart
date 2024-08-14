@@ -1,12 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/widgets/custom_buttons.dart';
-import 'package:good_place/features/home/widgets/my_habits_section.dart';
+import '../../../core/utils/widgets/calendar.dart';
+import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
-import '../widgets/calendar_widget.dart';
 import '../widgets/i_drawer.dart';
 import '../widgets/motivation_card_widget.dart';
 import '../widgets/stat_grid_widget.dart';
@@ -42,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               WelcomeText(),
 
               /// Calendar
-              CalendarWidget(),
+              Calendar(),
               gap,
 
               /// Motivation Card
@@ -58,6 +55,7 @@ class _HomePageState extends State<HomePage> {
               StatGridWidget(),
 
               gap,
+              // My Habit Section
               MyHabitsSection(),
               gap,
             ],

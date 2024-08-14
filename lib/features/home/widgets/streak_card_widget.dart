@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:good_place/config/theme.dart';
-import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/card_background_cover.dart';
 
 import '../../../core/constants/app_border_radius.dart';
 
@@ -28,9 +28,7 @@ class StreakCardWidget extends StatelessWidget {
         borderRadius:
             BorderRadius.circular(AppBorderRadius.mediumBorderRadiusValue),
       ),
-      child: ColoredBox(
-        /// TODO : ColoredBox'ı ayrı bir widet yap
-        color: AppColors.darkTextColor.withOpacity(0.4),
+      child: CardBackgroundImageFilter(
         child: Padding(
           padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
           child: Column(

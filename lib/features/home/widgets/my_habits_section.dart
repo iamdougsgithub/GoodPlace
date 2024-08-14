@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:good_place/config/theme.dart';
-import 'package:good_place/core/constants/app_border_radius.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/card_background_cover.dart';
+import '../../../core/constants/app_border_radius.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import 'package:good_place/logger.dart';
 
 class MyHabitsSection extends StatelessWidget {
@@ -83,8 +83,7 @@ class _HabitCard extends StatelessWidget {
             ),
           ),
         ),
-        child: ColoredBox(
-          color: AppColors.darkTextColor.withOpacity(0.5),
+        child: CardBackgroundImageFilter(
           child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppPaddings.xxsmallPaddingValue,

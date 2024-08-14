@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
+import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_assets.dart';
