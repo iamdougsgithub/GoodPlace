@@ -44,6 +44,11 @@ class AppAssets {
   static Widget homeIcon = const Icon(
     Icons.home_rounded,
   );
+  static Widget removeIcon = Icon(
+    Icons.delete_outlined,
+    color: AppColors.errLight,
+  );
+  static Widget sortIcon = const Icon(Icons.sort_rounded);
 
   static String goodAfternoonIcon = _AssetsPathEnum.goodAfternoonIcon.path;
   static String goodMorningIcon = _AssetsPathEnum.goodMorningIcon.path;
