@@ -21,7 +21,7 @@ class StreakCardWidget extends StatelessWidget {
           filterQuality: FilterQuality.high,
           fit: BoxFit.cover,
           image: NetworkImage(
-            "https://plus.unsplash.com/premium_photo-1665990294432-c4baf9088c50?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           ),
         ),
         color: Colors.white,
@@ -29,7 +29,8 @@ class StreakCardWidget extends StatelessWidget {
             BorderRadius.circular(AppBorderRadius.mediumBorderRadiusValue),
       ),
       child: ColoredBox(
-        color: AppColors.darkTextColor.withOpacity(0.5),
+        /// TODO : ColoredBox'ı ayrı bir widet yap
+        color: AppColors.darkTextColor.withOpacity(0.4),
         child: Padding(
           padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
           child: Column(
