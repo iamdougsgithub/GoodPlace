@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/home/widgets/i_drawer.dart';
 
@@ -24,11 +26,25 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
             context: context,
             selectedIndex: 1,
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: AppColors.primaryButtonColor,
+            foregroundColor: AppColors.secondaryButtonColor,
+            child: AppAssets.fabAddIcon,
+          ),
           appBar: AppBar(
             centerTitle: true,
             title: const Text("My Habits"),
           ),
-          body: Column(),
+          body: Column(
+            children: [
+              ListTile(),
+              Dismissible(
+                key: ValueKey(0),
+                child: Text("data"),
+              ),
+            ],
+          ),
         );
       }),
     );

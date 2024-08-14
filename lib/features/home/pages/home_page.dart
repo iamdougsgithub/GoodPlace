@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/calendar.dart';
 import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_assets.dart';
@@ -25,46 +26,58 @@ class _HomePageState extends State<HomePage> {
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScaffoldColor,
-      floatingActionButton: fab(),
-      appBar: appBar(),
-      drawer: IDrawer(
-        context: context,
-        selectedIndex: 0,
-      ),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: AppPaddings.homeScreenHorizontalPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // WelcomeText
-              WelcomeText(),
+    return Theme(
+      data: homePageThemeOverride(context),
+      child: Scaffold(
+        floatingActionButton: fab(),
+        appBar: appBar(),
+        drawer: IDrawer(
+          context: context,
+          selectedIndex: 0,
+        ),
+        body: const SingleChildScrollView(
+          child: Padding(
+            padding: AppPaddings.homeScreenHorizontalPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // WelcomeText
+                WelcomeText(),
 
-              /// Calendar
-              Calendar(),
-              gap,
+                /// Calendar
+                Calendar(),
+                gap,
 
-              /// Motivation Card
-              MotivationCardWidget(),
+                /// Motivation Card
+                MotivationCardWidget(),
 
-              gap,
+                gap,
 
-              /// Streak Card
-              StreakCardWidget(),
-              gap,
+                /// Streak Card
+                StreakCardWidget(),
+                gap,
 
-              /// Grid
-              StatGridWidget(),
+                /// Grid
+                StatGridWidget(),
 
-              gap,
-              // My Habit Section
-              MyHabitsSection(),
-              gap,
-            ],
+                gap,
+                // My Habit Section
+                MyHabitsSection(),
+                gap,
+              ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  ThemeData homePageThemeOverride(BuildContext context) {
+    return context.theme.copyWith(
+      scaffoldBackgroundColor: AppColors.homeScaffoldColor,
+      appBarTheme: context.theme.appBarTheme.copyWith(
+        color: Colors.transparent,
+        foregroundColor: Colors.white,
       ),
     );
   }
