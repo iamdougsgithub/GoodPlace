@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 
 class UserModel {
+  final String? id;
   final String email;
   final String name;
   bool onboardingCompleted;
   List<HabitModel>? habits;
 
   UserModel({
+    required this.id,
     required this.email,
     required this.name,
     required this.onboardingCompleted,
@@ -18,6 +20,7 @@ class UserModel {
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     final map = snapshot.data() as Map<String, dynamic>;
     return UserModel(
+        id: snapshot.id,
         name: map['name'] ?? '',
         email: map['email'] ?? '',
         onboardingCompleted: map['onboardingCompleted'],

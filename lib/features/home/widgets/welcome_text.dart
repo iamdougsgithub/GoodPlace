@@ -2,34 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/features/home/welcome_utils.dart';
 
 import '../../../config/theme.dart';
-import '../../../core/constants/app_assets.dart';
-import '../../../core/utils/widgets/image_container.dart';
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({
     super.key,
   });
 
-  final String welcomingText = "Good Morning";
   final String userName = "memrec";
+
   @override
   Widget build(BuildContext context) {
+    final welcomeData = WelcomeUtils.getWelcomeData();
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AssetImageContainer(
-          path: AppAssets.goodAfternoonIcon,
-        ),
+        welcomeData['icon'],
 
         /// TODO : Bu logic kısmından alınacak
         // Welcoming Text
 
         Text(
-          welcomingText,
+          welcomeData['message'],
           style: context.textTheme.bodyLarge?.copyWith(
             // fontWeight: FontWeight.w100,
             foreground: Paint()..color = AppColors.orangeTextColor,
