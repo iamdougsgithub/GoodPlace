@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 
@@ -11,13 +12,13 @@ class AuthManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: AuthService().authStateChanges,
       builder: (context, snapshot) {
         // logger.i(snapshot.hasData);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
-          return const HomePage(); // TODO: Home page hazırlandığında buraya o eklenecek
+          return const HomePage();
         } else {
           return const WelcomePage();
         }
