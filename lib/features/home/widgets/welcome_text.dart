@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/welcome_utils.dart';
 
 import '../../../config/theme.dart';
 
 class WelcomeText extends StatelessWidget {
-  const WelcomeText({
+  WelcomeText({
     super.key,
   });
 
-  final String userName = "memrec";
+  final String userName = AuthService().currentUser!.displayName ?? "User";
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,6 @@ class WelcomeText extends StatelessWidget {
       children: [
         welcomeData['icon'],
 
-        /// TODO : Bu logic kısmından alınacak
         // Welcoming Text
 
         Text(
