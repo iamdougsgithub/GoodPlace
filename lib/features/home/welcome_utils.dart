@@ -22,7 +22,7 @@ class WelcomeUtils {
     } else {
       return {
         'icon': AssetImageContainer(
-          path: AppAssets.goodAfternoonIcon,
+          path: AppAssets.goodNightIcon,
         ),
         'message': 'Good Night!',
       };
