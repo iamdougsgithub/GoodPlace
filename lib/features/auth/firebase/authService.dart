@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
@@ -10,44 +11,65 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  CollectionReference dbUser = FirebaseFirestore.instance.collection('users');
+
   User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   // Register
-  Future<User?> createUserWithEmailAndPassword({
+  Future<bool> createUserWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
   }) async {
     try {
-      UserCredential result = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
       await _firebaseAuth.currentUser?.updateDisplayName(name);
-      User? user = result.user;
-      return user;
+
+      print("user:::::::::::: ${currentUser?.uid}");
+
+      await dbUser.doc(currentUser?.uid).set({
+        "email": email,
+        "name": name,
+      });
+
+      await dbUser
+          .doc(currentUser?.uid)
+          .collection('habits')
+          .add({"title": "kitap oku", "purpose": "günde 100 sayfa kitap oku"});
+
+      await dbUser
+          .doc(currentUser?.uid)
+          .collection('habits')
+          .add({"title": "Yürüyüş", "purpose": "Her gün 1 saat parkta yürü"});
+
+      return true; //başarılı kayıt
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
-      return null;
+      return false;
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
-      return null;
+      return false;
     }
   }
 
   // Login
-  Future<User?> signInWithEmailAndPassword(
+  Future<bool> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
-      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
+      await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      User? user = result.user;
-      return user;
+      print("user:::::::::::: ${currentUser?.displayName}");
+      return true; //başarılı
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+      return false;
     } catch (e) {
       print('Sign In Error: $e');
-      return null;
+      return false;
     }
   }
 

@@ -17,10 +17,9 @@ import '../features/onboarding/onboarding_page.dart';
 ///
 class AppRoutes {
   final Map<String, Widget Function(BuildContext)> _routes = {
-    // TODO : AuthManager ile değiştir.
     "/": (_) => const AuthManager(),
-    SignInPage.routeName: (_) => SignInPage(),
-    SignUpPage.routeName: (_) => SignUpPage(),
+    SignInPage.routeName: (_) => const SignInPage(),
+    SignUpPage.routeName: (_) => const SignUpPage(),
     OnboardingPage.routeName: (_) => const OnboardingPage(),
     WelcomePage.routeName: (_) => const WelcomePage(),
   };

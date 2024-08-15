@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:toastification/toastification.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
-import '../../../logger.dart';
 
 import '../pages/sign_in_page.dart';
 import '../pages/sign_up.dart';
@@ -47,7 +45,7 @@ mixin SignUpPageMixin on State<SignUpPage> {
           )
               .then((user) {
             /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
-            if (user != null) {
+            if (user == true) {
               context.navigator.pushReplacementNamed("/");
             }
           });

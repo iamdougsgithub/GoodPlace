@@ -9,10 +9,12 @@ class AuthManager extends StatelessWidget {
   static const routeName = "authmanager";
   const AuthManager({super.key});
 
+  static final _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: AuthService().authStateChanges,
+      stream: _authService.authStateChanges,
       builder: (context, snapshot) {
         // logger.i(snapshot.hasData);
         if (snapshot.connectionState == ConnectionState.waiting) {
