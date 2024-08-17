@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:gap/gap.dart';
 import '../../../core/constants/app_assets.dart';
-import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
-import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../home/widgets/i_drawer.dart';
 
 import '../../../config/theme.dart';

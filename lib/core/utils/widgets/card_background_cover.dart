@@ -17,7 +17,7 @@ class CardBackgroundImageFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: AppColors.darkTextColor.withOpacity(0.5),
+      color: AppColors.darkTextColor.withOpacity(0.3),
       child: child,
     );
   }

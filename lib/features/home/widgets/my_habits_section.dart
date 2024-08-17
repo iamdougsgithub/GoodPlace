@@ -16,15 +16,13 @@ class MyHabitsSection extends StatelessWidget {
         titleRow(context),
         SizedBox(
           height: context.dynamicHeight(0.15),
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            children: [
-              _HabitCard(),
-              _HabitCard(),
-              _HabitCard(),
-            ],
-          ),
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 4,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return _HabitCard();
+              }),
         ),
       ],
     );
@@ -88,21 +86,30 @@ class _HabitCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: AppPaddings.xxsmallPaddingValue,
               ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    habitName,
-                    style: context.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 12,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: CheckboxListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        habitName,
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      value: false,
+                      onChanged: (_) {
+                        logger.i("Check");
+                      },
                     ),
                   ),
-                  value: false,
-                  onChanged: (_) {
-                    logger.i("message");
-                  },
-                ),
+                ],
               )),
         ),
       ),

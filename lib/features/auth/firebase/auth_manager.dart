@@ -19,7 +19,7 @@ class AuthManager extends StatelessWidget {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
           // TODO: Home page ile değiştir.
-          return const MyHabitsPage();
+          return const HomePage();
         } else {
           return const WelcomePage();
         }

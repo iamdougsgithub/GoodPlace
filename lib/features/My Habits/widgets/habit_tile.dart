@@ -45,7 +45,7 @@ class HabitTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     contentColumn(context),
-                    Gap(AppPaddings.largePaddingValue),
+                    const Gap(AppPaddings.largePaddingValue),
                     streakColumn(context),
                   ],
                 ),
@@ -92,6 +92,7 @@ class HabitTile extends StatelessWidget {
           streakCount,
           style: context.textTheme.headlineLarge,
         ),
+        const Gap(AppPaddings.smallPaddingValue),
         Text(
           "Streak",
           style: context.textTheme.titleSmall,
@@ -112,6 +113,7 @@ class HabitTile extends StatelessWidget {
           habitPurpose,
           style: context.textTheme.labelMedium,
         ),
+        Gap(AppPaddings.smallPaddingValue),
         Text(
           habitCreatedDate,
           style: context.textTheme.labelSmall,

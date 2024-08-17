@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
 
                 /// Motivation Card
                 MotivationCardWidget(),
-
+                gap,
+                // My Habit Section
+                MyHabitsSection(),
                 gap,
 
                 /// Streak Card
@@ -60,9 +62,6 @@ class _HomePageState extends State<HomePage> {
                 /// Grid
                 StatGridWidget(),
 
-                gap,
-                // My Habit Section
-                MyHabitsSection(),
                 gap,
               ],
             ),
