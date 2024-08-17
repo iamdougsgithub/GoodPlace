@@ -65,12 +65,11 @@ class AuthService {
       } catch (e) {
         print('Sign Out Error: $e');
       }
-    } else {
-      try {
-        await _firebaseAuth.signOut();
-      } catch (e) {
-        print('Sign Out Error: $e');
-      }
+    }
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      print('Sign Out Error: $e');
     }
   }
 

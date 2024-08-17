@@ -8,7 +8,7 @@ class UserDatabaseService {
 
 //eğer ileride birden çok kullanıcı etkileşime geçerse currentUserUid kullanma şekli değişmesi gerekebilir.
   String currentUserUid =
-      "9PKxVR1p5yRoPvstVzyvXXwQI3q2"; //AuthService.currentUser!.uid;
+      "3DUVs9lvOXWBqokniDpZxB5Z4L93"; //AuthService.currentUser!.uid;
 
   late bool onboardingCompleted;
 

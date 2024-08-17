@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,7 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
 import 'package:good_place/firebase_options.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 
 // Bu dosya habit ve user: firebase - provider deneme içindir. İleride silinecektir.
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
 class HabitTestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // logger.i(FirebaseAuth.instance
+    //     .signInWithEmailAndPassword(email: "s@gmail.com", password: "123456"));
     final habitProvider = Provider.of<HabitProvider>(context);
 
     return Scaffold(

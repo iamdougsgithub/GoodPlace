@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import '../../../core/extensions/context_extension.dart';
 
@@ -84,7 +85,9 @@ class _IDrawerState extends State<IDrawer> {
 
       /// Log out button
       trailing: IconButton(
-        onPressed: () => FirebaseAuth.instance.signOut(),
+        onPressed: () async => await AuthService().signOut().then(
+              (_) => context.navigator.pushReplacementNamed("/"),
+            ),
         icon: AppAssets.logOutIcon,
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
+import 'package:good_place/logger.dart';
 
 /// Kullanıcı giriş yapmışsa AnaSayfaya , yapmamışsa [WelcomePage]'e gönder.
 class AuthManager extends StatelessWidget {
@@ -16,12 +17,15 @@ class AuthManager extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: _authService.authStateChanges,
       builder: (context, snapshot) {
-        // logger.i(snapshot.hasData);
+        logger.d(snapshot.data);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
-        } else if (snapshot.hasData) {
+        }
+        if (snapshot.hasData) {
+          logger.i("Home");
           return const HomePage();
         } else {
+          logger.i("Welcome");
           return const WelcomePage();
         }
       },

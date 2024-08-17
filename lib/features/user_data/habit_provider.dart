@@ -47,7 +47,7 @@ class HabitProvider with ChangeNotifier {
       'title': "NewTitle",
     };
 
-    _userService.updateHabitFields("js2wqLPAyEXZuh8LMx05",
+    _userService.updateHabitFields("SNxXBBk0ytxB98tSqC5K",
         updatedFields); //habitId dinamik hale getir deneme amaçlı
 
     _habits[index].completionDates.add(now);
