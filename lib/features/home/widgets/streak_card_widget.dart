@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:good_place/config/theme.dart';
-import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/card_background_cover.dart';
 
 import '../../../core/constants/app_border_radius.dart';
 
@@ -13,55 +13,53 @@ class StreakCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            filterQuality: FilterQuality.high,
-            fit: BoxFit.fill,
-            image: AssetImage(
-              AppAssets.welcomePageImage,
-            ),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          filterQuality: FilterQuality.high,
+          fit: BoxFit.cover,
+          image: NetworkImage(
+            "https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           ),
-          color: Colors.white,
-          borderRadius:
-              BorderRadius.circular(AppBorderRadius.mediumBorderRadiusValue),
         ),
-        child: ColoredBox(
-          color: AppColors.darkTextColor.withOpacity(0.1),
-          child: Padding(
-            padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "1 Day",
-                  style: context.textTheme.headlineMedium?.copyWith(
-                    color: AppColors.textFieldFillColor,
-                  ),
+        color: Colors.white,
+        borderRadius:
+            BorderRadius.circular(AppBorderRadius.mediumBorderRadiusValue),
+      ),
+      child: CardBackgroundImageFilter(
+        child: Padding(
+          padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "1 Day",
+                style: context.textTheme.headlineMedium?.copyWith(
+                  color: AppColors.textFieldFillColor,
                 ),
-                Text(
-                  "Your current streak",
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: AppColors.secondaryButtonColor,
-                  ),
+              ),
+              Text(
+                "Your current streak",
+                style: context.textTheme.labelLarge?.copyWith(
+                  color: AppColors.secondaryButtonColor,
                 ),
-                Text(
-                  "1 Day",
-                  style: context.textTheme.labelLarge?.copyWith(
-                    fontSize: 16,
-                    color: AppColors.textFieldFillColor,
-                  ),
+              ),
+              Text(
+                "1 Day",
+                style: context.textTheme.labelLarge?.copyWith(
+                  fontSize: 16,
+                  color: AppColors.textFieldFillColor,
                 ),
-                Text(
-                  "Your longest streak",
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: AppColors.secondaryButtonColor,
-                  ),
+              ),
+              Text(
+                "Your longest streak",
+                style: context.textTheme.labelLarge?.copyWith(
+                  color: AppColors.secondaryButtonColor,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

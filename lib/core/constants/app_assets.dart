@@ -37,6 +37,18 @@ class AppAssets {
     Icons.add,
     color: AppColors.secondaryButtonColor,
   );
+  static Widget logOutIcon = Icon(
+    Icons.logout_outlined,
+    color: AppColors.errDark,
+  );
+  static Widget homeIcon = const Icon(
+    Icons.home_rounded,
+  );
+  static Widget removeIcon = Icon(
+    Icons.delete_outlined,
+    color: AppColors.errLight,
+  );
+  static Widget sortIcon = const Icon(Icons.sort_rounded);
 
   static String goodAfternoonIcon = _AssetsPathEnum.goodAfternoonIcon.path;
   static String goodMorningIcon = _AssetsPathEnum.goodMorningIcon.path;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/welcome_utils.dart';
-
 import '../../../config/theme.dart';
 
 class WelcomeText extends StatelessWidget {
@@ -26,7 +25,6 @@ class WelcomeText extends StatelessWidget {
         welcomeData['icon'],
 
         // Welcoming Text
-
         Text(
           welcomeData['message'],
           style: context.textTheme.bodyLarge?.copyWith(

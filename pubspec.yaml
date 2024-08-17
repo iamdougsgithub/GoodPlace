@@ -52,6 +52,7 @@ dependencies:
   skeletonizer: ^1.4.2
   intl: ^0.19.0
   table_calendar: ^3.1.2
+  flutter_slidable: ^3.1.1
   cloud_firestore: ^4.14.0
   firebase_storage: ^11.6.0
   
