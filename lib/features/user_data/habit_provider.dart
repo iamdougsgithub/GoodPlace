@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
@@ -39,13 +40,18 @@ class HabitProvider with ChangeNotifier {
       String habitId, Map<String, dynamic> updatedFields) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
 
+    DateTime now = DateTime.now();
+
+    Map<String, dynamic> updatedFields = {
+      'completionDates': FieldValue.arrayUnion([now]),
+      'title': "NewTitle",
+    };
+
     _userService.updateHabitFields("js2wqLPAyEXZuh8LMx05",
         updatedFields); //habitId dinamik hale getir deneme amaçlı
 
-    _habits[index].completionDates.add(updatedFields[
-        "completionDates"]); // buraya daha iyi bir çözüm bulmaya çalış
+    _habits[index].completionDates.add(now);
     _habits[index].title = updatedFields["title"];
-
     notifyListeners();
   }
 
