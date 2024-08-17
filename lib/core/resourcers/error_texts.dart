@@ -11,7 +11,7 @@ class AppErrorText {
   /// hata kodu : Kullanınının anlayabileceği hata mesajı.
   /// }
   /// ```
-  static Map _errorText = {
+  static final Map _errorText = {
     //Firebase Auth
     "The email address is already in use by another account.":
         "The email address is already in use by another account.Try to login.",

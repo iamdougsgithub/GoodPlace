@@ -1,19 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
+import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
+import 'package:good_place/features/user_data/user_service.dart';
 import 'package:good_place/logger.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'google_sign_in.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  CollectionReference dbUser = FirebaseFirestore.instance.collection('users');
-
-  User? get currentUser => _firebaseAuth.currentUser;
+  static User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -29,22 +28,7 @@ class AuthService {
 
       await _firebaseAuth.currentUser?.updateDisplayName(name);
 
-      print("user:::::::::::: ${currentUser?.uid}");
-
-      await dbUser.doc(currentUser?.uid).set({
-        "email": email,
-        "name": name,
-      });
-
-      await dbUser
-          .doc(currentUser?.uid)
-          .collection('habits')
-          .add({"title": "kitap oku", "purpose": "günde 100 sayfa kitap oku"});
-
-      await dbUser
-          .doc(currentUser?.uid)
-          .collection('habits')
-          .add({"title": "Yürüyüş", "purpose": "Her gün 1 saat parkta yürü"});
+      //  UserDatabaseService().addUser();
 
       return true; //başarılı kayıt
     } on FirebaseAuthException catch (e) {
@@ -62,7 +46,33 @@ class AuthService {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      print("user:::::::::::: ${currentUser?.displayName}");
+
+/*
+// =>>>>>>>>>>>>> USER UPDATE
+// TODO: Onboarding kontrol işlemi olan yere bunu koy.
+      UserDatabaseService()
+          .updateUserField(currentUser!.uid, "onboardingCompleted", true);
+
+// =>>>>>>>>>>>>>>>>  USER GET Field
+
+       Map<String, dynamic> userDetails =
+          await UserDatabaseService().getUserDetails();
+
+      print(userDetails);
+
+// =>>>>>>>>>>>>>>>>>>>>>  HABİT ADD
+
+      DateTime now = DateTime.now(); // Mevcut tarihi al
+
+      UserDatabaseService().addHabit(HabitModel(
+          title: "Sebze ye",
+          createDate: now,
+          streakCount: 3,
+          completionDates: []));
+
+//=>>>>>>>>>>>>>>>>> Delete habit
+      UserDatabaseService().deleteHabit("txGejC5w2BzjCY8qKh0Y");*/
+
       return true; //başarılı
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));

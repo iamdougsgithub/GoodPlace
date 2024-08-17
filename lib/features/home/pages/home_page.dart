@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: fab(),
       appBar: appBar(),
       drawer: drawer(),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.homeScreenHorizontalPadding,
           child: Column(
