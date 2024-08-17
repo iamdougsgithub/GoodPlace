@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
-import 'package:good_place/features/user_data/user_service.dart';
+import 'package:good_place/features/user_data/user_database_service.dart';
 
 class HabitProvider with ChangeNotifier {
   List<HabitModel> _habits = [];
@@ -23,15 +22,8 @@ class HabitProvider with ChangeNotifier {
   }
 
   Future<void> addHabit(HabitModel habit) async {
-    DateTime now = DateTime.now(); // Mevcut tarihi al
-
-    habit.id = await _userService.addHabit(HabitModel(
-        title: "Günde 1 saat yürüyüş",
-        createDate: now,
-        streakCount: 2,
-        imageUrl:
-            "https://www.multibem.com.tr/wp-content/uploads/2022/11/unnamed-1024x619.jpg",
-        completionDates: [])); // bu HabitModel örnek amaçlı koyuldu kaldırılacak.
+    habit.id = await _userService
+        .addHabit(habit); // bu HabitModel örnek amaçlı koyuldu kaldırılacak.
 
     if (habit.id!.isNotEmpty) {
       _habits.add(habit);
@@ -45,21 +37,13 @@ class HabitProvider with ChangeNotifier {
 //update: streakCount ve completionDates e bugünün tarihi eklenecek
   Future<void> updateHabit(
       String habitId, Map<String, dynamic> updatedFields) async {
-    String newTitle = 'Updated Habit Title';
-
     int index = _habits.indexWhere((h) => h.id == habitId);
 
-    DateTime now = DateTime.now();
-
-    Map<String, dynamic> updatedFields = {
-      'completionDates': FieldValue.arrayUnion([now]),
-      'title': newTitle,
-    };
-
-    _userService.updateHabitFields("wP331iUnModp4nqz9v7x",
+    _userService.updateHabitFields("js2wqLPAyEXZuh8LMx05",
         updatedFields); //habitId dinamik hale getir deneme amaçlı
 
-    _habits[index].completionDates.add(now);
+    _habits[index].completionDates.add(updatedFields[
+        "completionDates"]); // buraya daha iyi bir çözüm bulmaya çalış
     _habits[index].title = updatedFields["title"];
 
     notifyListeners();

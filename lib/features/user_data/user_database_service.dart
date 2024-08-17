@@ -92,6 +92,12 @@ class UserDatabaseService {
       String habitId,
       Map<String, dynamic> updatedFields) async {
     try {
+      DateTime now = DateTime.now();
+
+      Map<String, dynamic> updatedFields = {
+        'completionDates': FieldValue.arrayUnion([now]),
+        'title': '""""""Updated Habit Title""""":)))',
+      };
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');
     } catch (e) {

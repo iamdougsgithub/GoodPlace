@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/features/user_data/user_database_service.dart';
 import 'package:good_place/firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,26 @@ class HabitTestWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            //  =>>>  UPDATE User
+// TODO: Onboarding kontrol işlemi olan yere bunu koyulacak
+
+            ElevatedButton(
+              onPressed: () async {
+                UserDatabaseService().updateUserField(
+                    "onboardingCompleted", true); //burası dinamik değer alıcak.
+              },
+              child: Text('UPDATE User'),
+            ),
+
+            //  =>>>  DELETE User
+            ElevatedButton(
+              onPressed: () async {
+                UserDatabaseService().deleteUser("4SsHd7PIv5KSFutOe1Fk");
+//burası dinamik değer alıcak.kullanıcı sadece kendisini silebilir auth olduğun kulalnıcıyı silebilirisin sadece ben firebase rules i öyle ayarladım.
+              },
+              child: Text('Delete User'),
+            ),
+
             // =>>>   Get Habit List
             ElevatedButton(
               onPressed: () async {
@@ -63,12 +84,15 @@ class HabitTestWidget extends StatelessWidget {
             ),
 
             //  =>>>  ADD Habit
+
             ElevatedButton(
               onPressed: () async {
                 HabitModel newHabit = HabitModel(
                   title: 'Yeni Alışkanlık',
                   createDate: DateTime.now(),
                   streakCount: 0,
+                  imageUrl:
+                      "https://www.multibem.com.tr/wp-content/uploads/2022/11/unnamed-1024x619.jpg",
                   completionDates: [],
                 );
                 await habitProvider.addHabit(newHabit);
@@ -81,8 +105,11 @@ class HabitTestWidget extends StatelessWidget {
               onPressed: () async {
                 if (habitProvider.habits.isNotEmpty) {
                   String habitId = habitProvider.habits[0].id!;
+
+                  DateTime now = DateTime.now();
+
                   Map<String, dynamic> updatedFields = {
-                    'completionDates': [Timestamp.fromDate(DateTime.now())],
+                    'completionDates': FieldValue.arrayUnion([now]),
                     'title': '""""""Updated Habit Title""""":)))',
                   };
                   await habitProvider.updateHabit(habitId, updatedFields);
