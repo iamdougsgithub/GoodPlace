@@ -48,8 +48,8 @@ class HabitProvider with ChangeNotifier {
       'title': "NewTitle",
     };
 */
-    _userService.updateHabitFields("js2wqLPAyEXZuh8LMx05",
-        updatedFields); //habitId dinamik hale getir deneme amaçlı
+    _userService.updateHabitFields(
+        habitId, updatedFields); //habitId dinamik hale getir deneme amaçlı
 
     _habits[index].completionDates.add(DateTime.now()); // burası değişecek
     _habits[index].streakCount = updatedFields["streakCount"];
