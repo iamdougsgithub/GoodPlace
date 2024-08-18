@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/logger.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -47,15 +48,18 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
           ),
           body: Padding(
             padding: AppPaddings.homeScreenHorizontalPadding,
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: AppPaddings.smallPaddingValue),
-                  child: HabitTile(),
-                );
-              },
+            child: Consumer<HabitProvider>(
+              builder: (context, value, child) => ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: AppPaddings.smallPaddingValue,
+                    ),
+                    child: HabitTile(),
+                  );
+                },
+              ),
             ),
           ),
         );
