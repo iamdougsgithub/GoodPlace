@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -14,15 +19,21 @@ class MyHabitsSection extends StatelessWidget {
       children: [
         /// Title Row
         titleRow(context),
-        SizedBox(
-          height: context.dynamicHeight(0.15),
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return _HabitCard();
-              }),
+        Consumer<HabitProvider>(
+          builder: (context, habitProvider, child) {
+            return SizedBox(
+              height: context.dynamicHeight(0.15),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: habitProvider.habits.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return _HabitCard(
+                      habitModel: habitProvider.habits[index],
+                    );
+                  }),
+            );
+          },
         ),
       ],
     );
@@ -56,13 +67,30 @@ class MyHabitsSection extends StatelessWidget {
   }
 }
 
-class _HabitCard extends StatelessWidget {
-  const _HabitCard({super.key});
+class _HabitCard extends StatefulWidget {
+  final HabitModel habitModel;
+  const _HabitCard({required this.habitModel});
 
-  /// TODO : [habitName] ve [habitImageUrl] Firestore'dan al
-  final String habitName = "Habit Name";
-  final String habitImageUrl =
-      "https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  @override
+  State<_HabitCard> createState() => _HabitCardState();
+}
+
+class _HabitCardState extends State<_HabitCard> {
+  late bool _isDone;
+  late String _title;
+  late String? _imageUrl;
+
+  @override
+  void initState() {
+    final HabitModel _habitModel = widget.habitModel;
+    _isDone = _habitModel.done;
+    _title = _habitModel.title;
+    _imageUrl = _habitModel.imageUrl;
+    super.initState();
+  }
+
+  bool get _imageExist => _imageUrl != null && _imageUrl!.isEmpty == false;
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -76,9 +104,11 @@ class _HabitCard extends StatelessWidget {
           borderRadius: AppBorderRadius.smallBorderRadius,
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(
-              habitImageUrl,
-            ),
+            image: _imageExist
+                ? NetworkImage(
+                    _imageUrl ?? "",
+                  )
+                : AssetImage(AppAssets.authTopBackgroundImage),
           ),
         ),
         child: CardBackgroundImageFilter(
@@ -98,14 +128,25 @@ class _HabitCard extends StatelessWidget {
                     child: CheckboxListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text(
-                        habitName,
+                        _title,
                         style: context.textTheme.labelLarge?.copyWith(
                           color: Colors.white,
                         ),
                       ),
-                      value: false,
+                      value: _isDone,
                       onChanged: (_) {
-                        logger.i("Check");
+                        _isDone = !_isDone;
+
+                        /// TODO: Burayı sonra yap.
+                        // HabitProvider.instance.updateHabit(
+                        //   widget.habitModel.id ?? "",
+                        //   {
+                        //     "completionDates": FieldValue.arrayUnion([
+                        //       DateTime.now(),
+                        //     ]),
+                        //   },
+                        // );
+                        setState(() {});
                       },
                     ),
                   ),

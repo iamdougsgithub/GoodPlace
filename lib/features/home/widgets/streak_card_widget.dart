@@ -31,38 +31,47 @@ class StreakCardWidget extends StatelessWidget {
       child: CardBackgroundImageFilter(
         child: Padding(
           padding: EdgeInsets.all(AppPaddings.mediumPaddingValue),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "1 Day",
-                style: context.textTheme.headlineMedium?.copyWith(
-                  color: AppColors.textFieldFillColor,
-                ),
-              ),
-              Text(
-                "Your current streak",
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.secondaryButtonColor,
-                ),
-              ),
-              Text(
-                "1 Day",
-                style: context.textTheme.labelLarge?.copyWith(
-                  fontSize: 16,
-                  color: AppColors.textFieldFillColor,
-                ),
-              ),
-              Text(
-                "Your longest streak",
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.secondaryButtonColor,
-                ),
-              ),
-            ],
-          ),
+          child: _StreakCard(),
         ),
       ),
+    );
+  }
+}
+
+class _StreakCard extends StatelessWidget {
+  const _StreakCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "1 Day",
+          style: context.textTheme.headlineMedium?.copyWith(
+            color: AppColors.textFieldFillColor,
+          ),
+        ),
+        Text(
+          "Your current streak",
+          style: context.textTheme.labelLarge?.copyWith(
+            color: AppColors.secondaryButtonColor,
+          ),
+        ),
+        Text(
+          "1 Day",
+          style: context.textTheme.labelLarge?.copyWith(
+            fontSize: 16,
+            color: AppColors.textFieldFillColor,
+          ),
+        ),
+        Text(
+          "Your longest streak",
+          style: context.textTheme.labelLarge?.copyWith(
+            color: AppColors.secondaryButtonColor,
+          ),
+        ),
+      ],
     );
   }
 }

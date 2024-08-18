@@ -74,7 +74,7 @@ class HabitProvider with ChangeNotifier {
         DateTime(now.year, now.month, now.day + 1); // Ertesi gece yarısı
     Duration timeUntilMidnight = midnight.difference(now);
 
-    print("timeUntilMidnight:$timeUntilMidnight  midnight:$midnight now:$now ");
+    // print("timeUntilMidnight:$timeUntilMidnight  midnight:$midnight now:$now ");
 
     _midnightTimer = Timer(timeUntilMidnight, _resetHabitsAtMidnight);
   }
