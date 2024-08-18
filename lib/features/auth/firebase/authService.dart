@@ -8,7 +8,7 @@ import 'google_sign_in.dart';
 
 class AuthService extends FirebaseUtils {
   // Register
-  Future<bool> createUserWithEmailAndPassword({
+  Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
@@ -22,31 +22,23 @@ class AuthService extends FirebaseUtils {
       // TODo: add user - kullanıcı kayıt olduğunda buradan add yapabiliriz.
 
       //  UserDatabaseService().addUser();
-
-      return true; //başarılı kayıt
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
-      return false;
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
-      return false;
     }
   }
 
   // Login
-  Future<bool> signInWithEmailAndPassword(
+  Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-
-      return true; //başarılı
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
-      return false;
     } catch (e) {
       print('Sign In Error: $e');
-      return false;
     }
   }
 
@@ -57,7 +49,8 @@ class AuthService extends FirebaseUtils {
       }
       await firebaseAuth.signOut();
     } catch (e) {
-      print('Sign Out Error: $e');
+      logger.e(e);
+      Toast.errToast(title: e.toString());
     }
   }
 
@@ -65,14 +58,14 @@ class AuthService extends FirebaseUtils {
     try {
       await firebaseAuth.currentUser!.delete();
     } on Exception catch (e) {
-      // TODO
+      logger.e(e);
+      Toast.errToast(title: e.toString());
     }
   }
 
   Future<void> signInWithGoogle() async {
     try {
-      final credential = await GoogleSignInService().signIn();
-
+      final OAuthCredential credential = await GoogleSignInService().signIn();
       await firebaseAuth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
