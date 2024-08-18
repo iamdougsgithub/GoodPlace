@@ -6,6 +6,7 @@ import 'package:good_place/logger.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/add_habit_button.dart';
 import '../../home/widgets/i_drawer.dart';
 
 import '../../../config/theme.dart';
@@ -33,12 +34,7 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
             context: context,
             selectedIndex: 1,
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: AppColors.primaryButtonColor,
-            foregroundColor: AppColors.secondaryButtonColor,
-            child: AppAssets.fabAddIcon,
-          ),
+          floatingActionButton: AddHabitButton(),
           appBar: AppBar(
             centerTitle: true,
             title: Text(pageTitle),

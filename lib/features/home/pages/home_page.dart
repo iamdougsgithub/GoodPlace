@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     return Theme(
       data: homePageThemeOverride(context),
       child: Scaffold(
-        floatingActionButton: fab(),
+        floatingActionButton: const AddHabitButton(),
         appBar: appBar(),
         drawer: IDrawer(
           context: context,
@@ -99,20 +100,6 @@ class _HomePageState extends State<HomePage> {
         color: Colors.transparent,
         foregroundColor: Colors.white,
       ),
-    );
-  }
-
-  FloatingActionButton fab() {
-    return FloatingActionButton(
-      onPressed: () {
-        HabitProvider.instance.addHabit(HabitModel(
-            title: "title - 3",
-            createDate: DateTime.now(),
-            streakCount: 0,
-            completionDates: []));
-      },
-      backgroundColor: AppColors.primaryButtonColor,
-      child: AppAssets.fabAddIcon,
     );
   }
 
