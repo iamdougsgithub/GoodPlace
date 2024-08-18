@@ -19,7 +19,7 @@ class AuthService extends FirebaseUtils {
 
       await firebaseAuth.currentUser?.updateDisplayName(name);
 
-      // add user
+      // TODo: add user - kullanıcı kayıt olduğunda buradan add yapabiliriz.
 
       //  UserDatabaseService().addUser();
 

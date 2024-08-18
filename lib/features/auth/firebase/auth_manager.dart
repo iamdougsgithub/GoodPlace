@@ -20,7 +20,6 @@ class AuthManager extends StatelessWidget {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
             logger.i("Home");
-
             return const HomePage();
           } else {
             logger.i("Welcome");

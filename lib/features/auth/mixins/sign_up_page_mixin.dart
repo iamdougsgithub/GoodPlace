@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:good_place/features/home/pages/home_page.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 
@@ -38,17 +37,15 @@ mixin SignUpPageMixin on State<SignUpPage> {
     if (mounted) {
       if (formKey.currentState!.validate()) {
         if (checkBoxValue == true) {
-          AuthService().createUserWithEmailAndPassword(
-            email: emailController.text,
-            password: passwordController.text,
-            name: nameController.text,
-          );
-          //  .then((user) {
-          /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
-          //  if (user == true) {
-          context.navigator.pushReplacementNamed(HomePage.routeName);
-          // }
-          //  });
+          AuthService()
+              .createUserWithEmailAndPassword(
+                email: emailController.text,
+                password: passwordController.text,
+                name: nameController.text,
+              )
+              .then(
+                (_) => Navigator.of(context).popUntil((route) => route.isFirst),
+              );
         } else {
           Toast.errToast(
             title: "Please accept Privacy Policy",

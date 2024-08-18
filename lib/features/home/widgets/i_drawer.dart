@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/home/widgets/welcome_text.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -89,8 +87,6 @@ class _IDrawerState extends State<IDrawer> {
       trailing: IconButton(
         onPressed: () async => await AuthService().signOut().then(
               (_) => Navigator.of(context).popUntil((route) => route.isFirst),
-
-              //   context.navigator.pushReplacementNamed(WelcomePage.routeName),
             ),
         icon: AppAssets.logOutIcon,
       ),
