@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/calendar.dart';
 import '../widgets/my_habits_section.dart';
@@ -27,25 +29,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
-  late HabitProvider habitProvider;
+  // late HabitProvider habitProvider;
   late GetIt sl;
   @override
   void initState() {
-    sl = GetIt.instance;
-    Future.microtask(() => habitProvider.getHabits());
-
-    if (sl.isRegistered<HabitProvider>(
-        instance: HabitProvider(), instanceName: "habitProvider")) {
-      sl.registerSingleton<HabitProvider>(HabitProvider(),
-          instanceName: "habitProvider");
-    }
+    Future.microtask(() => HabitProvider.instance.getHabits());
 
     super.initState();
   }
 
   @override
   void didChangeDependencies() async {
-    habitProvider = Provider.of<HabitProvider>(context);
+    HabitProvider.instance = Provider.of<HabitProvider>(context);
 
     super.didChangeDependencies();
   }
@@ -109,7 +104,13 @@ class _HomePageState extends State<HomePage> {
 
   FloatingActionButton fab() {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        HabitProvider.instance.addHabit(HabitModel(
+            title: "title - 3",
+            createDate: DateTime.now(),
+            streakCount: 0,
+            completionDates: []));
+      },
       backgroundColor: AppColors.primaryButtonColor,
       child: AppAssets.fabAddIcon,
     );

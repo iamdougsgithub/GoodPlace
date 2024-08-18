@@ -5,7 +5,10 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
 
 class HabitProvider with ChangeNotifier {
+  HabitProvider._();
   List<HabitModel> _habits = [];
+
+  static HabitProvider instance = HabitProvider._();
 
   List<HabitModel> get habits => _habits;
 

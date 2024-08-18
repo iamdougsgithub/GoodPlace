@@ -25,7 +25,7 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-      create: (_) => HabitProvider(),
+      create: (_) => HabitProvider.instance,
       child: const MyApp(),
     ),
   );
