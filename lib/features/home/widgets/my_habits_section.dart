@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/home/widgets/habit_list_builder.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
@@ -42,7 +43,9 @@ class MyHabitsSection extends StatelessWidget {
     );
   }
 
-  ListView _habitList(HabitProvider habitProvider) {
+  Widget _habitList(
+    HabitProvider habitProvider,
+  ) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: habitProvider.habits.length,

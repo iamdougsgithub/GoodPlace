@@ -49,14 +49,16 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
           body: Padding(
             padding: AppPaddings.homeScreenHorizontalPadding,
             child: Consumer<HabitProvider>(
-              builder: (context, value, child) => ListView.builder(
+              builder: (context, provider, child) => ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(
                       bottom: AppPaddings.smallPaddingValue,
                     ),
-                    child: HabitTile(),
+                    child: HabitTile(
+                      habitModel: provider.habits[index],
+                    ),
                   );
                 },
               ),
