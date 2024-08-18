@@ -115,56 +115,58 @@ class _HabitCardState extends State<_HabitCard> {
         margin: const EdgeInsets.symmetric(
           horizontal: AppPaddings.xxsmallPaddingValue,
         ),
-        decoration: BoxDecoration(
-          borderRadius: AppBorderRadius.smallBorderRadius,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: _imageExist
-                ? NetworkImage(
-                    _imageUrl ?? "",
-                  )
-                : AssetImage(AppAssets.authTopBackgroundImage),
-          ),
-        ),
+        decoration: _boxDecoration(),
         child: CardBackgroundImageFilter(
           child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppPaddings.xxsmallPaddingValue,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: CheckboxListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        _title,
-                        style: context.textTheme.titleMedium?.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                      value: _isDone,
-                      onChanged: (_) {
-                        _isDone = !_isDone;
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CheckboxListTile(
+                  value: _isDone,
+                  contentPadding: EdgeInsets.zero,
 
-                        /// TODO: Burayı sonra yap.
-                        // HabitProvider.instance.updateHabit(
-                        //   widget.habitModel.id ?? "",
-                        //   {
-                        //     "completionDates": FieldValue.arrayUnion([
-                        //       DateTime.now(),
-                        //     ]),
-                        //   },
-                        // );
-                        setState(() {});
-                      },
+                  /// Title
+                  title: Text(
+                    _title,
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
                     ),
                   ),
-                ],
+
+                  onChanged: (_) {
+                    setState(() {
+                      _isDone = !_isDone;
+                    });
+
+                    /// TODO: Burayı sonra yap.
+                    // HabitProvider.instance.updateHabit(
+                    //   widget.habitModel.id ?? "",
+                    //   {
+                    //     "completionDates": FieldValue.arrayUnion([
+                    //       DateTime.now(),
+                    //     ]),
+                    //   },
+                    // );
+                  },
+                ),
               )),
         ),
+      ),
+    );
+  }
+
+  BoxDecoration _boxDecoration() {
+    return BoxDecoration(
+      borderRadius: AppBorderRadius.smallBorderRadius,
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: _imageExist
+            ? NetworkImage(
+                _imageUrl ?? "",
+              )
+            : AssetImage(AppAssets.authTopBackgroundImage),
       ),
     );
   }
