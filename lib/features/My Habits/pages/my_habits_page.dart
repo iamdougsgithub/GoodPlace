@@ -50,7 +50,7 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
             padding: AppPaddings.homeScreenHorizontalPadding,
             child: Consumer<HabitProvider>(
               builder: (context, provider, child) => ListView.builder(
-                itemCount: 5,
+                itemCount: provider.habits.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(

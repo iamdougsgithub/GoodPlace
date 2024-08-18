@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/logger.dart';
 import 'package:intl/intl.dart';
 import '../../../core/extensions/context_extension.dart';
 
@@ -34,22 +35,25 @@ class HabitTile extends StatelessWidget {
           ),
           child: CardBackgroundImageFilter(
             child: ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 vertical: AppPaddings.mediumPaddingValue,
                 horizontal: AppPaddings.smallPaddingValue,
               ),
-              title: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    contentColumn(context),
-                    const Gap(AppPaddings.largePaddingValue),
-                    streakColumn(context),
-                  ],
-                ),
-              ),
+              title: LayoutBuilder(builder: (context, c) {
+                // logger.i(c.maxWidth);
+                return FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      contentColumn(context),
+                      Gap(c.maxWidth / 2),
+                      streakColumn(context),
+                    ],
+                  ),
+                );
+              }),
             ),
           ),
         ),
@@ -87,6 +91,7 @@ class HabitTile extends StatelessWidget {
 
   Column streakColumn(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
           habitModel.streakCount.toString(),
@@ -103,6 +108,7 @@ class HabitTile extends StatelessWidget {
 
   Column contentColumn(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
