@@ -11,7 +11,7 @@ class WelcomeText extends StatelessWidget {
     super.key,
   });
 
-  final String userName = AuthService.currentUser!.displayName ?? "User";
+  final String userName = AuthService().currentUser?.displayName ?? "User";
 
   @override
   Widget build(BuildContext context) {

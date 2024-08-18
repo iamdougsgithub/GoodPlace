@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/logger.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleSignInService {
+class GoogleSignInService extends FirebaseUtils {
   Future signIn() async {
     try {
-      final GoogleSignInAccount? _gSign = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? _gSign = await googleSignIn.signIn();
       if (_gSign != null) {
         final GoogleSignInAuthentication _gAuth = await _gSign.authentication;
         final credential = GoogleAuthProvider.credential(

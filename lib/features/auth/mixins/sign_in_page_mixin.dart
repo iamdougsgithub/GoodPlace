@@ -25,15 +25,13 @@ mixin SignInPageMixin on State<SignInPage> {
   final TextEditingController passwordController = TextEditingController();
 
   onLoginTapped() async {
-    await AuthService()
-        .signInWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text)
-        .then((user) {
-      /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
-      if (user == true) {
-        context.navigator.pushReplacementNamed(HomePage.routeName);
-      }
-    });
+    await AuthService().signInWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text);
+    // .then((user) {
+    /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
+    // if (user == true) {
+    context.navigator.pushReplacementNamed(HomePage.routeName);
+    //}
   }
 
   void onSignUpTapped(BuildContext context) =>
