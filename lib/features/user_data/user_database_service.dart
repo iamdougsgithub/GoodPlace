@@ -7,8 +7,8 @@ class UserDatabaseService {
       FirebaseFirestore.instance.collection('users');
 
 //eğer ileride birden çok kullanıcı etkileşime geçerse currentUserUid kullanma şekli değişmesi gerekebilir.
-  String currentUserUid =
-      "3DUVs9lvOXWBqokniDpZxB5Z4L93"; //AuthService.currentUser!.uid;
+  String currentUserUid = AuthService().currentUser!.uid;
+  //"9PKxVR1p5yRoPvstVzyvXXwQI3q2"; //
 
   late bool onboardingCompleted;
 
@@ -29,7 +29,7 @@ class UserDatabaseService {
   }
 
   Future<List<HabitModel>> getUserDetails() async {
-    if (AuthService.currentUser != null) {
+    if (AuthService().currentUser != null) {
       DocumentSnapshot userDoc =
           await _usersCollection.doc(currentUserUid).get();
 
@@ -92,12 +92,16 @@ class UserDatabaseService {
       String habitId,
       Map<String, dynamic> updatedFields) async {
     try {
+      /*
       DateTime now = DateTime.now();
 
       Map<String, dynamic> updatedFields = {
         'completionDates': FieldValue.arrayUnion([now]),
         'title': '""""""Updated Habit Title""""":)))',
-      };
+      };*/
+      updatedFields["completionDates"] =
+          FieldValue.arrayUnion([updatedFields["completionDates"]]);
+
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');
     } catch (e) {

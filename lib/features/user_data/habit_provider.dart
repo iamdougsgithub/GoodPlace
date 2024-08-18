@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
@@ -35,23 +34,25 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
+// Habitin başka bir özelliği daha güncellenmek istenirse diye map değeri alınmaktadır.
+// Yoksa sadece streakCount,completionDates değerlerini değiştirebiliriz.
 //update: streakCount ve completionDates e bugünün tarihi eklenecek
   Future<void> updateHabit(
       String habitId, Map<String, dynamic> updatedFields) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
-
+/*
     DateTime now = DateTime.now();
 
     Map<String, dynamic> updatedFields = {
       'completionDates': FieldValue.arrayUnion([now]),
       'title': "NewTitle",
     };
-
-    _userService.updateHabitFields("SNxXBBk0ytxB98tSqC5K",
+*/
+    _userService.updateHabitFields("js2wqLPAyEXZuh8LMx05",
         updatedFields); //habitId dinamik hale getir deneme amaçlı
 
-    _habits[index].completionDates.add(now);
-    _habits[index].title = updatedFields["title"];
+    _habits[index].completionDates.add(DateTime.now()); // burası değişecek
+    _habits[index].streakCount = updatedFields["streakCount"];
     notifyListeners();
   }
 

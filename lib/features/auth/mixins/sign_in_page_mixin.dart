@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/features/home/pages/home_page.dart';
 
 import '../firebase/authService.dart';
 import '../pages/sign_in_page.dart';
@@ -28,12 +27,9 @@ mixin SignInPageMixin on State<SignInPage> {
     await AuthService()
         .signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text)
-        .then((user) {
-      /// Eğer kullanıcı bu işlemi başarıyla gerçekleştirdiyse [AuthManager]'a geri yolla.
-      if (user == true) {
-        context.navigator.pushReplacementNamed(HomePage.routeName);
-      }
-    });
+        .then(
+          (_) => Navigator.of(context).popUntil((route) => route.isFirst),
+        );
   }
 
   void onSignUpTapped(BuildContext context) =>

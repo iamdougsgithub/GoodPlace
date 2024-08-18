@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/pages/welcome_page.dart';
@@ -8,24 +7,25 @@ import 'package:good_place/logger.dart';
 /// Kullanıcı giriş yapmışsa AnaSayfaya , yapmamışsa [WelcomePage]'e gönder.
 class AuthManager extends StatelessWidget {
   static const routeName = "authmanager";
-  const AuthManager({super.key});
 
-  static final _authService = AuthService();
+  const AuthManager({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: _authService.authStateChanges,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-        if (snapshot.hasData) {
-          return const HomePage();
-        } else {
-          return const WelcomePage();
-        }
-      },
-    );
+    return StreamBuilder(
+        stream: AuthService().authStateChanges,
+        builder: (context, snapshot) {
+          logger.d(snapshot.data);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            logger.i("Home");
+            return const HomePage();
+          } else {
+            logger.i("Welcome");
+
+            return const WelcomePage();
+          }
+        });
   }
 }

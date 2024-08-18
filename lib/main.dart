@@ -16,13 +16,19 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
+  /* MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => HabitProvider()),
+      ],*/
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => HabitProvider(),
       child: const MyApp(),
     ),
   );
-  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +6,6 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
 import 'package:good_place/firebase_options.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 
 // Bu dosya habit ve user: firebase - provider deneme içindir. İleride silinecektir.
@@ -111,11 +109,21 @@ class HabitTestWidget extends StatelessWidget {
                   String habitId = habitProvider.habits[0].id!;
 
                   DateTime now = DateTime.now();
+/*  Ya direk now değeri gönderilecek ve servis tarafında FieldValue.arrayUnion kullanılarak çevirme yapılacak 
+    yada direk FieldValue.arrayUnion([now])  bu şekilde gönderilecek
 
                   Map<String, dynamic> updatedFields = {
                     'completionDates': FieldValue.arrayUnion([now]),
                     'title': '""""""Updated Habit Title""""":)))',
                   };
+                  */
+
+                  // Bu map deneme amaçlı konulmuştur.
+                  Map<String, dynamic> updatedFields = {
+                    'completionDates': now,
+                    'streakCount': 113,
+                  };
+
                   await habitProvider.updateHabit(habitId, updatedFields);
                 }
               },
