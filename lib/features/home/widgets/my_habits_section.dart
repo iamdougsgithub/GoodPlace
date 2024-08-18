@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -8,7 +7,6 @@ import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
-import 'package:good_place/logger.dart';
 
 class MyHabitsSection extends StatelessWidget {
   const MyHabitsSection({super.key});
@@ -23,20 +21,37 @@ class MyHabitsSection extends StatelessWidget {
           builder: (context, habitProvider, child) {
             return SizedBox(
               height: context.dynamicHeight(0.15),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: habitProvider.habits.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return _HabitCard(
-                      habitModel: habitProvider.habits[index],
-                    );
-                  }),
+              child: habitProvider.habits.isEmpty
+                  ? _noHabitsCard(context)
+                  : _habitList(habitProvider),
             );
           },
         ),
       ],
     );
+  }
+
+  Card _noHabitsCard(BuildContext context) {
+    return Card(
+      child: Center(
+        child: Text(
+          "You don't have any habits . Add now.",
+          style: context.textTheme.labelLarge,
+        ),
+      ),
+    );
+  }
+
+  ListView _habitList(HabitProvider habitProvider) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: habitProvider.habits.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return _HabitCard(
+            habitModel: habitProvider.habits[index],
+          );
+        });
   }
 
   Row titleRow(BuildContext context) {
@@ -82,10 +97,10 @@ class _HabitCardState extends State<_HabitCard> {
 
   @override
   void initState() {
-    final HabitModel _habitModel = widget.habitModel;
-    _isDone = _habitModel.done;
-    _title = _habitModel.title;
-    _imageUrl = _habitModel.imageUrl;
+    final HabitModel habitModel = widget.habitModel;
+    _isDone = habitModel.done;
+    _title = habitModel.title;
+    _imageUrl = habitModel.imageUrl;
     super.initState();
   }
 
@@ -117,19 +132,16 @@ class _HabitCardState extends State<_HabitCard> {
                 horizontal: AppPaddings.xxsmallPaddingValue,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 12,
-                  ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: CheckboxListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text(
                         _title,
-                        style: context.textTheme.labelLarge?.copyWith(
+                        style: context.textTheme.titleMedium?.copyWith(
                           color: Colors.white,
                         ),
                       ),
