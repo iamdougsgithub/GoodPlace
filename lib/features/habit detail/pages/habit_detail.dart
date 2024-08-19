@@ -7,6 +7,7 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/calendar.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../user_data/habit_provider.dart';
@@ -64,8 +65,15 @@ class _HabitDetailState extends State<HabitDetail> {
                 /// Streak Count
                 _streakCount(habitProvider.habits[habitIndex], context),
 
-                ///
-                // _streakCount(habitModel, context),
+                Lottie.network(
+                  "https://lottie.host/c20a5992-ee14-4fa8-bd0f-9671d941028d/sX9uTBccmh.json",
+                  animate: true,
+                  repeat: true,
+                  fit: BoxFit.contain,
+                ),
+                // LottieBuilder.network(
+                //   "https://lottie.host/c20a5992-ee14-4fa8-bd0f-9671d941028d/sX9uTBccmh.json",
+                // ),
               ],
             ),
           ),

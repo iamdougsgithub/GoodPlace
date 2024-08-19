@@ -22,7 +22,8 @@ class HabitTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HabitModel habitModel = Provider.of<HabitProvider>(context).habits[index];
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    HabitModel habitModel = habitProvider.habits[index];
     return GestureDetector(
       onTap: () => context.navigator.pushNamed(
         HabitDetail.routeName,
@@ -32,7 +33,7 @@ class HabitTile extends StatelessWidget {
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
           key: ValueKey(habitModel.id),
-          startActionPane: checkButton(habitModel),
+          startActionPane: checkButton(habitModel, habitProvider),
           endActionPane: deleteButton(habitModel),
           child: Container(
             decoration: BoxDecoration(
@@ -87,12 +88,16 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane checkButton(HabitModel habitModel) {
+  ActionPane checkButton(HabitModel habitModel, HabitProvider habitProvider) {
     return ActionPane(
       motion: Container(
         color: AppColors.succDark,
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            if (!habitModel.done) {
+              habitProvider.updateHabit(habitModel.id ?? "");
+            }
+          },
           icon: AppAssets.checkIcon,
         ),
       ),

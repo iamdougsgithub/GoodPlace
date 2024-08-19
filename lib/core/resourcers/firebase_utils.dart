@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class FirebaseUtils {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
+  // final FirebaseStorage storage = FirebaseStorage.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   User? get currentUser => firebaseAuth.currentUser;
