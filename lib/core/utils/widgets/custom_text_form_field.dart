@@ -38,6 +38,7 @@ abstract class _CustomFormField extends TextFormField {
       (_) => StatefulBuilder(builder: (context, setState) {
             return TextFormField(
               decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
                 label: Text(label),
                 hintText: hintText,
                 icon: icon,

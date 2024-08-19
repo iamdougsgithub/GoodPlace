@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+// ignore: unused_import
 import 'package:good_place/logger.dart';
 import 'package:intl/intl.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -40,7 +41,6 @@ class HabitTile extends StatelessWidget {
                 horizontal: AppPaddings.smallPaddingValue,
               ),
               title: LayoutBuilder(builder: (context, c) {
-                // logger.i(c.maxWidth);
                 return FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Row(

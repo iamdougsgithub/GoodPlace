@@ -12,6 +12,11 @@ class AppTheme {
     textButtonTheme: _textButtonTheme(),
     checkboxTheme: _checkBoxTheme(),
     cardTheme: _cardTheme(),
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Colors.white,
+    ),
   );
 
   static CardTheme _cardTheme() {
