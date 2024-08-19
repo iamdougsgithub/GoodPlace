@@ -159,16 +159,7 @@ class _HabitCardState extends State<_HabitCard> {
                           setState(() {
                             _isDone = !_isDone;
                           });
-
-                          /// TODO: Burayı sonra yap.
-                          // HabitProvider.instance.updateHabit(
-                          //   widget.habitModel.id ?? "",
-                          //   {
-                          //     "completionDates": FieldValue.arrayUnion([
-                          //       DateTime.now(),
-                          //     ]),
-                          //   },
-                          // );
+                          habitProvider.updateHabit(habitModel.id ?? "");
                         },
                       ),
                     ),

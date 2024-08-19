@@ -56,7 +56,7 @@ class HabitModel {
               ?.map((timestamp) => (timestamp as Timestamp).toDate())
               .toList() ??
           [],
-      longestStreak: data["longestStreak"],
+      longestStreak: data["longestStreak"] ?? 0,
     );
   }
   Map<String, dynamic> toMap() {
