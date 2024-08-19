@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 // ignore: unused_import
 import 'package:good_place/logger.dart';
@@ -20,41 +21,47 @@ class HabitTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: AppBorderRadius.smallBorderRadius,
-      child: Slidable(
-        startActionPane: checkButton(),
-        endActionPane: deleteButton(),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: habitModel.imageUrl != null &&
-                      habitModel.imageUrl?.isEmpty == false
-                  ? NetworkImage(habitModel.imageUrl ?? "")
-                  : AssetImage(AppAssets.authTopBackgroundImage),
-            ),
-          ),
-          child: CardBackgroundImageFilter(
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: AppPaddings.mediumPaddingValue,
-                horizontal: AppPaddings.smallPaddingValue,
+    return GestureDetector(
+      onTap: () => context.navigator.pushNamed(
+        HabitDetail.routeName,
+        arguments: habitModel,
+      ),
+      child: ClipRRect(
+        borderRadius: AppBorderRadius.smallBorderRadius,
+        child: Slidable(
+          startActionPane: checkButton(),
+          endActionPane: deleteButton(),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: habitModel.imageUrl != null &&
+                        habitModel.imageUrl?.isEmpty == false
+                    ? NetworkImage(habitModel.imageUrl ?? "")
+                    : AssetImage(AppAssets.authTopBackgroundImage),
               ),
-              title: LayoutBuilder(builder: (context, c) {
-                return FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      contentColumn(context),
-                      Gap(c.maxWidth / 2),
-                      streakColumn(context),
-                    ],
-                  ),
-                );
-              }),
+            ),
+            child: CardBackgroundImageFilter(
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: AppPaddings.mediumPaddingValue,
+                  horizontal: AppPaddings.smallPaddingValue,
+                ),
+                title: LayoutBuilder(builder: (context, c) {
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        contentColumn(context),
+                        Gap(c.maxWidth / 2),
+                        streakColumn(context),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ),
           ),
         ),
