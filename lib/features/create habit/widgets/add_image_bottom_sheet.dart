@@ -136,6 +136,15 @@ class _SearchResults extends StatelessWidget {
               child: Image.network(
                 url,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress?.cumulativeBytesLoaded ==
+                      loadingProgress?.expectedTotalBytes) {
+                    return child;
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
             ),
           );

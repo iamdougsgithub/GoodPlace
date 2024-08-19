@@ -69,14 +69,11 @@ class _HabitDetailState extends State<HabitDetail> {
                 /// Streak Count
                 _streakCount(habitProvider.habits[habitIndex], context),
 
-                Lottie.network(
-                  "https://lottie.host/c20a5992-ee14-4fa8-bd0f-9671d941028d/sX9uTBccmh.json",
-                  animate: true,
-                  repeat: true,
-                  fit: BoxFit.contain,
-                ),
-                // LottieBuilder.network(
+                // Lottie.network(
                 //   "https://lottie.host/c20a5992-ee14-4fa8-bd0f-9671d941028d/sX9uTBccmh.json",
+                //   animate: true,
+                //   repeat: true,
+                //   fit: BoxFit.contain,
                 // ),
               ],
             ),
