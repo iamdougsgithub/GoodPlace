@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
 // ignore: unused_import
 import 'package:good_place/logger.dart';
 import 'package:intl/intl.dart';
@@ -66,7 +67,8 @@ class HabitTile extends StatelessWidget {
       motion: Container(
         color: AppColors.errDark,
         child: IconButton(
-          onPressed: () {},
+          onPressed: () =>
+              HabitProvider.instance.deleteHabit(habitModel.id ?? ""),
           icon: AppAssets.removeIcon,
         ),
       ),
