@@ -23,17 +23,18 @@ mixin SignInPageMixin on State<SignInPage> {
   final TextEditingController passwordController = TextEditingController();
 
   onLoginTapped() async {
-    await AuthService()
-        .signInWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text)
-        .then(
-          (_) => Navigator.of(context).popUntil((route) => route.isFirst),
-        );
+    await AuthService().signInWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text);
+    // .then(
+    //   (_) => Navigator.of(context).popUntil(
+    //     (route) => route.isFirst,
+    //   ),
+    // );
     /* .then((_) async {
       Navigator.of(context).popUntil((route) => route.isFirst);
     });*/
   }
 
   void onSignUpTapped(BuildContext context) =>
-      context.navigator.pushReplacementNamed(SignUpPage.routeName);
+      context.navigator.pushNamed(SignUpPage.routeName);
 }
