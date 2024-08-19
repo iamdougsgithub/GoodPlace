@@ -140,6 +140,15 @@ class HabitTestWidget extends StatelessWidget {
               },
               child: Text('Delete Habit'),
             ),
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationsPage()));
+              },
+            ),
 
             //   =>>>  Provider ile güncellenen listeyi ekrana ver
             Expanded(
@@ -159,5 +168,47 @@ class HabitTestWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class NotificationsPage extends StatefulWidget {
+  const NotificationsPage({super.key});
+
+  @override
+  State<NotificationsPage> createState() => _NotificationsPageState();
+}
+
+class _NotificationsPageState extends State<NotificationsPage> {
+  @override
+  Widget build(BuildContext context) {
+    // logger.i(FirebaseAuth.instance
+    //     .signInWithEmailAndPassword(email: "s@gmail.com", password: "123456"));
+    final habitProvider = Provider.of<HabitProvider>(context);
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Habit Tracker Test'),
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                //   =>>>  Provider ile güncellenen listeyi ekrana ver
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: habitProvider.habits.length,
+                    itemBuilder: (context, index) {
+                      final habit = habitProvider.habits[index];
+                      return ListTile(
+                        title: Text(habit.title),
+                        subtitle: Text(
+                            'Streak: ${habit.streakCount},  Done: ${habit.done},  Completed on: ${habit.completionDates.join(', ')}, id: ${habit.id}, purpose: ${habit.purpose},createDate: ${habit.createDate},imageUrl: ${habit.imageUrl}'),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )));
   }
 }

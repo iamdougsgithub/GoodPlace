@@ -85,9 +85,12 @@ class _IDrawerState extends State<IDrawer> {
 
       /// Log out button
       trailing: IconButton(
-        onPressed: () async => await AuthService().signOut().then(
-              (_) => Navigator.of(context).popUntil((route) => route.isFirst),
-            ),
+        onPressed: () async => await AuthService()
+            .signOut()
+            .then((_) => context.navigator.pushReplacementNamed("/")
+
+                //Navigator.of(context).popUntil((route) => route.isFirst),
+                ),
         icon: AppAssets.logOutIcon,
       ),
     );

@@ -3,7 +3,6 @@ import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/logger.dart';
-
 import 'google_sign_in.dart';
 
 class AuthService extends FirebaseUtils {
@@ -16,12 +15,10 @@ class AuthService extends FirebaseUtils {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-
       await firebaseAuth.currentUser?.updateDisplayName(name);
-
       // TODo: add user - kullanıcı kayıt olduğunda buradan add yapabiliriz.
-
-      //  UserDatabaseService().addUser();
+      // UserDatabaseService().addUser();
+      // Cloud'a ekleme işlemini onboaring tamamlanınca gerçekleştirilmiştir.
     } on FirebaseAuthException catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {

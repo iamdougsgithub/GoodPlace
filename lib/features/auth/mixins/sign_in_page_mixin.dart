@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-
 import '../firebase/authService.dart';
 import '../pages/sign_in_page.dart';
 import '../pages/sign_up.dart';
@@ -30,6 +29,9 @@ mixin SignInPageMixin on State<SignInPage> {
         .then(
           (_) => Navigator.of(context).popUntil((route) => route.isFirst),
         );
+    /* .then((_) async {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });*/
   }
 
   void onSignUpTapped(BuildContext context) =>

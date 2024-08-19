@@ -6,11 +6,8 @@ class UserDatabaseService {
   final CollectionReference _usersCollection =
       FirebaseFirestore.instance.collection('users');
 
-//eğer ileride birden çok kullanıcı etkileşime geçerse currentUserUid kullanma şekli değişmesi gerekebilir.
   String currentUserUid = AuthService().currentUser!.uid;
-  //"9PKxVR1p5yRoPvstVzyvXXwQI3q2"; //
-
-  late bool onboardingCompleted;
+  //"9PKxVR1p5yRoPvstVzyvXXwQI3q2";
 
   CollectionReference getHabitsCollection() {
     return _usersCollection.doc(currentUserUid).collection('habits');
@@ -20,7 +17,7 @@ class UserDatabaseService {
     try {
       await _usersCollection
           .doc(currentUserUid)
-          .set({"onboardingCompleted": false});
+          .set({"onboardingCompleted": true});
 
       print("Profile added successfully");
     } catch (e) {
@@ -28,18 +25,20 @@ class UserDatabaseService {
     }
   }
 
-  Future<List<HabitModel>> getUserDetails() async {
+  Future<bool> getUserDetails() async {
     if (AuthService().currentUser != null) {
       DocumentSnapshot userDoc =
           await _usersCollection.doc(currentUserUid).get();
 
-      onboardingCompleted = userDoc['onboardingCompleted'];
-
-      List<HabitModel> habits = await getUserHabits();
-
-      return habits;
+      if (userDoc.exists) {
+        // Kullanıcı cloud da var
+        return userDoc['onboardingCompleted'] ?? false;
+      } else {
+        // Kullanıcı yok
+        return false;
+      }
     }
-    return [];
+    return false;
   }
 
 // Şuan için onBoarding güncellemesi için kullanıldı
@@ -49,25 +48,31 @@ class UserDatabaseService {
       print('Field updated successfully.');
       return true;
     } catch (e) {
-      print('Error updating field: $e');
+      print('Error updateUserField: $e');
       return false;
     }
   }
 
   Future<List<HabitModel>> getUserHabits() async {
-    QuerySnapshot habitSnapshot = await _usersCollection
-        .doc(currentUserUid)
-        .collection('habits')
-        .orderBy('streakCount', descending: true)
-        .get();
+    try {
+      QuerySnapshot habitSnapshot = await _usersCollection
+          .doc(currentUserUid)
+          .collection('habits')
+          .orderBy('streakCount', descending: true)
+          .get();
 
-    if (habitSnapshot.docs.isEmpty) {
+      if (habitSnapshot.docs.isEmpty) {
+        return [];
+      }
+
+      return habitSnapshot.docs
+          .map((doc) => HabitModel.fromSnapshot(doc))
+          .toList();
+    } on Exception catch (e) {
+      // TODO
+      print('Error getUserHabits: $e');
       return [];
     }
-
-    return habitSnapshot.docs
-        .map((doc) => HabitModel.fromSnapshot(doc))
-        .toList();
   }
 
 // Habit firebase işlemleri

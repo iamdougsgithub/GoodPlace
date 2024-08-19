@@ -3,7 +3,7 @@ import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/widgets/image_container.dart';
-import 'package:good_place/features/auth/pages/sign_in_page.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/onboarding/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +83,7 @@ class OnboardingPage extends StatelessWidget {
                               viewModel.onboardingContents.length - 1) {
                             viewModel.completeOnboarding();
                             context.navigator
-                                .pushReplacementNamed(SignInPage.routeName);
+                                .pushReplacementNamed(HomePage.routeName);
                           } else {
                             viewModel.nextPage();
                           }

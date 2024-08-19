@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:good_place/features/home/pages/home_page.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/utils/widgets/custom_buttons.dart';
@@ -12,7 +10,9 @@ class GoogleButton extends StatelessWidget {
 
   onPressed(BuildContext context) async {
     await AuthService().signInWithGoogle().then((_) {
-      context.navigator.pushReplacementNamed(HomePage.routeName);
+      // context.navigator.pushReplacementNamed(HomePage.routeName);
+      Navigator.of(context).popUntil(
+          (route) => route.isFirst); //ilk önce onboarding kontrolü yap.
     });
   }
 

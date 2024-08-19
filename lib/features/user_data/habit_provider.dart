@@ -15,17 +15,19 @@ class HabitProvider with ChangeNotifier {
 
   Future<void> getHabits() async {
     _habits = await _userService.getUserHabits();
-    if (_midnightTimer == null) {
+    if (_midnightTimer == null && _habits.isNotEmpty) {
       _startMidnightTimer();
     }
     notifyListeners();
   }
 
   Future<void> addHabit(HabitModel habit) async {
-    habit.id = await _userService
-        .addHabit(habit); // bu HabitModel örnek amaçlı koyuldu kaldırılacak.
+    habit.id = await _userService.addHabit(habit);
 
     if (habit.id!.isNotEmpty) {
+      if (_midnightTimer == null && _habits.isEmpty) {
+        _startMidnightTimer();
+      }
       _habits.add(habit);
       notifyListeners();
     } else {
@@ -89,4 +91,12 @@ class HabitProvider with ChangeNotifier {
     super.dispose();
     _midnightTimer?.cancel();
   }
+/*
+  Future<void> getUser() async {
+    _habits = await _userService.getUserDetails();
+    if (_midnightTimer == null && _habits.isNotEmpty) {
+      _startMidnightTimer();
+    }
+    notifyListeners();
+  }*/
 }
