@@ -63,7 +63,8 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
                         bottom: AppPaddings.smallPaddingValue,
                       ),
                       child: HabitTile(
-                        habitModel: provider.habits[index],
+                        // habitModel: provider.habits[index],
+                        index: index,
                       ),
                     );
                   },

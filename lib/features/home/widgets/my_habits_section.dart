@@ -55,7 +55,8 @@ class MyHabitsSection extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return _HabitCard(
-            habitModel: habitProvider.habits[index],
+            // habitModel: habitProvider.habits[index],
+            index: index,
           );
         });
   }
@@ -89,8 +90,9 @@ class MyHabitsSection extends StatelessWidget {
 }
 
 class _HabitCard extends StatefulWidget {
-  final HabitModel habitModel;
-  const _HabitCard({required this.habitModel});
+  // final HabitModel habitModel;
+  final int index;
+  const _HabitCard({required this.index});
 
   @override
   State<_HabitCard> createState() => _HabitCardState();
@@ -103,10 +105,6 @@ class _HabitCardState extends State<_HabitCard> {
 
   @override
   void initState() {
-    final HabitModel habitModel = widget.habitModel;
-    _isDone = habitModel.done;
-    _title = habitModel.title;
-    _imageUrl = habitModel.imageUrl;
     super.initState();
   }
 
@@ -114,10 +112,17 @@ class _HabitCardState extends State<_HabitCard> {
 
   @override
   Widget build(BuildContext context) {
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
+    final HabitModel habitModel = habitProvider.habits[widget.index];
+
+    _isDone = habitModel.done;
+    _title = habitModel.title;
+    _imageUrl = habitModel.imageUrl;
     return GestureDetector(
       onTap: () => context.navigator.pushNamed(
         HabitDetail.routeName,
-        arguments: widget.habitModel,
+        arguments: widget.index,
       ),
       child: AspectRatio(
         aspectRatio: 16 / 10,

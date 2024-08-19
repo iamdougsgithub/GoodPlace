@@ -7,6 +7,7 @@ import 'package:good_place/features/user_data/habit_provider.dart';
 // ignore: unused_import
 import 'package:good_place/logger.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
@@ -16,22 +17,23 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 
 class HabitTile extends StatelessWidget {
-  final HabitModel habitModel;
-  const HabitTile({super.key, required this.habitModel});
+  final int index;
+  const HabitTile({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    HabitModel habitModel = Provider.of<HabitProvider>(context).habits[index];
     return GestureDetector(
       onTap: () => context.navigator.pushNamed(
         HabitDetail.routeName,
-        arguments: habitModel,
+        arguments: index,
       ),
       child: ClipRRect(
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
           key: ValueKey(habitModel.id),
-          startActionPane: checkButton(),
-          endActionPane: deleteButton(),
+          startActionPane: checkButton(habitModel),
+          endActionPane: deleteButton(habitModel),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -55,9 +57,9 @@ class HabitTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        contentColumn(context),
+                        contentColumn(context, habitModel),
                         Gap(c.maxWidth / 2),
-                        streakColumn(context),
+                        streakColumn(context, habitModel),
                       ],
                     ),
                   );
@@ -70,7 +72,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane deleteButton() {
+  ActionPane deleteButton(HabitModel habitModel) {
     return ActionPane(
       motion: Container(
         color: AppColors.errDark,
@@ -85,7 +87,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane checkButton() {
+  ActionPane checkButton(HabitModel habitModel) {
     return ActionPane(
       motion: Container(
         color: AppColors.succDark,
@@ -99,7 +101,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  Column streakColumn(BuildContext context) {
+  Column streakColumn(BuildContext context, HabitModel habitModel) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -116,7 +118,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  Column contentColumn(BuildContext context) {
+  Column contentColumn(BuildContext context, HabitModel habitModel) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,

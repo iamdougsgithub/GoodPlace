@@ -7,6 +7,7 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/custom_text_form_field.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/image_card.dart';
 
@@ -132,7 +133,10 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
           )
           .whenComplete(
             () => context.navigator.pushReplacementNamed(HabitDetail.routeName,
-                arguments: habitModel),
+                arguments: Provider.of<HabitProvider>(context, listen: false)
+                        .habits
+                        .length -
+                    1),
           );
     }
   }

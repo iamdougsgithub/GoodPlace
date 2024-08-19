@@ -31,10 +31,17 @@ class _HabitDetailState extends State<HabitDetail> {
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
 
-    final HabitModel habitModel =
-        ModalRoute.of(context)?.settings.arguments as HabitModel;
+    final int habitIndex = ModalRoute.of(context)?.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        if (!habitProvider.habits[habitIndex].done) {
+          Provider.of<HabitProvider>(context, listen: false)
+              .updateHabit(habitProvider.habits[habitIndex].id ?? "");
+        } else {
+          null;
+        }
+      }),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
@@ -43,7 +50,7 @@ class _HabitDetailState extends State<HabitDetail> {
             width: double.infinity,
             child: Stack(
               children: [
-                _image(context, habitModel),
+                _image(context, habitProvider.habits[habitIndex]),
 
                 CardBackgroundImageFilter(
                   child: SizedBox(
@@ -52,18 +59,36 @@ class _HabitDetailState extends State<HabitDetail> {
                   ),
                 ),
 
-                _infoRow(habitModel, context),
+                _infoRow(habitProvider.habits[habitIndex], context),
 
                 /// Streak Count
-                _streakCount(habitModel, context),
+                _streakCount(habitProvider.habits[habitIndex], context),
 
                 ///
                 // _streakCount(habitModel, context),
               ],
             ),
           ),
-          const Expanded(
-            child: Calendar(),
+          Expanded(
+            child: Calendar(
+              eventLoader: (day) {
+                bool _isDone = false;
+
+                DateTime _day = DateTime(day.year, day.month, day.day);
+
+                HabitProvider.instance.habits[habitIndex].completionDates
+                    .forEach((_) {
+                  DateTime a = DateTime(_.year, _.month, _.day);
+                  if (a == _day) {
+                    _isDone = true;
+                  }
+                });
+                if (_isDone) {
+                  return [const Text("data")];
+                }
+                return [];
+              },
+            ),
           ),
         ],
       ),

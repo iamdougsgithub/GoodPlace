@@ -100,8 +100,9 @@ class UserDatabaseService {
         'completionDates': FieldValue.arrayUnion([now]),
         'title': '""""""Updated Habit Title""""":)))',
       };*/
-      updatedFields["completionDates"] =
-          FieldValue.arrayUnion([updatedFields["completionDates"]]);
+
+      // updatedFields["completionDates"] =
+      //     FieldValue.arrayUnion([updatedFields["completionDates"]]);
 
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');

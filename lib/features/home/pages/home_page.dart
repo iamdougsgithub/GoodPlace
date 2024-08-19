@@ -56,35 +56,38 @@ class _HomePageState extends State<HomePage> {
             context: context,
             selectedIndex: 0,
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: AppPaddings.homeScreenHorizontalPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // WelcomeText
-                  WelcomeText(),
+          body: RefreshIndicator(
+            onRefresh: () async => await HabitProvider.instance.getHabits(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: AppPaddings.homeScreenHorizontalPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // WelcomeText
+                    WelcomeText(),
 
-                  /// Calendar
-                  const Calendar(),
-                  gap,
+                    /// Calendar
+                    const Calendar(),
+                    gap,
 
-                  /// Motivation Card
-                  const MotivationCardWidget(),
-                  gap,
-                  // My Habit Section
-                  const MyHabitsSection(),
-                  gap,
+                    /// Motivation Card
+                    const MotivationCardWidget(),
+                    gap,
+                    // My Habit Section
+                    const MyHabitsSection(),
+                    gap,
 
-                  /// Streak Card
-                  const StreakCardWidget(),
-                  gap,
+                    /// Streak Card
+                    const StreakCardWidget(),
+                    gap,
 
-                  /// Grid
-                  const StatGridWidget(),
+                    /// Grid
+                    const StatGridWidget(),
 
-                  gap,
-                ],
+                    gap,
+                  ],
+                ),
               ),
             ),
           ),
