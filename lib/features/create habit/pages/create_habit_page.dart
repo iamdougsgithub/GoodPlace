@@ -138,8 +138,6 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
           int length =
               Provider.of<HabitProvider>(context, listen: false).habits.length;
 
-          logger.i(length);
-          // length == 0 ? length = length : length = length - 1;
           if (length > 0) {
             length--;
           }
