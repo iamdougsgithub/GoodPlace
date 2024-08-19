@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
 import '../../constants/app_paddings.dart';
 import '../../extensions/context_extension.dart';

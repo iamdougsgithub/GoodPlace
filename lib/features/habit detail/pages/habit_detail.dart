@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -60,11 +61,13 @@ class _HabitDetailState extends State<HabitDetail> {
   }
 
   Widget _image(BuildContext context, HabitModel habitModel) {
-    return Image.network(
-      habitModel.imageUrl ?? "",
-      fit: BoxFit.cover,
-      height: context.dynamicHeight(0.4),
-    );
+    return habitModel.imageUrl == null || habitModel.imageUrl!.isEmpty
+        ? Image.asset(AppAssets.authTopBackgroundImage)
+        : Image.network(
+            habitModel.imageUrl ?? "",
+            fit: BoxFit.cover,
+            height: context.dynamicHeight(0.4),
+          );
   }
 
   Widget _streakCount(HabitModel habitModel, BuildContext context) {

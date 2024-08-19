@@ -140,7 +140,7 @@ class _HabitCardState extends State<_HabitCard> {
                     /// Title
                     title: Text(
                       _title,
-                      style: context.textTheme.titleMedium?.copyWith(
+                      style: context.textTheme.labelLarge?.copyWith(
                         color: Colors.white,
                       ),
                     ),
