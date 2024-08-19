@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
 import '../../constants/app_paddings.dart';
 import '../../extensions/context_extension.dart';
@@ -45,15 +47,35 @@ class _CalendarState extends State<Calendar> {
 
               /// TODO : Burayı Provider'den al
               eventLoader: (day) {
+                // logger.d(day);
+                bool _isDone = false;
+
+                DateTime _day = DateTime(day.year, day.month, day.day);
                 List d = [
-                  DateTime(2024, 08, 13, 00, 00, 00, 00, 000).toString()
+                  DateTime(
+                    2024,
+                    08,
+                    19,
+                  ),
+                  DateTime(
+                    2024,
+                    08,
+                    17,
+                  ),
                 ];
-                // logger.i(d);
-                if (d.contains(day.toString())) {
-                  return [Text("data")];
+                // logger.i(HabitProvider.instance.habits[2].title);
+                HabitProvider.instance.habits[2].completionDates.forEach((_) {
+                  DateTime a = DateTime(_.year, _.month, _.day);
+                  if (a == _day) {
+                    _isDone = true;
+                  }
+                });
+                if (_isDone) {
+                  // logger.i("message");
+                  return [const Text("data")];
                 }
                 return [];
-              }, //widget.eventLoader,
+              },
 
               onDayLongPressed: (selectedDay, focusedDay) {},
 

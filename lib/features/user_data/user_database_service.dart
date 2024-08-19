@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
+import 'package:good_place/logger.dart';
 
 class UserDatabaseService {
   final CollectionReference _usersCollection =

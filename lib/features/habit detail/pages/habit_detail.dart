@@ -7,6 +7,9 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/calendar.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../user_data/habit_provider.dart';
 
 class HabitDetail extends StatefulWidget {
   static const routeName = "habit-detail";
@@ -20,7 +23,14 @@ class HabitDetail extends StatefulWidget {
 
 class _HabitDetailState extends State<HabitDetail> {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
     final HabitModel habitModel =
         ModalRoute.of(context)?.settings.arguments as HabitModel;
     return Scaffold(

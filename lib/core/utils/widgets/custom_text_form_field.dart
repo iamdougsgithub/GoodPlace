@@ -19,8 +19,11 @@ abstract class _CustomFormField extends TextFormField {
     this.constraints,
     this.buildCounter,
     this.maxLength,
+    this.textCapitalization = TextCapitalization.none,
   });
+
   final int? maxLength;
+  final TextCapitalization textCapitalization;
   final String label;
   final String? hintText;
   final Widget? icon;
@@ -34,6 +37,7 @@ abstract class _CustomFormField extends TextFormField {
   final InputCounterWidgetBuilder? buildCounter;
   @override
   AutovalidateMode get autovalidateMode => AutovalidateMode.onUserInteraction;
+
   bool validated = false;
   @override
   FormFieldBuilder<String> get builder =>
@@ -78,6 +82,7 @@ abstract class _CustomFormField extends TextFormField {
               keyboardType: keyboardType,
               validator: validator,
               textInputAction: textInputAction,
+              textCapitalization: textCapitalization,
               expands: expands,
               minLines: expands ? null : 1,
               maxLines: expands ? null : 1,
@@ -169,6 +174,7 @@ class NormalTextFormField extends _CustomFormField {
     super.validator,
     super.buildCounter,
     super.maxLength,
+    super.textCapitalization,
   });
 
   @override

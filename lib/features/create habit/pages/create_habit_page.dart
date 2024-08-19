@@ -51,9 +51,12 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                 urlController: imageUrlController,
               ),
               const Gap(AppPaddings.smallPaddingValue),
+
+              /// Habit Name
               NormalTextFormField(
                 label: "Habit Name",
                 controller: habitNameController,
+                textCapitalization: TextCapitalization.words,
                 maxLength: 25,
                 buildCounter: (context,
                     {required currentLength,
@@ -68,11 +71,14 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                 },
               ),
               const Gap(AppPaddings.smallPaddingValue),
+
+              /// Purpose text Field
               NormalTextFormField(
                 label: "My purpose",
                 controller: purposeController,
                 textInputAction: TextInputAction.done,
                 maxLength: 25,
+                textCapitalization: TextCapitalization.sentences,
                 buildCounter: (context,
                     {required currentLength,
                     required isFocused,
