@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/home/widgets/habit_list_builder.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
@@ -73,7 +74,7 @@ class MyHabitsSection extends StatelessWidget {
 
         /// See All button
         TextButton(
-          onPressed: () {},
+          onPressed: () => context.pushNamed(MyHabitsPage.routeName),
           style: TextButton.styleFrom(),
           child: Text(
             "See All",
@@ -133,33 +134,39 @@ class _HabitCardState extends State<_HabitCard> {
                 ),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: CheckboxListTile(
-                    value: _isDone,
-                    contentPadding: EdgeInsets.zero,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => SizedBox(
+                      height: constraints.maxHeight * .4,
+                      width: constraints.maxWidth,
+                      child: CheckboxListTile(
+                        value: _isDone,
+                        contentPadding: EdgeInsets.zero,
 
-                    /// Title
-                    title: Text(
-                      _title,
-                      style: context.textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
+                        /// Title
+                        title: Text(
+                          _title,
+                          style: context.textTheme.labelLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        onChanged: (_) {
+                          setState(() {
+                            _isDone = !_isDone;
+                          });
+
+                          /// TODO: Burayı sonra yap.
+                          // HabitProvider.instance.updateHabit(
+                          //   widget.habitModel.id ?? "",
+                          //   {
+                          //     "completionDates": FieldValue.arrayUnion([
+                          //       DateTime.now(),
+                          //     ]),
+                          //   },
+                          // );
+                        },
                       ),
                     ),
-
-                    onChanged: (_) {
-                      setState(() {
-                        _isDone = !_isDone;
-                      });
-
-                      /// TODO: Burayı sonra yap.
-                      // HabitProvider.instance.updateHabit(
-                      //   widget.habitModel.id ?? "",
-                      //   {
-                      //     "completionDates": FieldValue.arrayUnion([
-                      //       DateTime.now(),
-                      //     ]),
-                      //   },
-                      // );
-                    },
                   ),
                 )),
           ),

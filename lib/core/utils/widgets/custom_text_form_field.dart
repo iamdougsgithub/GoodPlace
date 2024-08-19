@@ -17,8 +17,10 @@ abstract class _CustomFormField extends TextFormField {
     this.helper,
     this.expands = false,
     this.constraints,
+    this.buildCounter,
+    this.maxLength,
   });
-
+  final int? maxLength;
   final String label;
   final String? hintText;
   final Widget? icon;
@@ -29,7 +31,7 @@ abstract class _CustomFormField extends TextFormField {
   final TextInputAction? textInputAction;
   final bool expands;
   final BoxConstraints? constraints;
-
+  final InputCounterWidgetBuilder? buildCounter;
   @override
   AutovalidateMode get autovalidateMode => AutovalidateMode.onUserInteraction;
   bool validated = false;
@@ -37,6 +39,7 @@ abstract class _CustomFormField extends TextFormField {
   FormFieldBuilder<String> get builder =>
       (_) => StatefulBuilder(builder: (context, setState) {
             return TextFormField(
+              buildCounter: buildCounter,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 label: Text(label),
@@ -78,6 +81,7 @@ abstract class _CustomFormField extends TextFormField {
               expands: expands,
               minLines: expands ? null : 1,
               maxLines: expands ? null : 1,
+              maxLength: maxLength,
               textAlignVertical: TextAlignVertical.top,
             );
           });
@@ -163,6 +167,8 @@ class NormalTextFormField extends _CustomFormField {
     super.keyboardType = TextInputType.emailAddress,
     super.textInputAction = TextInputAction.next,
     super.validator,
+    super.buildCounter,
+    super.maxLength,
   });
 
   @override

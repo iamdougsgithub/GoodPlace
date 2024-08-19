@@ -29,6 +29,7 @@ class HabitTile extends StatelessWidget {
       child: ClipRRect(
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
+          key: ValueKey(habitModel.id),
           startActionPane: checkButton(),
           endActionPane: deleteButton(),
           child: Container(

@@ -41,26 +41,52 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
       appBar: AppBar(
         title: const Text("Create Your Habit"),
       ),
-      body: Padding(
-        padding: AppPaddings.homeScreenHorizontalPadding,
-        child: Column(
-          children: [
-            /// Image Card
-            ImageCard(
-              urlController: imageUrlController,
-            ),
-            const Gap(AppPaddings.smallPaddingValue),
-            NormalTextFormField(
-              label: "Habit Name",
-              controller: habitNameController,
-            ),
-            const Gap(AppPaddings.smallPaddingValue),
-            NormalTextFormField(
-              label: "My purpose",
-              controller: purposeController,
-              textInputAction: TextInputAction.done,
-            ),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: AppPaddings.homeScreenHorizontalPadding,
+          child: Column(
+            children: [
+              /// Image Card
+              ImageCard(
+                urlController: imageUrlController,
+              ),
+              const Gap(AppPaddings.smallPaddingValue),
+              NormalTextFormField(
+                label: "Habit Name",
+                controller: habitNameController,
+                maxLength: 25,
+                buildCounter: (context,
+                    {required currentLength,
+                    required isFocused,
+                    required maxLength}) {
+                  return Text(
+                    "$currentLength / $maxLength",
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: Colors.white,
+                    ),
+                  );
+                },
+              ),
+              const Gap(AppPaddings.smallPaddingValue),
+              NormalTextFormField(
+                label: "My purpose",
+                controller: purposeController,
+                textInputAction: TextInputAction.done,
+                maxLength: 25,
+                buildCounter: (context,
+                    {required currentLength,
+                    required isFocused,
+                    required maxLength}) {
+                  return Text(
+                    "$currentLength / $maxLength",
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: Colors.white,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

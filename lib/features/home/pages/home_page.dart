@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/calendar.dart';
 import '../widgets/my_habits_section.dart';
-import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/i_drawer.dart';
 import '../widgets/motivation_card_widget.dart';
@@ -48,44 +45,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: homePageThemeOverride(context),
-      child: Scaffold(
-        floatingActionButton: const AddHabitButton(),
-        appBar: appBar(),
-        drawer: IDrawer(
-          context: context,
-          selectedIndex: 0,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: AppPaddings.homeScreenHorizontalPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // WelcomeText
-                WelcomeText(),
+    return PopScope(
+      canPop: false,
+      child: Theme(
+        data: homePageThemeOverride(context),
+        child: Scaffold(
+          floatingActionButton: const AddHabitButton(),
+          appBar: appBar(),
+          drawer: IDrawer(
+            context: context,
+            selectedIndex: 0,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: AppPaddings.homeScreenHorizontalPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // WelcomeText
+                  WelcomeText(),
 
-                /// Calendar
-                const Calendar(),
-                gap,
+                  /// Calendar
+                  const Calendar(),
+                  gap,
 
-                /// Motivation Card
-                const MotivationCardWidget(),
-                gap,
-                // My Habit Section
-                const MyHabitsSection(),
-                gap,
+                  /// Motivation Card
+                  const MotivationCardWidget(),
+                  gap,
+                  // My Habit Section
+                  const MyHabitsSection(),
+                  gap,
 
-                /// Streak Card
-                const StreakCardWidget(),
-                gap,
+                  /// Streak Card
+                  const StreakCardWidget(),
+                  gap,
 
-                /// Grid
-                const StatGridWidget(),
+                  /// Grid
+                  const StatGridWidget(),
 
-                gap,
-              ],
+                  gap,
+                ],
+              ),
             ),
           ),
         ),
