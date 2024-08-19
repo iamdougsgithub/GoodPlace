@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
 import '../../constants/app_paddings.dart';
 import '../../extensions/context_extension.dart';
@@ -45,16 +44,7 @@ class _CalendarState extends State<Calendar> {
               lastDay: DateTime(2050),
 
               /// TODO : Burayı Provider'den al
-              eventLoader: (day) {
-                List d = [
-                  DateTime(2024, 08, 13, 00, 00, 00, 00, 000).toString()
-                ];
-                // logger.i(d);
-                if (d.contains(day.toString())) {
-                  return [Text("data")];
-                }
-                return [];
-              }, //widget.eventLoader,
+              eventLoader: widget.eventLoader,
 
               onDayLongPressed: (selectedDay, focusedDay) {},
 

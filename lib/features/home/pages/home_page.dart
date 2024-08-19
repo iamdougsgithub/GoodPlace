@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get_it/get_it.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/utils/widgets/add_habit_button.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/calendar.dart';
 import '../widgets/my_habits_section.dart';
-import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/i_drawer.dart';
 import '../widgets/motivation_card_widget.dart';
@@ -24,46 +27,68 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
+  // late HabitProvider habitProvider;
+  late GetIt sl;
+  @override
+  void initState() {
+    Future.microtask(() => HabitProvider.instance.getHabits());
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    HabitProvider.instance = Provider.of<HabitProvider>(context);
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: homePageThemeOverride(context),
-      child: Scaffold(
-        floatingActionButton: fab(),
-        appBar: appBar(),
-        drawer: IDrawer(
-          context: context,
-          selectedIndex: 0,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: AppPaddings.homeScreenHorizontalPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // WelcomeText
-                WelcomeText(),
+    return PopScope(
+      canPop: false,
+      child: Theme(
+        data: homePageThemeOverride(context),
+        child: Scaffold(
+          floatingActionButton: const AddHabitButton(),
+          appBar: appBar(),
+          drawer: IDrawer(
+            context: context,
+            selectedIndex: 0,
+          ),
+          body: RefreshIndicator(
+            onRefresh: () async => await HabitProvider.instance.getHabits(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: AppPaddings.homeScreenHorizontalPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // WelcomeText
+                    WelcomeText(),
 
-                /// Calendar
-                Calendar(),
-                gap,
+                    /// Calendar
+                    const Calendar(),
+                    gap,
 
-                /// Motivation Card
-                MotivationCardWidget(),
-                gap,
-                // My Habit Section
-                MyHabitsSection(),
-                gap,
+                    /// Motivation Card
+                    const MotivationCardWidget(),
+                    gap,
+                    // My Habit Section
+                    const MyHabitsSection(),
+                    gap,
 
-                /// Streak Card
-                StreakCardWidget(),
-                gap,
+                    /// Streak Card
+                    const StreakCardWidget(),
+                    gap,
 
-                /// Grid
-                StatGridWidget(),
+                    /// Grid
+                    const StatGridWidget(),
 
-                gap,
-              ],
+                    gap,
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -78,14 +103,6 @@ class _HomePageState extends State<HomePage> {
         color: Colors.transparent,
         foregroundColor: Colors.white,
       ),
-    );
-  }
-
-  FloatingActionButton fab() {
-    return FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: AppColors.primaryButtonColor,
-      child: AppAssets.fabAddIcon,
     );
   }
 

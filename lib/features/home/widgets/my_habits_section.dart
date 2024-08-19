@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
+import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
+import 'package:good_place/features/home/widgets/habit_list_builder.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
-import 'package:good_place/logger.dart';
 
 class MyHabitsSection extends StatelessWidget {
   const MyHabitsSection({super.key});
@@ -14,18 +21,44 @@ class MyHabitsSection extends StatelessWidget {
       children: [
         /// Title Row
         titleRow(context),
-        SizedBox(
-          height: context.dynamicHeight(0.15),
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return _HabitCard();
-              }),
+        Consumer<HabitProvider>(
+          builder: (context, habitProvider, child) {
+            return SizedBox(
+              height: context.dynamicHeight(0.15),
+              child: habitProvider.habits.isEmpty
+                  ? _noHabitsCard(context)
+                  : _habitList(habitProvider),
+            );
+          },
         ),
       ],
     );
+  }
+
+  Card _noHabitsCard(BuildContext context) {
+    return Card(
+      child: Center(
+        child: Text(
+          "You don't have any habits . Add now.",
+          style: context.textTheme.labelLarge,
+        ),
+      ),
+    );
+  }
+
+  Widget _habitList(
+    HabitProvider habitProvider,
+  ) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: habitProvider.habits.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return _HabitCard(
+            // habitModel: habitProvider.habits[index],
+            index: index,
+          );
+        });
   }
 
   Row titleRow(BuildContext context) {
@@ -42,7 +75,7 @@ class MyHabitsSection extends StatelessWidget {
 
         /// See All button
         TextButton(
-          onPressed: () {},
+          onPressed: () => context.pushNamed(MyHabitsPage.routeName),
           style: TextButton.styleFrom(),
           child: Text(
             "See All",
@@ -56,62 +89,107 @@ class MyHabitsSection extends StatelessWidget {
   }
 }
 
-class _HabitCard extends StatelessWidget {
-  const _HabitCard({super.key});
+class _HabitCard extends StatefulWidget {
+  // final HabitModel habitModel;
+  final int index;
+  const _HabitCard({required this.index});
 
-  /// TODO : [habitName] ve [habitImageUrl] Firestore'dan al
-  final String habitName = "Habit Name";
-  final String habitImageUrl =
-      "https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  @override
+  State<_HabitCard> createState() => _HabitCardState();
+}
+
+class _HabitCardState extends State<_HabitCard> {
+  late bool _isDone;
+  late String _title;
+  late String? _imageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool get _imageExist => _imageUrl != null && _imageUrl!.isEmpty == false;
+
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 10,
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        margin: const EdgeInsets.symmetric(
-          horizontal: AppPaddings.xxsmallPaddingValue,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: AppBorderRadius.smallBorderRadius,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              habitImageUrl,
-            ),
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
+    final HabitModel habitModel = habitProvider.habits[widget.index];
+
+    _isDone = habitModel.done;
+    _title = habitModel.title;
+    _imageUrl = habitModel.imageUrl;
+    return GestureDetector(
+      onTap: () => context.navigator.pushNamed(
+        HabitDetail.routeName,
+        arguments: widget.index,
+      ),
+      child: AspectRatio(
+        aspectRatio: 16 / 10,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          margin: const EdgeInsets.symmetric(
+            horizontal: AppPaddings.xxsmallPaddingValue,
           ),
-        ),
-        child: CardBackgroundImageFilter(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppPaddings.xxsmallPaddingValue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CircleAvatar(
-                    radius: 12,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: CheckboxListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        habitName,
-                        style: context.textTheme.labelLarge?.copyWith(
-                          color: Colors.white,
+          decoration: _boxDecoration(),
+          child: CardBackgroundImageFilter(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPaddings.xxsmallPaddingValue,
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => SizedBox(
+                      height: constraints.maxHeight * .4,
+                      width: constraints.maxWidth,
+                      child: CheckboxListTile(
+                        value: _isDone,
+                        contentPadding: EdgeInsets.zero,
+
+                        /// Title
+                        title: Text(
+                          _title,
+                          style: context.textTheme.labelLarge?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
+
+                        onChanged: (_) {
+                          setState(() {
+                            _isDone = !_isDone;
+                          });
+
+                          /// TODO: Burayı sonra yap.
+                          // HabitProvider.instance.updateHabit(
+                          //   widget.habitModel.id ?? "",
+                          //   {
+                          //     "completionDates": FieldValue.arrayUnion([
+                          //       DateTime.now(),
+                          //     ]),
+                          //   },
+                          // );
+                        },
                       ),
-                      value: false,
-                      onChanged: (_) {
-                        logger.i("Check");
-                      },
                     ),
                   ),
-                ],
-              )),
+                )),
+          ),
         ),
+      ),
+    );
+  }
+
+  BoxDecoration _boxDecoration() {
+    return BoxDecoration(
+      borderRadius: AppBorderRadius.smallBorderRadius,
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: _imageExist
+            ? NetworkImage(
+                _imageUrl ?? "",
+              )
+            : AssetImage(AppAssets.authTopBackgroundImage),
       ),
     );
   }

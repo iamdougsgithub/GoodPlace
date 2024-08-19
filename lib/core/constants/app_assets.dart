@@ -25,6 +25,7 @@ class AppAssets {
     Icons.check,
     color: Color(0xffD4EE81),
   );
+  static Widget addImageIcon = const Icon(Icons.image);
   static Widget textFieldCheckIcon = Icon(
     Icons.check,
     color: AppColors.succDark,

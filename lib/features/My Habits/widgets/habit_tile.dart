@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+// ignore: unused_import
+import 'package:good_place/logger.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
@@ -10,45 +17,53 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 
 class HabitTile extends StatelessWidget {
-  const HabitTile({super.key});
-  final String streakCount = "5";
-  final String habitName = "Drink Water";
-  final String habitPurpose = "Lorem ipsum dolor sit amet consectetur.";
-  final String habitCreatedDate = "14.08.24";
+  final int index;
+  const HabitTile({super.key, required this.index});
 
-  final String imgUrl =
-      "https://plus.unsplash.com/premium_photo-1665990294432-c4baf9088c50?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: AppBorderRadius.smallBorderRadius,
-      child: Slidable(
-        startActionPane: checkButton(),
-        endActionPane: deleteButton(),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(imgUrl),
-            ),
-          ),
-          child: CardBackgroundImageFilter(
-            child: ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: AppPaddings.mediumPaddingValue,
-                horizontal: AppPaddings.smallPaddingValue,
+    HabitModel habitModel = Provider.of<HabitProvider>(context).habits[index];
+    return GestureDetector(
+      onTap: () => context.navigator.pushNamed(
+        HabitDetail.routeName,
+        arguments: index,
+      ),
+      child: ClipRRect(
+        borderRadius: AppBorderRadius.smallBorderRadius,
+        child: Slidable(
+          key: ValueKey(habitModel.id),
+          startActionPane: checkButton(habitModel),
+          endActionPane: deleteButton(habitModel),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: habitModel.imageUrl != null &&
+                        habitModel.imageUrl?.isEmpty == false
+                    ? NetworkImage(habitModel.imageUrl ?? "")
+                    : AssetImage(AppAssets.authTopBackgroundImage),
               ),
-              title: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    contentColumn(context),
-                    const Gap(AppPaddings.largePaddingValue),
-                    streakColumn(context),
-                  ],
+            ),
+            child: CardBackgroundImageFilter(
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: AppPaddings.mediumPaddingValue,
+                  horizontal: AppPaddings.smallPaddingValue,
                 ),
+                title: LayoutBuilder(builder: (context, c) {
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        contentColumn(context, habitModel),
+                        Gap(c.maxWidth / 2),
+                        streakColumn(context, habitModel),
+                      ],
+                    ),
+                  );
+                }),
               ),
             ),
           ),
@@ -57,12 +72,13 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane deleteButton() {
+  ActionPane deleteButton(HabitModel habitModel) {
     return ActionPane(
       motion: Container(
         color: AppColors.errDark,
         child: IconButton(
-          onPressed: () {},
+          onPressed: () =>
+              HabitProvider.instance.deleteHabit(habitModel.id ?? ""),
           icon: AppAssets.removeIcon,
         ),
       ),
@@ -71,7 +87,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane checkButton() {
+  ActionPane checkButton(HabitModel habitModel) {
     return ActionPane(
       motion: Container(
         color: AppColors.succDark,
@@ -85,11 +101,12 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  Column streakColumn(BuildContext context) {
+  Column streakColumn(BuildContext context, HabitModel habitModel) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          streakCount,
+          habitModel.streakCount.toString(),
           style: context.textTheme.headlineLarge,
         ),
         const Gap(AppPaddings.smallPaddingValue),
@@ -101,21 +118,22 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  Column contentColumn(BuildContext context) {
+  Column contentColumn(BuildContext context, HabitModel habitModel) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          habitName,
+          habitModel.title,
           style: context.textTheme.titleMedium,
         ),
         Text(
-          habitPurpose,
+          habitModel.purpose ?? "",
           style: context.textTheme.labelMedium,
         ),
         Gap(AppPaddings.smallPaddingValue),
         Text(
-          habitCreatedDate,
+          DateFormat.yMMMEd().format(habitModel.createDate),
           style: context.textTheme.labelSmall,
         ),
       ],

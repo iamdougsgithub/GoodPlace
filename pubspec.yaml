@@ -31,30 +31,41 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # flutter_advanced_calendar:
-  #   path: lib/packages/flutter_advanced_calendar/
+ 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  gap: ^3.0.1
   google_fonts: ^6.2.1
-  provider: ^6.1.2
-  shared_preferences: ^2.3.1
+
+  ### UI
+  gap: ^3.0.1
   carousel_slider: ^5.0.0
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
-  dio: ^5.5.0+1
-  google_sign_in: ^6.2.1
-  logger: ^2.4.0
-  email_validator: ^3.0.0
   toastification: ^2.1.0
-  # flutter_advanced_calendar: ^1.4.1
   skeletonizer: ^1.4.2
-  intl: ^0.19.0
   table_calendar: ^3.1.2
   flutter_slidable: ^3.1.1
+  ##########################
+  
+  intl: ^0.19.0
+  shared_preferences: ^2.3.1
+  dio: ^5.5.0+1
+  email_validator: ^3.0.0
+
+  ### For debugging 
+  logger: ^2.4.0
+  ##########################
+  ### State management
+  provider: ^6.1.2
+  ##########################
+  ### Firebase 
   cloud_firestore: ^4.14.0
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  google_sign_in: ^6.2.1
+  get_it: ^7.7.0
   firebase_storage: ^11.6.0
+  ##########################
+
   
 
 

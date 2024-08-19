@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
+import 'package:good_place/logger.dart';
 
 class UserDatabaseService {
   final CollectionReference _usersCollection =
@@ -104,8 +105,9 @@ class UserDatabaseService {
         'completionDates': FieldValue.arrayUnion([now]),
         'title': '""""""Updated Habit Title""""":)))',
       };*/
-      updatedFields["completionDates"] =
-          FieldValue.arrayUnion([updatedFields["completionDates"]]);
+
+      // updatedFields["completionDates"] =
+      //     FieldValue.arrayUnion([updatedFields["completionDates"]]);
 
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');

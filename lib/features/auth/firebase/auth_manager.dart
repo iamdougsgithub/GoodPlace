@@ -17,7 +17,6 @@ class AuthManager extends StatelessWidget {
     return StreamBuilder(
         stream: AuthService().authStateChanges,
         builder: (context, snapshot) {
-          logger.d(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {

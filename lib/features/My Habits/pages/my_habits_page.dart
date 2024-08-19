@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/add_habit_button.dart';
 import '../../home/widgets/i_drawer.dart';
 
 import '../../../config/theme.dart';
@@ -22,46 +27,53 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: myHabitsThemeOverride(context),
-      child: Builder(builder: (context) {
-        return Scaffold(
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          drawer: IDrawer(
-            context: context,
-            selectedIndex: 1,
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: AppColors.primaryButtonColor,
-            foregroundColor: AppColors.secondaryButtonColor,
-            child: AppAssets.fabAddIcon,
-          ),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(pageTitle),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: AppAssets.sortIcon,
-              )
-            ],
-          ),
-          body: Padding(
-            padding: AppPaddings.homeScreenHorizontalPadding,
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: AppPaddings.smallPaddingValue),
-                  child: HabitTile(),
-                );
-              },
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        context.pushReplacementNamed(HomePage.routeName);
+      },
+      child: Theme(
+        data: myHabitsThemeOverride(context),
+        child: Builder(builder: (context) {
+          return Scaffold(
+            backgroundColor: context.theme.scaffoldBackgroundColor,
+            drawer: IDrawer(
+              context: context,
+              selectedIndex: 1,
             ),
-          ),
-        );
-      }),
+            floatingActionButton: AddHabitButton(),
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(pageTitle),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: AppAssets.sortIcon,
+                )
+              ],
+            ),
+            body: Padding(
+              padding: AppPaddings.homeScreenHorizontalPadding,
+              child: Consumer<HabitProvider>(
+                builder: (context, provider, child) => ListView.builder(
+                  itemCount: provider.habits.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: AppPaddings.smallPaddingValue,
+                      ),
+                      child: HabitTile(
+                        // habitModel: provider.habits[index],
+                        index: index,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
     );
   }
 
