@@ -9,6 +9,7 @@ import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../config/theme.dart';
 import '../../user_data/habit_provider.dart';
 
 class HabitDetail extends StatefulWidget {
@@ -34,14 +35,17 @@ class _HabitDetailState extends State<HabitDetail> {
     final int habitIndex = ModalRoute.of(context)?.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        if (!habitProvider.habits[habitIndex].done) {
-          Provider.of<HabitProvider>(context, listen: false)
-              .updateHabit(habitProvider.habits[habitIndex].id ?? "");
-        } else {
-          null;
-        }
-      }),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.primaryButtonColor,
+          child: AppAssets.checkIcon,
+          onPressed: () {
+            if (!habitProvider.habits[habitIndex].done) {
+              Provider.of<HabitProvider>(context, listen: false)
+                  .updateHabit(habitProvider.habits[habitIndex].id ?? "");
+            } else {
+              null;
+            }
+          }),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
