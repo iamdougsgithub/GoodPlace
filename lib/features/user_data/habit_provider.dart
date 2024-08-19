@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
+import 'package:good_place/logger.dart';
 
 class HabitProvider with ChangeNotifier {
   HabitProvider();
@@ -47,12 +48,16 @@ class HabitProvider with ChangeNotifier {
     String habitId,
   ) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
-
     DateTime now = DateTime.now();
+    _habits[index].streakCount += 1;
+    if (_habits[index].streakCount > _habits[index].longestStreak) {
+      _habits[index].longestStreak = _habits[index].streakCount;
+    }
 
     Map<String, dynamic> updatedFields = {
       'completionDates': FieldValue.arrayUnion([now]),
-      'streakCount': _habits[index].streakCount++,
+      'streakCount': (_habits[index].streakCount),
+      'longestStreak': (_habits[index].longestStreak),
     };
 
     _userService.updateHabitFields(habitId, updatedFields);
@@ -60,6 +65,7 @@ class HabitProvider with ChangeNotifier {
     _habits[index].completionDates.add(now); // burası değişecek
     _habits[index].done = true; // burası değişecek
     _habits[index].streakCount = updatedFields["streakCount"];
+
     notifyListeners();
   }
 
