@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/custom_text_form_field.dart';
+import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 
 import '../widgets/image_card.dart';
@@ -84,16 +86,22 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
 
   void onAddTapped() {
     if (habitNameController.text.isNotEmpty) {
-      HabitProvider.instance.addHabit(
-        HabitModel(
-          title: habitNameController.text,
-          createDate: DateTime.now(),
-          streakCount: 0,
-          purpose: purposeController.text,
-          imageUrl: imageUrlController.text,
-          completionDates: [],
-        ),
+      HabitModel habitModel = HabitModel(
+        title: habitNameController.text,
+        createDate: DateTime.now(),
+        streakCount: 0,
+        purpose: purposeController.text,
+        imageUrl: imageUrlController.text,
+        completionDates: [],
       );
+      HabitProvider.instance
+          .addHabit(
+            habitModel,
+          )
+          .whenComplete(
+            () => context.navigator.pushReplacementNamed(HabitDetail.routeName,
+                arguments: habitModel),
+          );
     }
   }
 }
