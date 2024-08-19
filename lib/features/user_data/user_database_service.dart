@@ -1,25 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
+import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
+import 'package:good_place/logger.dart';
 
-class UserDatabaseService {
+class UserDatabaseService extends FirebaseUtils {
   final CollectionReference _usersCollection =
       FirebaseFirestore.instance.collection('users');
 
-  String currentUserUid = AuthService().currentUser!.uid;
-  //"9PKxVR1p5yRoPvstVzyvXXwQI3q2";
+  // String currentUserUid = AuthService().currentUser!.uid;
 
   CollectionReference getHabitsCollection() {
-    return _usersCollection.doc(currentUserUid).collection('habits');
+    return _usersCollection.doc(uid).collection('habits');
   }
 
   Future<void> addUser() async {
     try {
-      await _usersCollection
-          .doc(currentUserUid)
-          .set({"onboardingCompleted": true});
+      await _usersCollection.doc(uid).set({"onboardingCompleted": true});
 
       print("Profile added successfully");
     } on FirebaseException catch (firebaseErr) {
@@ -33,8 +32,7 @@ class UserDatabaseService {
 
   Future<bool> getUserDetails() async {
     if (AuthService().currentUser != null) {
-      DocumentSnapshot userDoc =
-          await _usersCollection.doc(currentUserUid).get();
+      DocumentSnapshot userDoc = await _usersCollection.doc(uid).get();
 
       if (userDoc.exists) {
         // Kullanıcı cloud da var
@@ -50,7 +48,7 @@ class UserDatabaseService {
 // Şuan için onBoarding güncellemesi için kullanıldı
   Future<bool> updateUserField(String fieldName, dynamic newValue) async {
     try {
-      await _usersCollection.doc(currentUserUid).update({fieldName: newValue});
+      await _usersCollection.doc(uid).update({fieldName: newValue});
       print('Field updated successfully.');
       return true;
     } on FirebaseException catch (firebaseErr) {
@@ -67,7 +65,7 @@ class UserDatabaseService {
   Future<List<HabitModel>> getUserHabits() async {
     try {
       QuerySnapshot habitSnapshot = await _usersCollection
-          .doc(currentUserUid)
+          .doc(uid)
           .collection('habits')
           .orderBy('streakCount', descending: true)
           .get();
@@ -90,7 +88,7 @@ class UserDatabaseService {
   Future<String> addHabit(HabitModel habitData) async {
     try {
       DocumentReference docRef = await _usersCollection
-          .doc(currentUserUid)
+          .doc(uid)
           .collection('habits')
           .add(habitData.toMap());
 
