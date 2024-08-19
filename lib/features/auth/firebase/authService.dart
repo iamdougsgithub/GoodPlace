@@ -36,6 +36,7 @@ class AuthService extends FirebaseUtils {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {
       print('Sign In Error: $e');
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/auth/pages/sign_in_page.dart';
 import '../mixins/sign_up_page_mixin.dart';
 import '../../../core/utils/mixins/form_validators_mixin.dart';
 import '../../../config/theme.dart';
