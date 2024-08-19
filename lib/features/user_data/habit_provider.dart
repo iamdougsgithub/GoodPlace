@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
-import 'package:good_place/logger.dart';
 
 class HabitProvider with ChangeNotifier {
   HabitProvider();
@@ -36,6 +36,7 @@ class HabitProvider with ChangeNotifier {
       _habits.add(habit);
       notifyListeners();
     } else {
+      Toast.errToast(title: "Something went wrong!", desc: "Please try again.");
       print("Ekelem yapılamadı bir hata oluştu.");
       print("Buraya bir uyarı-hata mesajı eklenebilir");
     }

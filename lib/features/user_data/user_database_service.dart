@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:good_place/logger.dart';
 
 class UserDatabaseService {
   final CollectionReference _usersCollection =
@@ -21,7 +22,11 @@ class UserDatabaseService {
           .set({"onboardingCompleted": true});
 
       print("Profile added successfully");
+    } on FirebaseException catch (firebaseErr) {
+      Toast.errToast(
+          title: AppErrorText.errorMessageConverter(firebaseErr.code));
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       print("Failed to add profile: $e");
     }
   }
@@ -48,8 +53,13 @@ class UserDatabaseService {
       await _usersCollection.doc(currentUserUid).update({fieldName: newValue});
       print('Field updated successfully.');
       return true;
+    } on FirebaseException catch (firebaseErr) {
+      Toast.errToast(
+          title: AppErrorText.errorMessageConverter(firebaseErr.code));
+      return false;
     } catch (e) {
       print('Error updateUserField: $e');
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       return false;
     }
   }
@@ -70,7 +80,7 @@ class UserDatabaseService {
           .map((doc) => HabitModel.fromSnapshot(doc))
           .toList();
     } on Exception catch (e) {
-      // TODO
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       print('Error getUserHabits: $e');
       return [];
     }
@@ -88,6 +98,8 @@ class UserDatabaseService {
 
       return docRef.id;
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
+
       print('Error adding habit: $e');
       return "";
     }
@@ -112,6 +124,8 @@ class UserDatabaseService {
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
+
       print('Error updating habit fields: $e');
     }
   }
@@ -122,6 +136,7 @@ class UserDatabaseService {
 
       print('Habit başarıyla silindi.');
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       print('Habit silinirken hata oluştu: $e');
     }
   }
@@ -139,6 +154,7 @@ class UserDatabaseService {
 
       print('Kullanıcı ve tüm dökümanlar başarıyla silindi.');
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       print('Kullanıcı ve dökümanları silerken hata oluştu: $e');
     }
   }

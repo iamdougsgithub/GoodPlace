@@ -48,16 +48,18 @@ class AuthService extends FirebaseUtils {
       await firebaseAuth.signOut();
     } catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
   Future<void> deleteUser() async {
     try {
       await firebaseAuth.currentUser!.delete();
-    } on Exception catch (e) {
+    } on FirebaseException catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+    } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
@@ -69,7 +71,7 @@ class AuthService extends FirebaseUtils {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 

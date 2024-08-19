@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_border_radius.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/logger.dart';
 
 import '../services/image_api_service.dart';
 

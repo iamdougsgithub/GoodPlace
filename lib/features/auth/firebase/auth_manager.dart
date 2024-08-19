@@ -4,7 +4,6 @@ import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/onboarding/onboarding_page.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
-import 'package:good_place/logger.dart';
 
 /// Kullanıcı giriş yapmışsa AnaSayfaya , yapmamışsa [WelcomePage]'e gönder.
 class AuthManager extends StatelessWidget {
@@ -20,7 +19,7 @@ class AuthManager extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            logger.i("Home-Onboarding");
+            // logger.i("Home-Onboarding");
             return FutureBuilder(
               future: UserDatabaseService().getUserDetails(),
               builder: (context, futureSnapshot) {
@@ -39,7 +38,7 @@ class AuthManager extends StatelessWidget {
               },
             );
           } else {
-            logger.i("Welcome");
+            // logger.i("Welcome");
             return const WelcomePage();
           }
         });

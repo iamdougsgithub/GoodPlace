@@ -14,7 +14,6 @@ class ImageCard extends StatefulWidget {
 }
 
 class _ImageCardState extends State<ImageCard> {
-  String? _url;
   onImageCardTapped() {
     showModalBottomSheet(
       context: context,

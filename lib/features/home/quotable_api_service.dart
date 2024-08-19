@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:good_place/core/resourcers/error_texts.dart';
+import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/features/home/quote_model.dart';
 
 class ApiService {
@@ -17,6 +19,7 @@ class ApiService {
         throw Exception('Failed to load quote');
       }
     } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
       throw Exception('Failed to load quote: $e');
     }
   }
