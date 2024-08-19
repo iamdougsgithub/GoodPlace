@@ -126,6 +126,7 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
         purpose: purposeController.text,
         imageUrl: imageUrlController.text,
         completionDates: [],
+        longestStreak: 0,
       );
       HabitProvider.instance
           .addHabit(

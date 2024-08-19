@@ -9,6 +9,7 @@ class HabitModel {
   int streakCount;
   List<DateTime> completionDates;
   bool done;
+  int longestStreak;
   /*
   TODO:
   
@@ -25,6 +26,7 @@ class HabitModel {
     required this.createDate,
     this.imageUrl,
     required this.streakCount,
+    required this.longestStreak,
     required this.completionDates,
   }) : done = _calculateDone(completionDates);
 
@@ -54,6 +56,7 @@ class HabitModel {
               ?.map((timestamp) => (timestamp as Timestamp).toDate())
               .toList() ??
           [],
+      longestStreak: data["longestStreak"] ?? 0,
     );
   }
   Map<String, dynamic> toMap() {
@@ -66,6 +69,7 @@ class HabitModel {
       'completionDates': completionDates.isNotEmpty
           ? completionDates.map((date) => Timestamp.fromDate(date)).toList()
           : [],
+      'longestStreak': longestStreak,
     };
   }
 }

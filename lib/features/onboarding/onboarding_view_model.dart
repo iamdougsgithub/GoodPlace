@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/features/onboarding/onboarding_content.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:good_place/features/user_data/user_database_service.dart';
 
 class OnboardingViewModel extends ChangeNotifier {
   final PageController pageController = PageController();
@@ -35,8 +35,9 @@ class OnboardingViewModel extends ChangeNotifier {
   ];
 
   Future<void> completeOnboarding() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboardingCompleted', true);
+    // final prefs = await SharedPreferences.getInstance();
+    //await prefs.setBool('onboardingCompleted', true);
+    UserDatabaseService().addUser();
   }
 
   void nextPage() {
@@ -48,7 +49,6 @@ class OnboardingViewModel extends ChangeNotifier {
       );
     } else {
       completeOnboarding();
-      // Onboarding tamamlandıktan sonra isteen sayfaya yönlendirme buraya da eklenebilir.
     }
     notifyListeners();
   }

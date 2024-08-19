@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
+import 'package:good_place/logger.dart';
 
 class HabitProvider with ChangeNotifier {
   HabitProvider();
@@ -19,17 +20,19 @@ class HabitProvider with ChangeNotifier {
 
   Future<void> getHabits() async {
     _habits = await _userService.getUserHabits();
-    if (_midnightTimer == null) {
+    if (_midnightTimer == null && _habits.isNotEmpty) {
       _startMidnightTimer();
     }
     notifyListeners();
   }
 
   Future<void> addHabit(HabitModel habit) async {
-    habit.id = await _userService
-        .addHabit(habit); // bu HabitModel örnek amaçlı koyuldu kaldırılacak.
+    habit.id = await _userService.addHabit(habit);
 
     if (habit.id!.isNotEmpty) {
+      if (_midnightTimer == null && _habits.isEmpty) {
+        _startMidnightTimer();
+      }
       _habits.add(habit);
       notifyListeners();
     } else {
@@ -45,12 +48,16 @@ class HabitProvider with ChangeNotifier {
     String habitId,
   ) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
-
     DateTime now = DateTime.now();
+    _habits[index].streakCount += 1;
+    if (_habits[index].streakCount > _habits[index].longestStreak) {
+      _habits[index].longestStreak = _habits[index].streakCount;
+    }
 
     Map<String, dynamic> updatedFields = {
       'completionDates': FieldValue.arrayUnion([now]),
-      'streakCount': _habits[index].streakCount++,
+      'streakCount': (_habits[index].streakCount),
+      'longestStreak': (_habits[index].longestStreak),
     };
 
     _userService.updateHabitFields(habitId, updatedFields);
@@ -58,6 +65,7 @@ class HabitProvider with ChangeNotifier {
     _habits[index].completionDates.add(now); // burası değişecek
     _habits[index].done = true; // burası değişecek
     _habits[index].streakCount = updatedFields["streakCount"];
+
     notifyListeners();
   }
 
@@ -94,4 +102,12 @@ class HabitProvider with ChangeNotifier {
     super.dispose();
     _midnightTimer?.cancel();
   }
+/*
+  Future<void> getUser() async {
+    _habits = await _userService.getUserDetails();
+    if (_midnightTimer == null && _habits.isNotEmpty) {
+      _startMidnightTimer();
+    }
+    notifyListeners();
+  }*/
 }

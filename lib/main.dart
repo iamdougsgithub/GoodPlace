@@ -25,14 +25,14 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-      create: (_) => HabitProvider.instance,
-      child: const MyApp(),
+      create: (_) => HabitProvider(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();

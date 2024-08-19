@@ -88,23 +88,25 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  bool _isOnboardingCompleted = false;
-
+  //bool _isOnboardingCompleted = false;
+/*
   Future<void> _checkOnboardingStatus() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _isOnboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
     });
   }
-
+*/
   onPressed() async {
-    await _checkOnboardingStatus();
+    // await _checkOnboardingStatus();
     if (mounted) {
-      if (_isOnboardingCompleted) {
+      context.navigator.pushNamed(SignInPage.routeName);
+
+      /*if (_isOnboardingCompleted) {
         context.navigator.pushNamed(SignInPage.routeName);
       } else {
         context.navigator.pushNamed(OnboardingPage.routeName);
-      }
+      }*/
     }
   }
 
