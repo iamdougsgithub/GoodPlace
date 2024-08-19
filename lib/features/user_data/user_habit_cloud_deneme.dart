@@ -96,6 +96,7 @@ class HabitTestWidget extends StatelessWidget {
                   imageUrl:
                       "https://www.multibem.com.tr/wp-content/uploads/2022/11/unnamed-1024x619.jpg",
                   completionDates: [],
+                  longestStreak: 5,
                 );
                 await habitProvider.addHabit(newHabit);
               },
