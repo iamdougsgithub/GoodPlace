@@ -65,6 +65,7 @@ dependencies:
   get_it: ^7.7.0
   firebase_storage: ^11.6.0
   ##########################
+  lottie: ^3.1.2
 
   
 
@@ -96,6 +97,7 @@ flutter:
     - lib/core/assets/images/
     - lib/core/assets/icons/
     - lib/core/assets/google_fonts/
+    - lib/core/assets/animation.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

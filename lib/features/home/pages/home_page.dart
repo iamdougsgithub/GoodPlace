@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get_it/get_it.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
@@ -28,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
   // late HabitProvider habitProvider;
-  late GetIt sl;
   @override
   void initState() {
     Future.microtask(() => HabitProvider.instance.getHabits());
