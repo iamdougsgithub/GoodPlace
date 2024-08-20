@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:good_place/config/theme.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import 'config/routes.dart';
@@ -26,9 +27,25 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) => HabitProvider(),
-      child: MyApp(),
+      child: deneme(),
     ),
   );
+}
+
+class deneme extends StatelessWidget {
+  const deneme({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Lottie Animation')),
+        body: Center(
+          child: Lottie.asset('lib/assets/animation.json'),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
