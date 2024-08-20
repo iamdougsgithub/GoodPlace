@@ -36,15 +36,18 @@ class AuthBaseView extends StatelessWidget {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              AuthTitleWidget(title: title),
-              Padding(
-                padding: AppPaddings.authScreenHorizontalPadding,
-                child: child,
-              ),
-            ],
+        body: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            // physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                AuthTitleWidget(title: title),
+                Padding(
+                  padding: AppPaddings.authScreenHorizontalPadding,
+                  child: child,
+                ),
+              ],
+            ),
           ),
         ),
       ),

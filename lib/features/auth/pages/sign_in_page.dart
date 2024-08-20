@@ -96,6 +96,9 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
               ],
             ),
           ),
+          // Gap(
+          //   context.dynamicHeight(0.1),
+          // ),
         ],
       ),
     );
