@@ -134,6 +134,7 @@ class PasswordField extends _CustomFormField {
   FormFieldBuilder<String> get builder => (_) => StatefulBuilder(
         builder: (context, setState) => TextFormField(
           decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             label: Text(label),
             helper: helper,
             hintText: hintText,

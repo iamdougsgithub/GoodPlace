@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/logger.dart';

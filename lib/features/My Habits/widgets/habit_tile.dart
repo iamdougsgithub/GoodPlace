@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -70,7 +71,9 @@ class HabitTile extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ).animate().scaleX(
+          alignment: Alignment.centerLeft,
+        );
   }
 
   ActionPane deleteButton(HabitModel habitModel) {
