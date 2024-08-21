@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
-import 'package:good_place/features/home/widgets/habit_list_builder.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
@@ -58,10 +58,10 @@ class MyHabitsSection extends StatelessWidget {
             // habitModel: habitProvider.habits[index],
             index: index,
           );
-        });
+        }).animate().shimmer();
   }
 
-  Row titleRow(BuildContext context) {
+  Widget titleRow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -85,7 +85,7 @@ class MyHabitsSection extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ).animate().fadeIn();
   }
 }
 

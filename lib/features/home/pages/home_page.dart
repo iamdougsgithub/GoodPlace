@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
@@ -63,14 +64,14 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // WelcomeText
-                    WelcomeText(),
+                    WelcomeText().animate().fadeIn(),
 
                     /// Calendar
-                    const Calendar(),
+                    const Calendar().animate().moveY(),
                     gap,
 
                     /// Motivation Card
-                    const MotivationCardWidget(),
+                    const MotivationCardWidget().animate().moveY(),
                     gap,
                     // My Habit Section
                     const MyHabitsSection(),
