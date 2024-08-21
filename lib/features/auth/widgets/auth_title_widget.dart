@@ -23,9 +23,11 @@ class AuthTitleWidget extends StatelessWidget {
           height: context.dynamicHeight(0.3),
           width: context.dynamicWidth(1),
         ),
-        Text(
-          title,
-          style: context.textTheme.titleLarge,
+        FittedBox(
+          child: Text(
+            title,
+            style: context.textTheme.titleLarge,
+          ),
         ),
       ],
     );

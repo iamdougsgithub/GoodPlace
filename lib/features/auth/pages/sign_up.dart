@@ -31,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
           /// Google Button
 
           const GoogleButton(),
-          const Gap(AppPaddings.largePaddingValue),
+          const MaxGap(AppPaddings.largePaddingValue),
 
           /// log in with email text
           Text(
@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
             style: context.textTheme.labelLarge
                 ?.copyWith(color: AppColors.lightTextColor),
           ),
-          const Gap(AppPaddings.largePaddingValue),
+          const MaxGap(AppPaddings.largePaddingValue),
 
           /// form
           _SignUpForm(
@@ -50,13 +50,14 @@ class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
             emailController: emailController,
             passwordController: passwordController,
           ),
+          const MaxGap(AppPaddings.smallPaddingValue),
           _PrivacyPolicyCheckBox(
             iHaveRead: iHaveRead,
             privacyPolicy: privacyPolicy,
             checkBoxVal: checkBoxValue,
             changeCheckBoxVal: changeCheckBoxState,
           ),
-          const Gap(AppPaddings.mediumPaddingValue),
+          const MaxGap(AppPaddings.mediumPaddingValue),
 
           /// Get Started Button
           Row(
@@ -68,9 +69,7 @@ class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
             ],
           ),
 
-          Gap(
-            context.dynamicHeight(0.02),
-          ),
+          const Spacer(),
 
           /// ALREADY HAVE AN ACCOUNT?
           Text.rich(
@@ -88,10 +87,11 @@ class _SignUpPageState extends State<SignUpPage> with SignUpPageMixin {
                     ..onTap = () => onSignInTapped(
                           context,
                         ),
-                )
+                ),
               ],
             ),
           ),
+          const MaxGap(AppPaddings.smallPaddingValue),
         ],
       ),
     );
@@ -129,20 +129,18 @@ class _SignUpForm extends StatelessWidget with FormValidatorsMixin {
             validator: nameValidator,
             controller: nameController,
           ),
-          const Gap(AppPaddings.smallPaddingValue),
+          const MaxGap(AppPaddings.smallPaddingValue),
           // email field
           EmailField(
             controller: emailController,
             validator: emailValidator,
           ),
-          const Gap(AppPaddings.smallPaddingValue),
+          const MaxGap(AppPaddings.smallPaddingValue),
           // Password Field
           PasswordField(
             controller: passwordController,
             validator: passwordValidator,
           ),
-          const Gap(AppPaddings.smallPaddingValue),
-          // I have read the Privacy Policy
         ],
       ),
     );
@@ -175,33 +173,38 @@ class _PrivacyPolicyCheckBoxState extends State<_PrivacyPolicyCheckBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text.rich(
-          TextSpan(
-            text: widget.iHaveRead,
-            style: context.textTheme.labelLarge
-                ?.copyWith(color: AppColors.lightTextColor),
-            children: [
+    return FittedBox(
+      child: SizedBox(
+        width: context.dynamicWidth(1),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text.rich(
               TextSpan(
-                  text: widget.privacyPolicy,
-                  style: context.textTheme.labelLarge
-                      ?.copyWith(color: AppColors.primaryButtonColor),
-                  recognizer: TapGestureRecognizer()..onTap = () => {})
-            ],
-          ),
+                text: widget.iHaveRead,
+                style: context.textTheme.labelLarge
+                    ?.copyWith(color: AppColors.lightTextColor),
+                children: [
+                  TextSpan(
+                      text: widget.privacyPolicy,
+                      style: context.textTheme.labelLarge
+                          ?.copyWith(color: AppColors.primaryButtonColor),
+                      recognizer: TapGestureRecognizer()..onTap = () => {})
+                ],
+              ),
+            ),
+            Checkbox.adaptive(
+              value: val,
+              onChanged: (newVal) {
+                widget.changeCheckBoxVal(newVal ??= false);
+                setState(() {
+                  val = newVal;
+                });
+              },
+            ),
+          ],
         ),
-        Checkbox.adaptive(
-          value: val,
-          onChanged: (newVal) {
-            widget.changeCheckBoxVal(newVal ??= false);
-            setState(() {
-              val = newVal;
-            });
-          },
-        ),
-      ],
+      ),
     );
   }
 }

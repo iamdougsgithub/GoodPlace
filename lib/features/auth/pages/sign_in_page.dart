@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/features/auth/mixins/sign_in_page_mixin.dart';
+import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -25,87 +26,73 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
   Widget build(BuildContext context) {
     return AuthBaseView(
       title: title,
-      child: Stack(
-        // fit: StackFit.expand,
+      child: Column(
         children: [
-          Column(
+          /// Google Button
+          const GoogleButton(),
+          const MaxGap(AppPaddings.largePaddingValue),
+          // log in with email text
+          Text(
+            orLoginWithEmail,
+            style: context.textTheme.labelLarge?.copyWith(
+              color: AppColors.lightTextColor,
+            ),
+          ),
+          const MaxGap(AppPaddings.largePaddingValue),
+          // form
+          Form(
+            key: formKey,
+            child: Column(
+              children: [
+                // email field
+                EmailField(
+                  controller: emailController,
+                ),
+                const Gap(AppPaddings.smallPaddingValue),
+                // Password Field
+                PasswordField(
+                  controller: passwordController,
+                ),
+              ],
+            ),
+          ),
+          const MaxGap(AppPaddings.mediumPaddingValue),
+          // Login button
+          Row(
             children: [
-              /// Google Button
-              const GoogleButton(),
-              const Gap(AppPaddings.largePaddingValue),
-              // log in with email text
-              Text(
-                orLoginWithEmail,
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.lightTextColor,
-                ),
+              ExpandedFilledButton(
+                label: buttonLabel,
+                onPressed: () => onLoginTapped(),
               ),
-              const Gap(AppPaddings.largePaddingValue),
-              // form
-              Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    // email field
-                    EmailField(
-                      controller: emailController,
-                    ),
-                    const Gap(AppPaddings.smallPaddingValue),
-                    // Password Field
-                    PasswordField(
-                      controller: passwordController,
-                    ),
-                  ],
-                ),
-              ),
-              const Gap(AppPaddings.mediumPaddingValue),
-              // Login button
-              Row(
-                children: [
-                  ExpandedFilledButton(
-                    label: buttonLabel,
-                    onPressed: () => onLoginTapped(),
-                  ),
-                ],
-              ),
-              //Forgot Password
-              Column(
-                children: [
-                  const Gap(AppPaddings.smallPaddingValue),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(forgotPassword),
-                  ),
-                ],
-              ),
-              // Gap(
-              //   context.dynamicHeight(0.1),
-              // ),
-
-              // Gap(
-              //   context.dynamicHeight(0.1),
-              // ),
             ],
           ),
-          //DON’T HAVE AN ACCOUNT?
-          Positioned(
-            bottom: 0,
-            child: Text.rich(
-              TextSpan(
-                text: dontHaveAnAccount,
-                style: context.textTheme.labelLarge
-                    ?.copyWith(color: AppColors.lightTextColor),
-                children: [
-                  TextSpan(
-                    text: signUp,
-                    style: context.textTheme.labelLarge?.copyWith(
-                      color: AppColors.primaryButtonColor,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => onSignUpTapped(context),
-                  )
-                ],
+          //Forgot Password
+          Column(
+            children: [
+              const Gap(AppPaddings.smallPaddingValue),
+              TextButton(
+                onPressed: () {},
+                child: Text(forgotPassword),
               ),
+            ],
+          ),
+
+          const Spacer(),
+          Text.rich(
+            TextSpan(
+              text: dontHaveAnAccount,
+              style: context.textTheme.labelLarge
+                  ?.copyWith(color: AppColors.lightTextColor),
+              children: [
+                TextSpan(
+                  text: signUp,
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.primaryButtonColor,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => onSignUpTapped(context),
+                )
+              ],
             ),
           ),
         ],
