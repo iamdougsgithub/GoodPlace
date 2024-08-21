@@ -76,9 +76,9 @@ class _HomePageState extends State<HomePage> {
                     const MyHabitsSection(),
                     gap,
 
-                    /// Streak Card
-                    const StreakCardWidget(),
-                    gap,
+                    // /// Streak Card
+                    // const StreakCardWidget(),
+                    // gap,
 
                     /// Grid
                     const StatGridWidget(),

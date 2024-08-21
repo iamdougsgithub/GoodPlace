@@ -25,80 +25,89 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
   Widget build(BuildContext context) {
     return AuthBaseView(
       title: title,
-      child: Column(
+      child: Stack(
+        // fit: StackFit.expand,
         children: [
-          /// Google Button
-          const GoogleButton(),
-          const Gap(AppPaddings.largePaddingValue),
-          // log in with email text
-          Text(
-            orLoginWithEmail,
-            style: context.textTheme.labelLarge?.copyWith(
-              color: AppColors.lightTextColor,
-            ),
-          ),
-          const Gap(AppPaddings.largePaddingValue),
-          // form
-          Form(
-            key: formKey,
-            child: Column(
-              children: [
-                // email field
-                EmailField(
-                  controller: emailController,
-                ),
-                const Gap(AppPaddings.smallPaddingValue),
-                // Password Field
-                PasswordField(
-                  controller: passwordController,
-                ),
-              ],
-            ),
-          ),
-          const Gap(AppPaddings.mediumPaddingValue),
-          // Login button
-          Row(
-            children: [
-              ExpandedFilledButton(
-                label: buttonLabel,
-                onPressed: () => onLoginTapped(),
-              ),
-            ],
-          ),
-          //Forgot Password
           Column(
             children: [
-              const Gap(AppPaddings.smallPaddingValue),
-              TextButton(
-                onPressed: () {},
-                child: Text(forgotPassword),
+              /// Google Button
+              const GoogleButton(),
+              const Gap(AppPaddings.largePaddingValue),
+              // log in with email text
+              Text(
+                orLoginWithEmail,
+                style: context.textTheme.labelLarge?.copyWith(
+                  color: AppColors.lightTextColor,
+                ),
               ),
+              const Gap(AppPaddings.largePaddingValue),
+              // form
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    // email field
+                    EmailField(
+                      controller: emailController,
+                    ),
+                    const Gap(AppPaddings.smallPaddingValue),
+                    // Password Field
+                    PasswordField(
+                      controller: passwordController,
+                    ),
+                  ],
+                ),
+              ),
+              const Gap(AppPaddings.mediumPaddingValue),
+              // Login button
+              Row(
+                children: [
+                  ExpandedFilledButton(
+                    label: buttonLabel,
+                    onPressed: () => onLoginTapped(),
+                  ),
+                ],
+              ),
+              //Forgot Password
+              Column(
+                children: [
+                  const Gap(AppPaddings.smallPaddingValue),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(forgotPassword),
+                  ),
+                ],
+              ),
+              // Gap(
+              //   context.dynamicHeight(0.1),
+              // ),
+
+              // Gap(
+              //   context.dynamicHeight(0.1),
+              // ),
             ],
           ),
-          Gap(
-            context.dynamicHeight(0.1),
-          ),
           //DON’T HAVE AN ACCOUNT?
-          Text.rich(
-            TextSpan(
-              text: dontHaveAnAccount,
-              style: context.textTheme.labelLarge
-                  ?.copyWith(color: AppColors.lightTextColor),
-              children: [
-                TextSpan(
-                  text: signUp,
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: AppColors.primaryButtonColor,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => onSignUpTapped(context),
-                )
-              ],
+          Positioned(
+            bottom: 0,
+            child: Text.rich(
+              TextSpan(
+                text: dontHaveAnAccount,
+                style: context.textTheme.labelLarge
+                    ?.copyWith(color: AppColors.lightTextColor),
+                children: [
+                  TextSpan(
+                    text: signUp,
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: AppColors.primaryButtonColor,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => onSignUpTapped(context),
+                  )
+                ],
+              ),
             ),
           ),
-          // Gap(
-          //   context.dynamicHeight(0.1),
-          // ),
         ],
       ),
     );

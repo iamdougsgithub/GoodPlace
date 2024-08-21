@@ -2,17 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/utils/widgets/custom_toast.dart';
 import 'package:good_place/logger.dart';
-import 'package:toastification/toastification.dart';
 
 class ImageApiService {
-//  Dio().get(
-//                 "https://api.unsplash.com/search/photos?page=1&query=exercise&client_id=uFgQvpVkE15AFB8Jbfu-JyjoLkwkqR6qNcTjyZv1zHQ",
-//               );
-
   String get _baseUrl =>
       "https://api.unsplash.com/search/photos?page=1&client_id=$_clientId";
   String get _clientId => "uFgQvpVkE15AFB8Jbfu-JyjoLkwkqR6qNcTjyZv1zHQ";
-  //  snapshot.data?.data["results"][index]["urls"]["raw"]
   Future<Map<String, dynamic>?> fetchPictures(String query) async {
     const String queryUrl = "&query=";
     try {

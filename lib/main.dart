@@ -27,7 +27,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (_) => HabitProvider(),
-      child: deneme(),
+      child: const MyApp(),
     ),
   );
 }
@@ -41,7 +41,9 @@ class deneme extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('Lottie Animation')),
         body: Center(
-          child: Lottie.asset('lib/assets/animation.json'),
+          child: Lottie.asset(
+            'lib/core/assets/animation.json',
+          ),
         ),
       ),
     );
