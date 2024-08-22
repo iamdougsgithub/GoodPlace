@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/habit_model.dart';
 import '../../habit detail/pages/habit_detail.dart';
 import '../../user_data/habit_provider.dart';

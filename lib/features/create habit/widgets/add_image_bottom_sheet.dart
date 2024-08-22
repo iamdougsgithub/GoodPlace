@@ -60,14 +60,15 @@ class _AddImageBottomSheetState extends State<AddImageBottomSheet>
         enableDrag: true,
         showDragHandle: true,
         onClosing: () {
-          // logger.e(_urlController.text);
           context.navigator.pop(_urlController.text);
         },
         constraints: BoxConstraints(
-          maxHeight: context.dynamicHeight(0.7) * _animationController.value,
+          maxHeight: context.dynamicHeight(0.8) * _animationController.value,
           minWidth: context.dynamicWidth(1),
         ),
         builder: (context) {
+          final List? results = data?["results"];
+          bool resultsExist = results != null && results.isNotEmpty;
           return Card(
             child: Column(
               children: [
@@ -76,7 +77,7 @@ class _AddImageBottomSheetState extends State<AddImageBottomSheet>
                   onSubmitted: onSubmit,
                 ),
                 const Gap(AppPaddings.smallPaddingValue),
-                data != null
+                resultsExist
                     ? _SearchResults(
                         data: data,
                         urlController: _urlController,
