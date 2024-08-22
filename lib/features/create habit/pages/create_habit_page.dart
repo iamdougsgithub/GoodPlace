@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/config/theme.dart';
-import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
-import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/models/habit_model.dart';
-import 'package:good_place/core/utils/widgets/custom_text_form_field.dart';
-import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
-import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
+import 'package:good_place/logger.dart';
+
+import '../../../config/theme.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/custom_text_form_field.dart';
+import '../mixins/create_habit_mixin.dart';
 import '../widgets/image_card.dart';
 
 class CreateHabitPage extends StatefulWidget {
@@ -22,19 +20,8 @@ class CreateHabitPage extends StatefulWidget {
   State<CreateHabitPage> createState() => _CreateHabitPageState();
 }
 
-class _CreateHabitPageState extends State<CreateHabitPage> {
-  final TextEditingController habitNameController = TextEditingController();
-  final TextEditingController purposeController = TextEditingController();
-  final TextEditingController imageUrlController = TextEditingController();
-
-  @override
-  void dispose() {
-    habitNameController.dispose();
-    imageUrlController.dispose();
-    purposeController.dispose();
-    super.dispose();
-  }
-
+class _CreateHabitPageState extends State<CreateHabitPage>
+    with CreateHabitMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +30,7 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: fab(),
       appBar: AppBar(
-        title: const Text("Create Your Habit"),
+        title: Text(appBarTitle),
       ),
       body: SafeArea(
         child: Padding(
@@ -55,13 +42,10 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                 urlController: imageUrlController,
               ),
               const Gap(AppPaddings.smallPaddingValue),
-              // Card(
-              //   child: Lottie.asset(AppAssets.aiButtonAnimation),
-              // ),
 
               /// Habit Name
               NormalTextFormField(
-                label: "Habit Name",
+                label: habitNameTextFieldLabel,
                 controller: habitNameController,
                 textCapitalization: TextCapitalization.words,
                 maxLength: 25,
@@ -81,10 +65,10 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
 
               /// Purpose text Field
               TextAreaFormField(
-                label: "My purpose",
+                label: habitPurposeTextFieldLabel,
                 suffix: SizedBox(
-                  width: 24,
-                  height: 24,
+                  width: 32,
+                  height: 32,
                   child: GestureDetector(
                     onTap: () => logger.i("asdasds"),
                     child: Lottie.asset(AppAssets.aiButtonAnimation),
@@ -114,55 +98,5 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
         ),
       ),
     );
-  }
-
-  Row fab() {
-    return Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: AppPaddings.homeScreenHorizontalPadding,
-            child: FloatingActionButton.extended(
-              backgroundColor: AppColors.primaryButtonColor,
-              foregroundColor: Colors.white,
-              label: const Text("Add"),
-              onPressed: onAddTapped,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  void onAddTapped() {
-    if (habitNameController.text.isNotEmpty) {
-      HabitModel habitModel = HabitModel(
-        title: habitNameController.text,
-        createDate: DateTime.now(),
-        streakCount: 0,
-        purpose: purposeController.text,
-        imageUrl: imageUrlController.text,
-        completionDates: [],
-        longestStreak: 0,
-      );
-      Provider.of<HabitProvider>(context, listen: false)
-          .addHabit(
-        habitModel,
-      )
-          .whenComplete(
-        () {
-          int length =
-              Provider.of<HabitProvider>(context, listen: false).habits.length;
-
-          if (length > 0) {
-            length--;
-          }
-          context.navigator.pushReplacementNamed(
-            HabitDetail.routeName,
-            arguments: length,
-          );
-        },
-      );
-    }
   }
 }
