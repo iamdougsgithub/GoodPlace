@@ -176,8 +176,32 @@ class NormalTextFormField extends _CustomFormField {
     super.buildCounter,
     super.maxLength,
     super.textCapitalization,
+    super.suffix,
   });
 
+  @override
+  TextInputType? get keyboardType => TextInputType.text;
+}
+
+class TextAreaFormField extends _CustomFormField {
+  TextAreaFormField({
+    super.key,
+    super.controller,
+    super.label = "Header",
+    super.hintText,
+    super.keyboardType = TextInputType.emailAddress,
+    super.textInputAction = TextInputAction.next,
+    super.validator,
+    super.buildCounter,
+    super.maxLength,
+    super.textCapitalization,
+    super.constraints,
+    super.suffix,
+  });
+
+  @override
+  // TODO: implement expands
+  bool get expands => true;
   @override
   TextInputType? get keyboardType => TextInputType.text;
 }

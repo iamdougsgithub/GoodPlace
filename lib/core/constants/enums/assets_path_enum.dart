@@ -27,10 +27,13 @@ enum _AssetsPathEnum {
   onboardingSecondPageImage("${_rootImagePath}img_onboarding_2.png"),
   onboardingThirdPageImage("${_rootImagePath}img_onboarding_3.png"),
   onboardingFourthPageImage("${_rootImagePath}img_onboarding_4.png"),
-  ;
+
+  // Animations
+  aiButtonAnimation("${_rootAnimationPath}ani-ai.json");
 
   static const String _rootIconPath = "lib/core/assets/icons/";
   static const String _rootImagePath = "lib/core/assets/images/";
+  static const String _rootAnimationPath = "lib/core/assets/animations/";
 
   final String path;
 

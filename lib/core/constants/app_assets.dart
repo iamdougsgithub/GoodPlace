@@ -50,7 +50,6 @@ class AppAssets {
     color: AppColors.errLight,
   );
   static Widget sortIcon = const Icon(Icons.sort_rounded);
-
   static String goodAfternoonIcon = _AssetsPathEnum.goodAfternoonIcon.path;
   static String goodMorningIcon = _AssetsPathEnum.goodMorningIcon.path;
   static String goodNightIcon = _AssetsPathEnum.goodNightIcon.path;
@@ -71,4 +70,7 @@ class AppAssets {
       _AssetsPathEnum.onboardingThirdPageImage.path;
   static String onboardingFourthPageImage =
       _AssetsPathEnum.onboardingFourthPageImage.path;
+
+  // Animations
+  static String aiButtonAnimation = _AssetsPathEnum.aiButtonAnimation.path;
 }

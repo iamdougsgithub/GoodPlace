@@ -100,7 +100,7 @@ flutter:
     - lib/core/assets/images/
     - lib/core/assets/icons/
     - lib/core/assets/google_fonts/
-    - lib/core/assets/animation.json
+    - lib/core/assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
