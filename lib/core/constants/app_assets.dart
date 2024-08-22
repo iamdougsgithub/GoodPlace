@@ -73,4 +73,5 @@ class AppAssets {
 
   // Animations
   static String aiButtonAnimation = _AssetsPathEnum.aiButtonAnimation.path;
+  static String wellDoneAnimation = _AssetsPathEnum.wellDoneAnimation.path;
 }

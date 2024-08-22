@@ -29,7 +29,8 @@ enum _AssetsPathEnum {
   onboardingFourthPageImage("${_rootImagePath}img_onboarding_4.png"),
 
   // Animations
-  aiButtonAnimation("${_rootAnimationPath}ani-ai.json");
+  aiButtonAnimation("${_rootAnimationPath}ani-ai.json"),
+  wellDoneAnimation("${_rootAnimationPath}ani-well_done.json");
 
   static const String _rootIconPath = "lib/core/assets/icons/";
   static const String _rootImagePath = "lib/core/assets/images/";
