@@ -6,11 +6,15 @@ import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
 
 class MyHabitsSection extends StatelessWidget {
   const MyHabitsSection({super.key});
@@ -157,7 +161,8 @@ class _HabitCardState extends State<_HabitCard> {
 
                         onChanged: (_) {
                           if (!_isDone) {
-                            habitProvider.updateHabit(habitModel.id ?? "");
+                            // habitProvider.updateHabit(habitModel.id ?? "");
+                            Toast().wellDone(context);
                           }
 
                           setState(() {
