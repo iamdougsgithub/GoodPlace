@@ -11,6 +11,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/theme.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
 import '../../user_data/habit_provider.dart';
 
 class HabitDetail extends StatefulWidget {
@@ -43,6 +44,7 @@ class _HabitDetailState extends State<HabitDetail> {
             if (!habitProvider.habits[habitIndex].done) {
               Provider.of<HabitProvider>(context, listen: false)
                   .updateHabit(habitProvider.habits[habitIndex].id ?? "");
+              Toast.wellDone();
             } else {
               null;
             }

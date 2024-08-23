@@ -161,8 +161,8 @@ class _HabitCardState extends State<_HabitCard> {
 
                         onChanged: (_) {
                           if (!_isDone) {
-                            // habitProvider.updateHabit(habitModel.id ?? "");
-                            Toast().wellDone(context);
+                            habitProvider.updateHabit(habitModel.id ?? "");
+                            Toast.wellDone();
                           }
 
                           setState(() {

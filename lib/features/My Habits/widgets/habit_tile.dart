@@ -16,6 +16,7 @@ import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
 
 class HabitTile extends StatelessWidget {
   final int index;
@@ -87,7 +88,7 @@ class HabitTile extends StatelessWidget {
         ),
       ),
       extentRatio: 0.3,
-      children: [],
+      children: const [],
     );
   }
 
@@ -99,6 +100,7 @@ class HabitTile extends StatelessWidget {
           onPressed: () {
             if (!habitModel.done) {
               habitProvider.updateHabit(habitModel.id ?? "");
+              Toast.wellDone();
             }
           },
           icon: AppAssets.checkIcon,

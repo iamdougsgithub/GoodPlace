@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -139,7 +140,7 @@ class UserDatabaseService extends FirebaseUtils {
     }
   }
 
-  Future<void> deleteUser(String userId) async {
+  Future<void> deleteUser() async {
     try {
       // Habits koleksiyonundaki tüm dökümanları al
       QuerySnapshot habitsSnapshot = await getHabitsCollection().get();
@@ -148,12 +149,15 @@ class UserDatabaseService extends FirebaseUtils {
         await deleteHabit(doc.id);
       }
 
-      await _usersCollection.doc(userId).delete();
-
-      print('Kullanıcı ve tüm dökümanlar başarıyla silindi.');
+      await _usersCollection.doc(uid).delete();
+      await firebaseAuth.currentUser?.delete();
+      // print('Kullanıcı ve tüm dökümanlar başarıyla silindi.');
+    } on FirebaseAuthException catch (authErr) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(authErr.code));
+      logger.e('Kullanıcı ve dökümanları silerken hata oluştu: $authErr');
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
-      print('Kullanıcı ve dökümanları silerken hata oluştu: $e');
+      logger.e('Kullanıcı ve dökümanları silerken hata oluştu: $e');
     }
   }
 }

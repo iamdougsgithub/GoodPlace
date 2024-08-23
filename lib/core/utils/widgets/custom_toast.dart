@@ -56,7 +56,7 @@ class Toast {
         // style: ToastificationStyle.fillColored,
         margin: margin,
       );
-  ToastificationItem wellDone(BuildContext context) => toastification.show(
+  static ToastificationItem wellDone() => toastification.show(
         animationDuration: Duration.zero,
         title: LottieBuilder.asset(
           AppAssets.wellDoneAnimation,
