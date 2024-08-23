@@ -86,7 +86,7 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                   width: 24,
                   height: 24,
                   child: GestureDetector(
-                    onTap: () => logger.i("asdasds"),
+                    onTap: () => logger.i("CreateHabit AI Button"),
                     child: Lottie.asset(AppAssets.aiButtonAnimation),
                   ),
                 ),
