@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
                     gap,
                   ]
-                      .animate(interval: const Duration(milliseconds: 300))
+                      .animate(interval: const Duration(milliseconds: 200))
                       .fadeIn(),
                 ),
               ),
