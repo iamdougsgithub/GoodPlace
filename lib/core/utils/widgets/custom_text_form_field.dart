@@ -20,6 +20,7 @@ abstract class _CustomFormField extends TextFormField {
     this.buildCounter,
     this.maxLength,
     this.textCapitalization = TextCapitalization.none,
+    this.suffixIcon,
   });
 
   final int? maxLength;
@@ -28,6 +29,7 @@ abstract class _CustomFormField extends TextFormField {
   final String? hintText;
   final Widget? icon;
   final Widget? suffix;
+  final Widget? suffixIcon;
   final Widget? helper;
   final TextInputType? keyboardType;
   final Iterable<String>? autofillHints;
@@ -49,6 +51,7 @@ abstract class _CustomFormField extends TextFormField {
                 label: Text(label),
                 hintText: hintText,
                 icon: icon,
+                suffixIcon: suffixIcon,
                 suffix: validator != null
                     ? validated
                         ? AppAssets.textFieldCheckIcon
@@ -197,6 +200,7 @@ class TextAreaFormField extends _CustomFormField {
     super.textCapitalization,
     super.constraints,
     super.suffix,
+    super.suffixIcon,
   });
 
   @override

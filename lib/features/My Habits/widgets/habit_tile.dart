@@ -43,7 +43,9 @@ class HabitTile extends StatelessWidget {
                 fit: BoxFit.cover,
                 image: habitModel.imageUrl != null &&
                         habitModel.imageUrl?.isEmpty == false
-                    ? NetworkImage(habitModel.imageUrl ?? "")
+                    ? NetworkImage(
+                        habitModel.imageUrl ?? "",
+                      )
                     : AssetImage(AppAssets.authTopBackgroundImage),
               ),
             ),

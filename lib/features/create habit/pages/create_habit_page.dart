@@ -25,75 +25,78 @@ class _CreateHabitPageState extends State<CreateHabitPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.homeScaffoldColor,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: fab(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+          context.mediaQuery.viewInsets.bottom > 1 ? null : fab(),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
       appBar: AppBar(
         title: Text(appBarTitle),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: AppPaddings.homeScreenHorizontalPadding,
-          child: Column(
-            children: [
-              /// Image Card
-              ImageCard(
-                urlController: imageUrlController,
-              ),
-              const Gap(AppPaddings.smallPaddingValue),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: AppPaddings.homeScreenHorizontalPadding,
+            child: Column(
+              children: [
+                /// Image Card
+                ImageCard(
+                  urlController: imageUrlController,
+                ),
+                const Gap(AppPaddings.smallPaddingValue),
 
-              /// Habit Name
-              NormalTextFormField(
-                label: habitNameTextFieldLabel,
-                controller: habitNameController,
-                textCapitalization: TextCapitalization.words,
-                maxLength: 25,
-                buildCounter: (context,
-                    {required currentLength,
-                    required isFocused,
-                    required maxLength}) {
-                  return Text(
-                    "$currentLength / $maxLength",
-                    style: context.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
+                /// Habit Name
+                NormalTextFormField(
+                  label: habitNameTextFieldLabel,
+                  controller: habitNameController,
+                  textCapitalization: TextCapitalization.words,
+                  maxLength: 25,
+                  buildCounter: (context,
+                      {required currentLength,
+                      required isFocused,
+                      required maxLength}) {
+                    return Text(
+                      "$currentLength / $maxLength",
+                      style: context.textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                    );
+                  },
+                ),
+                const Gap(AppPaddings.smallPaddingValue),
+
+                /// Purpose text Field
+                TextAreaFormField(
+                  label: habitPurposeTextFieldLabel,
+                  suffixIcon: SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: GestureDetector(
+                      onTap: () => logger.i("asdasds"),
+                      child: Lottie.asset(AppAssets.aiButtonAnimation),
                     ),
-                  );
-                },
-              ),
-              const Gap(AppPaddings.smallPaddingValue),
-
-              /// Purpose text Field
-              TextAreaFormField(
-                label: habitPurposeTextFieldLabel,
-                suffix: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: GestureDetector(
-                    onTap: () => logger.i("asdasds"),
-                    child: Lottie.asset(AppAssets.aiButtonAnimation),
                   ),
+                  constraints: BoxConstraints(
+                    maxHeight: context.dynamicHeight(0.2),
+                  ),
+                  controller: purposeController,
+                  textInputAction: TextInputAction.done,
+                  maxLength: 50,
+                  textCapitalization: TextCapitalization.sentences,
+                  buildCounter: (context,
+                      {required currentLength,
+                      required isFocused,
+                      required maxLength}) {
+                    return Text(
+                      "$currentLength / $maxLength",
+                      style: context.textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                    );
+                  },
                 ),
-                constraints: BoxConstraints(
-                  maxHeight: context.dynamicHeight(0.2),
-                ),
-                controller: purposeController,
-                textInputAction: TextInputAction.done,
-                maxLength: 50,
-                textCapitalization: TextCapitalization.sentences,
-                buildCounter: (context,
-                    {required currentLength,
-                    required isFocused,
-                    required maxLength}) {
-                  return Text(
-                    "$currentLength / $maxLength",
-                    style: context.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
-                    ),
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
