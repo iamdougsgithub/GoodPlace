@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../config/theme.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_border_radius.dart';
@@ -11,36 +13,40 @@ class StatGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: AppPaddings.smallPaddingValue,
-        crossAxisSpacing: AppPaddings.smallPaddingValue,
-      ),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        _StatCard(
-          icon: AppAssets.calendarIcon,
-          data: "1 Day",
-          label: "Total perfect days",
-        ),
-        _StatCard(
-          icon: AppAssets.checkIcon,
-          data: "1 Day",
-          label: "Total complete days",
-        ),
-        _StatCard(
-          icon: AppAssets.chartIcon,
-          data: "100%",
-          label: "Habit completion rate",
-        ),
-        _StatCard(
-          icon: Image.asset(AppAssets.averagePerDailyCardIcon),
-          data: "1.01",
-          label: "Average per daily",
-        ),
-      ],
+    return Consumer<HabitProvider>(
+      builder: (context, habitProvider, child) {
+        return GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: AppPaddings.smallPaddingValue,
+            crossAxisSpacing: AppPaddings.smallPaddingValue,
+          ),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          children: [
+            _StatCard(
+              icon: AppAssets.calendarIcon,
+              data: "${habitProvider.getLongestStreak()}",
+              label: "Longest streak",
+            ),
+            _StatCard(
+              icon: AppAssets.checkIcon,
+              data: "${habitProvider.getTotalDone()}",
+              label: "Total done per day",
+            ),
+            _StatCard(
+              icon: AppAssets.chartIcon,
+              data: habitProvider.getLongestMissedHabitInfo(),
+              label: "Long time not done",
+            ),
+            _StatCard(
+              icon: Image.asset(AppAssets.averagePerDailyCardIcon),
+              data: "${habitProvider.habits.length} ",
+              label: "Habit Count",
+            ),
+          ],
+        );
+      },
     );
   }
 }

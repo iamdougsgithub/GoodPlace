@@ -85,8 +85,6 @@ class HabitProvider with ChangeNotifier {
         DateTime(now.year, now.month, now.day + 1); // Ertesi gece yarısı
     Duration timeUntilMidnight = midnight.difference(now);
 
-    // print("timeUntilMidnight:$timeUntilMidnight  midnight:$midnight now:$now ");
-
     _midnightTimer = Timer(timeUntilMidnight, _resetHabitsAtMidnight);
   }
 
@@ -103,6 +101,56 @@ class HabitProvider with ChangeNotifier {
     super.dispose();
     _midnightTimer?.cancel();
   }
+
+  int getTotalDone() {
+    return _habits.where((habit) => habit.done).length;
+  }
+
+  int getLongestStreak() {
+    int longestStreak = 0;
+
+    for (var habit in _habits) {
+      if (habit.longestStreak > longestStreak) {
+        longestStreak = habit.longestStreak;
+      }
+    }
+    return longestStreak;
+  }
+
+  String getLongestMissedHabitInfo() {
+    if (_habits.isEmpty) {
+      return 'No habits available';
+    }
+
+    HabitModel? longestMissedHabit;
+    Duration longestMissedDuration = Duration.zero;
+
+    for (var habit in _habits) {
+      if (habit.completionDates.isEmpty) {
+        return 'Title: ${habit.title}\nPurpose: ${habit.purpose}\nLast Completed: Never';
+      }
+      var lastCompletionDate = habit.completionDates.last;
+      var durationSinceLastCompletion =
+          DateTime.now().difference(lastCompletionDate);
+
+      if (durationSinceLastCompletion > longestMissedDuration) {
+        longestMissedDuration = durationSinceLastCompletion;
+        longestMissedHabit = habit;
+      }
+    }
+
+    if (longestMissedHabit != null) {
+      var lastCompletionDate = longestMissedHabit.completionDates.last;
+      return 'Title: ${longestMissedHabit.title}\nPurpose: ${longestMissedHabit.purpose}\nLast Completed: ${_formatDate(lastCompletionDate)}';
+    }
+
+    return 'No valid habit found';
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day}-${date.month}-${date.year}';
+  }
+
 /*
   Future<void> getUser() async {
     _habits = await _userService.getUserDetails();
