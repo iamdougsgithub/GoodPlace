@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/home/widgets/welcome_text.dart';
-import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
-import 'package:provider/provider.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
@@ -37,98 +32,64 @@ class _IDrawerState extends State<IDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: constraints.maxHeight),
-        child: NavigationDrawer(
-          selectedIndex: selectedIndex,
-          onDestinationSelected: onDestinationSelected,
-          indicatorColor: AppColors.primaryButtonColor,
+    return NavigationDrawer(
+      selectedIndex: selectedIndex,
+      onDestinationSelected: onDestinationSelected,
+      indicatorColor: AppColors.primaryButtonColor,
+      children: [
+        userTile(context),
+        const Divider(),
+        NavigationDrawerDestination(
+          icon: AppAssets.homeIcon,
+          label: const Text(
+            "Home",
+          ),
+        ),
+
+        /// Navigate to My Habits
+        const NavigationDrawerDestination(
+          icon: SizedBox(),
+          label: Text("My Habits"),
+        ),
+
+        /// Danger Zone
+        ExpansionTile(
+          textColor: AppColors.errDark,
+          iconColor: AppColors.errDark,
+          collapsedIconColor: AppColors.errDark,
+          expandedAlignment: Alignment.centerLeft,
+          leading: Icon(
+            Icons.dangerous_outlined,
+            color: AppColors.errDark,
+          ),
+          title: Text(
+            "Danger Zone",
+            style: context.textTheme.labelLarge
+                ?.copyWith(color: AppColors.errDark),
+          ),
           children: [
-            userTile(context),
-            const Divider(),
-            NavigationDrawerDestination(
-              icon: AppAssets.homeIcon,
-              label: const Text(
-                "Home",
-              ),
-            ),
-
-            /// Navigate to My Habits
-            const NavigationDrawerDestination(
-              icon: SizedBox(),
-              label: Text("My Habits"),
-            ),
-
-            /// Danger Zone
-            ExpansionTile(
-              textColor: AppColors.errDark,
-              iconColor: AppColors.errDark,
-              collapsedIconColor: AppColors.errDark,
-              expandedAlignment: Alignment.centerLeft,
-              leading: Icon(
-                Icons.dangerous_outlined,
-                color: AppColors.errDark,
+            /// Delete Account
+            ListTile(
+              leading: const Icon(
+                Icons.delete_forever_outlined,
               ),
               title: Text(
-                "Danger Zone",
-                style: context.textTheme.labelLarge
+                "Delete My Account",
+                style: context.textTheme.labelMedium
                     ?.copyWith(color: AppColors.errDark),
               ),
-              children: [
-                /// Delete Account
-                ListTile(
-                  title: Text(
-                    "Delete My Account",
-                    style: context.textTheme.labelMedium
-                        ?.copyWith(color: AppColors.errDark),
-                  ),
-                  onTap: () => showAdaptiveDialog(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      backgroundColor: AppColors.errLight,
-                      titleTextStyle: context.textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
-                      ),
-                      contentTextStyle: context.textTheme.bodyLarge?.copyWith(
-                        foreground: Paint()..color = Colors.white,
-                      ),
-                      title: const Text("Are You Sure ? "),
-                      content: const Text(
-                        "After you clicked confirm your account will be deleted permanently and you will not be able to recover.",
-                      ),
-                      actions: [
-                        ElevatedButton(
-                          onPressed: () => context.pop(),
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            foregroundColor: AppColors.errDark,
-                          ),
-                          onPressed: () async => await UserDatabaseService()
-                              .deleteUser()
-                              .whenComplete(
-                                () => context.pushReplacementNamed("/"),
-                              ),
-                          child: const Text("I am sure !"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  splashColor: AppColors.errLight,
-                  leading: const Icon(
-                    Icons.delete_forever_outlined,
-                  ),
-                  iconColor: AppColors.errDark,
-                )
-              ],
+              splashColor: AppColors.errLight,
+              iconColor: AppColors.errDark,
+              onTap: () => showAdaptiveDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => const _AreYouSureDialog(),
+              ),
             )
           ],
-        ),
-      );
-    });
+        )
+      ],
+    );
   }
 
   void onDestinationSelected(value) {
@@ -168,5 +129,45 @@ class _IDrawerState extends State<IDrawer> {
         icon: AppAssets.logOutIcon,
       ),
     );
+  }
+}
+
+class _AreYouSureDialog extends StatelessWidget {
+  const _AreYouSureDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppColors.errLight,
+      titleTextStyle: context.textTheme.headlineSmall?.copyWith(
+        color: Colors.white,
+      ),
+      contentTextStyle: context.textTheme.bodyLarge?.copyWith(
+        foreground: Paint()..color = Colors.white,
+      ),
+      title: const Text("Are You Sure ? "),
+      content: const Text(
+        "After you clicked confirm your account will be deleted permanently and you will not be able to recover.",
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () => context.pop(),
+          child: const Text("Cancel"),
+        ),
+        TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.errDark,
+          ),
+          onPressed: () async => await onIamSureTapped(context),
+          child: const Text("I am sure !"),
+        ),
+      ],
+    );
+  }
+
+  onIamSureTapped(BuildContext context) async {
+    await UserDatabaseService().deleteUser().whenComplete(
+          () => context.pushReplacementNamed("/"),
+        );
   }
 }
