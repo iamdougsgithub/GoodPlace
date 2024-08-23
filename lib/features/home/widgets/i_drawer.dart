@@ -39,6 +39,8 @@ class _IDrawerState extends State<IDrawer> {
       children: [
         userTile(context),
         const Divider(),
+
+        /// Home
         NavigationDrawerDestination(
           icon: AppAssets.homeIcon,
           label: const Text(
@@ -133,7 +135,7 @@ class _IDrawerState extends State<IDrawer> {
 }
 
 class _AreYouSureDialog extends StatelessWidget {
-  const _AreYouSureDialog({super.key});
+  const _AreYouSureDialog();
 
   @override
   Widget build(BuildContext context) {

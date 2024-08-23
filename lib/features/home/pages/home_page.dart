@@ -64,14 +64,14 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // WelcomeText
-                    WelcomeText().animate().fadeIn(),
+                    WelcomeText(),
 
                     /// Calendar
-                    const Calendar().animate().moveY(),
+                    const Calendar(),
                     gap,
 
                     /// Motivation Card
-                    const MotivationCardWidget().animate().moveY(),
+                    const MotivationCardWidget(),
                     gap,
                     // My Habit Section
                     const MyHabitsSection(),
@@ -85,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                     const StatGridWidget(),
 
                     gap,
-                  ],
+                  ]
+                      .animate(interval: const Duration(milliseconds: 300))
+                      .fadeIn(),
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:good_place/logger.dart';
 import '../../../core/utils/widgets/skeleton.dart';
 import '../quote_model.dart';
 import '../../../core/constants/app_assets.dart';
@@ -11,12 +12,17 @@ import '../../../core/extensions/context_extension.dart';
 import '../quotable_api_service.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class MotivationCardWidget extends StatelessWidget {
+class MotivationCardWidget extends StatefulWidget {
   /// Bu widget bir [FutureBuilder] içerisinde APICall yapıyor .
   ///  APICall tamamlanana kadar [_SkeletonMotivationCard] gösteriyor.
   /// APICall tamamlandıgında ise [_MotivationCard]'ı gösteriyor.
   const MotivationCardWidget({super.key});
 
+  @override
+  State<MotivationCardWidget> createState() => _MotivationCardWidgetState();
+}
+
+class _MotivationCardWidgetState extends State<MotivationCardWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -28,7 +34,10 @@ class MotivationCardWidget extends StatelessWidget {
 
           /// if data received show MotivationCard
           if (snapshot.hasData) {
-            return _MotivationCard(snapshot.data!);
+            return InkWell(
+              onTap: () => setState(() {}),
+              child: _MotivationCard(snapshot.data!),
+            );
           }
 
           /// Eğerki [Quote] null gelirse [_MockQuote]'u göster.
@@ -43,45 +52,50 @@ class _MotivationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: double.infinity,
-      ),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: AppBorderRadius.smallBorderRadius,
+    return InkWell(
+      // onTap: () => ,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: context.dynamicWidth(1),
+          maxWidth: context.dynamicWidth(1),
+          // minHeight: 200,
         ),
-        child: Stack(
-          children: [
-            /// Background image
-            ..._backgroundImage(),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: AppBorderRadius.smallBorderRadius,
+          ),
+          child: Stack(
+            children: [
+              /// Background image
+              ..._backgroundImage(),
 
-            /// content
-            Padding(
-              padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Content
-                  Text(
-                    quote.content,
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
+              /// content
+              Padding(
+                padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Content
+                    Text(
+                      quote.content,
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
 
-                  /// Author
-                  Text(
-                    "- ${quote.author}",
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
+                    /// Author
+                    Text(
+                      "- ${quote.author}",
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
