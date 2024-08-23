@@ -72,9 +72,7 @@ class HabitTile extends StatelessWidget {
           ),
         ),
       ),
-    ).animate().scaleX(
-          alignment: Alignment.centerLeft,
-        );
+    );
   }
 
   ActionPane deleteButton(HabitModel habitModel) {
@@ -86,7 +84,7 @@ class HabitTile extends StatelessWidget {
               HabitProvider.instance.deleteHabit(habitModel.id ?? ""),
           icon: AppAssets.removeIcon,
         ),
-      ),
+      ).animate().shake(),
       extentRatio: 0.3,
       children: const [],
     );
@@ -105,7 +103,7 @@ class HabitTile extends StatelessWidget {
           },
           icon: AppAssets.checkIcon,
         ),
-      ),
+      ).animate().shimmer(),
       extentRatio: 0.3,
       children: [],
     );
@@ -118,13 +116,13 @@ class HabitTile extends StatelessWidget {
         Text(
           habitModel.streakCount.toString(),
           style: context.textTheme.headlineLarge,
-        ),
+        ).animate().scale(),
         const Gap(AppPaddings.smallPaddingValue),
         Text(
           "Streak",
           style: context.textTheme.titleSmall,
         ),
-      ],
+      ].animate(interval: const Duration(milliseconds: 150)).scale(),
     );
   }
 
@@ -141,12 +139,12 @@ class HabitTile extends StatelessWidget {
           habitModel.purpose ?? "",
           style: context.textTheme.labelMedium,
         ),
-        Gap(AppPaddings.smallPaddingValue),
+        const Gap(AppPaddings.smallPaddingValue),
         Text(
           DateFormat.yMMMEd().format(habitModel.createDate),
           style: context.textTheme.labelSmall,
         ),
-      ],
+      ].animate(interval: const Duration(milliseconds: 150)).fadeIn(),
     );
   }
 }
