@@ -102,6 +102,7 @@ class HabitProvider with ChangeNotifier {
     _midnightTimer?.cancel();
   }
 
+  ///  =>>>>>>>>>>>  Home page calculation cards operations
   int getTotalDone() {
     return _habits.where((habit) => habit.done).length;
   }
@@ -118,6 +119,7 @@ class HabitProvider with ChangeNotifier {
   }
 
   String getLongestMissedHabitInfo() {
+    //en uzun süredir yapılmamış habit
     if (_habits.isEmpty) {
       return 'No habits available';
     }
@@ -151,12 +153,51 @@ class HabitProvider with ChangeNotifier {
     return '${date.day}-${date.month}-${date.year}';
   }
 
-/*
-  Future<void> getUser() async {
-    _habits = await _userService.getUserDetails();
-    if (_midnightTimer == null && _habits.isNotEmpty) {
-      _startMidnightTimer();
-    }
+  //// =>>>>>>>>>>>    Sort operations
+
+  /// Sort habits by streak count
+  void sortByStreakCount() {
+    _habits.sort((a, b) => b.streakCount.compareTo(a.streakCount));
     notifyListeners();
-  }*/
+  }
+
+  /// Sort habits by Longest streak
+  void sortByLongestStreak() {
+    _habits.sort((a, b) => b.longestStreak.compareTo(a.longestStreak));
+    notifyListeners();
+  }
+
+  /// Sort habits by date of last completion
+  void sortByRecentCompletion() {
+    _habits.sort((a, b) {
+      if (a.completionDates.isNotEmpty && b.completionDates.isNotEmpty) {
+        return b.completionDates.last.compareTo(a.completionDates.last);
+      } else if (a.completionDates.isNotEmpty) {
+        return -1;
+      } else if (b.completionDates.isNotEmpty) {
+        return 1;
+      }
+      return 0;
+    });
+    notifyListeners();
+  }
+
+  /// Sort habits by streakCount and then by date of last completion
+  void sortByStreakCountAndRecentCompletion() {
+    _habits.sort((a, b) {
+      int streakComparison = b.streakCount.compareTo(a.streakCount);
+      if (streakComparison != 0) {
+        return streakComparison;
+      }
+      if (a.completionDates.isNotEmpty && b.completionDates.isNotEmpty) {
+        return b.completionDates.last.compareTo(a.completionDates.last);
+      } else if (a.completionDates.isNotEmpty) {
+        return -1;
+      } else if (b.completionDates.isNotEmpty) {
+        return 1;
+      }
+      return 0;
+    });
+    notifyListeners();
+  }
 }
