@@ -1,10 +1,18 @@
+import 'dart:io';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
+import 'package:good_place/core/constants/app_paddings.dart';
+import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
-import 'package:lottie/lottie.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import 'config/routes.dart';
@@ -18,36 +26,12 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  /* MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => HabitProvider()),
-      ],*/
-
   runApp(
     ChangeNotifierProvider(
       create: (_) => HabitProvider(),
       child: const MyApp(),
     ),
   );
-}
-
-class deneme extends StatelessWidget {
-  const deneme({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Lottie Animation')),
-        body: Center(
-          child: Lottie.asset(
-            'lib/core/assets/animation.json',
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class MyApp extends StatefulWidget {
@@ -66,6 +50,113 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: AppTheme().theme,
         routes: AppRoutes().routes,
+        initialRoute: SplashScreen.routeName,
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  static const String routeName = "splash";
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future _splashManager() async {
+    await Future.delayed(const Duration(seconds: 3));
+    context.navigator.pushReplacementNamed("/");
+  }
+
+  final Duration _intervalDuration = const Duration(milliseconds: 300);
+  final Duration _animationDuration = Durations.medium4;
+  @override
+  Widget build(BuildContext context) {
+    _splashManager();
+    return Scaffold(
+      backgroundColor: AppColors.welcomeScaffoldColor,
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          systemNavigationBarColor: AppColors.welcomeScaffoldColor,
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "IT IS A",
+              style: context.textTheme.titleLarge
+                  ?.copyWith(color: AppColors.authScaffoldColor),
+            ).animate().shimmer(
+                  color: AppColors.succDark,
+                  duration: _animationDuration,
+                ),
+            const Spacer(
+              flex: 3,
+            ),
+            Text.rich(
+              TextSpan(
+                text: "Good",
+                style: context.textTheme.titleLarge
+                    ?.copyWith(color: AppColors.succDark),
+                children: [
+                  TextSpan(
+                    text: " Place",
+                    style: context.textTheme.titleLarge
+                        ?.copyWith(color: AppColors.orangeTextColor),
+                  )
+                ],
+              ),
+            ).animate().shimmer(
+                  delay: _intervalDuration,
+                  duration: _animationDuration,
+                  color: AppColors.errLight,
+                ),
+            const Spacer(
+              flex: 2,
+            ),
+            Text(
+              "to",
+              style: context.textTheme.titleLarge
+                  ?.copyWith(color: AppColors.authScaffoldColor),
+            ).animate().shimmer(
+                  color: AppColors.succDark,
+                  delay: _intervalDuration * 2 + _animationDuration,
+                  duration: _animationDuration,
+                ),
+            Text(
+              "Track Your",
+              style: context.textTheme.titleLarge
+                  ?.copyWith(color: AppColors.authScaffoldColor),
+            ).animate().shimmer(
+                  color: AppColors.succDark,
+                  duration: _animationDuration,
+                  delay: _intervalDuration * 3 + _animationDuration,
+                ),
+            Text(
+              "Habits",
+              style: context.textTheme.titleLarge
+                  ?.copyWith(color: AppColors.authScaffoldColor),
+            ).animate().shimmer(
+                  color: AppColors.primaryButtonColor,
+                  duration: _animationDuration,
+                  delay: _intervalDuration * 4 + _animationDuration,
+                ),
+            const Spacer(),
+          ]
+              .animate(
+                interval: _intervalDuration,
+              )
+              .fadeIn(),
+        ),
       ),
     );
   }
