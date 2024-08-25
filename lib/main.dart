@@ -65,11 +65,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  /// After 3 seconds navigate to [AuthManager]
   Future _splashManager() async {
     await Future.delayed(const Duration(seconds: 3));
     context.navigator.pushReplacementNamed("/");
@@ -88,75 +84,87 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "IT IS A",
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: AppColors.authScaffoldColor),
-            ).animate().shimmer(
-                  color: AppColors.succDark,
-                  duration: _animationDuration,
-                ),
-            const Spacer(
-              flex: 3,
-            ),
-            Text.rich(
-              TextSpan(
-                text: "Good",
-                style: context.textTheme.titleLarge
-                    ?.copyWith(color: AppColors.succDark),
-                children: [
-                  TextSpan(
-                    text: " Place",
-                    style: context.textTheme.titleLarge
-                        ?.copyWith(color: AppColors.orangeTextColor),
-                  )
-                ],
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            "IT IS A",
+            style: context.textTheme.titleLarge
+                ?.copyWith(color: AppColors.authScaffoldColor),
+          ).animate().fadeIn().shimmer(
+                color: AppColors.succDark,
+                duration: _animationDuration,
               ),
-            ).animate().shimmer(
-                  delay: _intervalDuration,
-                  duration: _animationDuration,
-                  color: AppColors.errLight,
-                ),
-            const Spacer(
-              flex: 2,
+          const Spacer(
+            flex: 3,
+          ),
+          Text.rich(
+            TextSpan(
+              text: "Good",
+              style: context.textTheme.titleLarge
+                  ?.copyWith(color: AppColors.succDark),
+              children: [
+                TextSpan(
+                  text: " Place",
+                  style: context.textTheme.titleLarge
+                      ?.copyWith(color: AppColors.orangeTextColor),
+                )
+              ],
             ),
-            Text(
-              "to",
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: AppColors.authScaffoldColor),
-            ).animate().shimmer(
-                  color: AppColors.succDark,
-                  delay: _intervalDuration * 2 + _animationDuration,
-                  duration: _animationDuration,
-                ),
-            Text(
-              "Track Your",
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: AppColors.authScaffoldColor),
-            ).animate().shimmer(
-                  color: AppColors.succDark,
-                  duration: _animationDuration,
-                  delay: _intervalDuration * 3 + _animationDuration,
-                ),
-            Text(
-              "Habits",
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: AppColors.authScaffoldColor),
-            ).animate().shimmer(
-                  color: AppColors.primaryButtonColor,
-                  duration: _animationDuration,
-                  delay: _intervalDuration * 4 + _animationDuration,
-                ),
-            const Spacer(),
-          ]
+          )
               .animate(
-                interval: _intervalDuration,
+                delay: _intervalDuration + _animationDuration,
               )
-              .fadeIn(),
-        ),
+              .fadeIn()
+              .shimmer(
+                duration: _animationDuration,
+                color: AppColors.errLight,
+              ),
+          const Spacer(
+            flex: 2,
+          ),
+          Text(
+            "to",
+            style: context.textTheme.titleLarge
+                ?.copyWith(color: AppColors.authScaffoldColor),
+          )
+              .animate(
+                delay: _intervalDuration * 2 + _animationDuration,
+              )
+              .fadeIn()
+              .shimmer(
+                color: AppColors.darkTextColor,
+                duration: _animationDuration,
+              ),
+          const Gap(AppPaddings.smallPaddingValue),
+          Text(
+            "Track Your",
+            style: context.textTheme.titleLarge
+                ?.copyWith(color: AppColors.authScaffoldColor),
+          )
+              .animate(
+                delay: _intervalDuration * 3 + _animationDuration,
+              )
+              .fadeIn()
+              .shimmer(
+                color: AppColors.grayTextColor,
+                duration: _animationDuration,
+              ),
+          const Gap(AppPaddings.smallPaddingValue),
+          Text(
+            "Habits",
+            style: context.textTheme.titleLarge
+                ?.copyWith(color: AppColors.authScaffoldColor),
+          )
+              .animate(
+                delay: _intervalDuration * 4 + _animationDuration,
+              )
+              .fadeIn()
+              .shimmer(
+                color: AppColors.errDark,
+                duration: _animationDuration,
+                // delay: _intervalDuration * 4 + _animationDuration,
+              ),
+          const Spacer(),
+        ]),
       ),
     );
   }
