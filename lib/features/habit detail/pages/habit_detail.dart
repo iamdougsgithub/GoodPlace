@@ -126,8 +126,6 @@ class _HabitDetailState extends State<HabitDetail> {
   }
 
   Widget _streakCount(HabitModel habitModel, BuildContext context) {
-    CrossFadeState crossFadeState = CrossFadeState.showFirst;
-
     return Positioned(
       right: AppPaddings.smallPaddingValue,
       top: kToolbarHeight,
@@ -180,31 +178,37 @@ class _HabitDetailState extends State<HabitDetail> {
       right: AppPaddings.homeScreenHorizontalPadding.right,
       child: LayoutBuilder(
         builder: (context, constraints) => FittedBox(
-          fit: BoxFit.scaleDown,
+          fit: BoxFit.contain,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Title
-                  Text(
-                    habitModel.title,
-                    style: context.textTheme.titleLarge
-                        ?.copyWith(color: Colors.white),
-                  ),
-
-                  /// Purpose
-                  Visibility(
-                    visible: habitModel.purpose != "",
-                    child: Text(
-                      habitModel.purpose ?? "",
-                      style: context.textTheme.labelLarge
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: constraints.maxHeight,
+                  maxWidth: constraints.maxWidth,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Title
+                    Text(
+                      habitModel.title,
+                      style: context.textTheme.titleLarge
                           ?.copyWith(color: Colors.white),
                     ),
-                  ),
-                ],
+
+                    /// Purpose
+                    Visibility(
+                      visible: habitModel.purpose != "",
+                      child: Text(
+                        habitModel.purpose ?? "",
+                        style: context.textTheme.labelLarge
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Gap(constraints.maxWidth / 2),
 

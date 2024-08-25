@@ -77,11 +77,11 @@ class _CreateHabitPageState extends State<CreateHabitPage>
                     ),
                   ),
                   constraints: BoxConstraints(
-                    maxHeight: context.dynamicHeight(0.2),
+                    maxHeight: context.dynamicHeight(0.18),
                   ),
                   controller: purposeController,
                   textInputAction: TextInputAction.done,
-                  maxLength: 50,
+                  maxLength: 100,
                   textCapitalization: TextCapitalization.sentences,
                   buildCounter: (context,
                       {required currentLength,

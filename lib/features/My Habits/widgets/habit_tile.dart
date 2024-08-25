@@ -56,17 +56,14 @@ class HabitTile extends StatelessWidget {
                   horizontal: AppPaddings.smallPaddingValue,
                 ),
                 title: LayoutBuilder(builder: (context, c) {
-                  return FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        contentColumn(context, habitModel),
-                        Gap(c.maxWidth / 2),
-                        streakColumn(context, habitModel),
-                      ],
-                    ),
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      contentColumn(context, habitModel),
+                      // Gap(c.maxWidth / 2),
+                      streakColumn(context, habitModel),
+                    ],
                   );
                 }),
               ),
@@ -137,9 +134,13 @@ class HabitTile extends StatelessWidget {
           habitModel.title,
           style: context.textTheme.titleMedium,
         ),
-        Text(
-          habitModel.purpose ?? "",
-          style: context.textTheme.labelMedium,
+        SizedBox(
+          width: 200,
+          child: Text(
+            habitModel.purpose ?? "",
+            overflow: TextOverflow.ellipsis,
+            style: context.textTheme.labelMedium,
+          ),
         ),
         const Gap(AppPaddings.smallPaddingValue),
         Text(
