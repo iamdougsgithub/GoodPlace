@@ -81,7 +81,7 @@ class _CreateHabitPageState extends State<CreateHabitPage>
                   ),
                   controller: purposeController,
                   textInputAction: TextInputAction.done,
-                  maxLength: 100,
+                  maxLength: 500,
                   textCapitalization: TextCapitalization.sentences,
                   buildCounter: (context,
                       {required currentLength,
