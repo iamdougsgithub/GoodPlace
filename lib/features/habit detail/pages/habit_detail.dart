@@ -9,6 +9,7 @@ import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/calendar.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
+import 'package:good_place/features/habit%20detail/widgets/habit_detail_calendar.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/logger.dart';
 import 'package:intl/intl.dart';
@@ -48,27 +49,30 @@ class _HabitDetailState extends State<HabitDetail> {
         children: [
           /// Header
           _pageHeader(context, habitProvider, habitIndex),
-          Expanded(
-            child: Calendar(
-              eventLoader: (day) {
-                bool _isDone = false;
-
-                DateTime _day = DateTime(day.year, day.month, day.day);
-
-                HabitProvider.instance.habits[habitIndex].completionDates
-                    .forEach((_) {
-                  DateTime a = DateTime(_.year, _.month, _.day);
-                  if (a == _day) {
-                    _isDone = true;
-                  }
-                });
-                if (_isDone) {
-                  return [const Text("data")];
-                }
-                return [];
-              },
-            ),
+          HabitDetailCalendar(
+            habitIndex: habitIndex,
           ),
+          // Expanded(
+          //   child: Calendar(
+          //     eventLoader: (day) {
+          //       bool _isDone = false;
+
+          //       DateTime _day = DateTime(day.year, day.month, day.day);
+
+          //       HabitProvider.instance.habits[habitIndex].completionDates
+          //           .forEach((_) {
+          //         DateTime a = DateTime(_.year, _.month, _.day);
+          //         if (a == _day) {
+          //           _isDone = true;
+          //         }
+          //       });
+          //       if (_isDone) {
+          //         return [const Text("data")];
+          //       }
+          //       return [];
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

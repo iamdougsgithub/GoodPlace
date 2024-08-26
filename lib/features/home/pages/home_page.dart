@@ -7,7 +7,7 @@ import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/calendar.dart';
-import '../widgets/calendar_widget.dart';
+import '../widgets/home_calendar_widget.dart';
 import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/i_drawer.dart';
@@ -70,30 +70,7 @@ class _HomePageState extends State<HomePage> {
 
                     /// Calendar
                     const HomeCalendarWidget(),
-                    // Consumer<HabitProvider>(
-                    //   builder: (context, provider, child) => Calendar(
 
-                    //     eventLoader: (day) {
-                    //       bool _isDone = false;
-
-                    //       DateTime _day =
-                    //           DateTime(day.year, day.month, day.day);
-                    //       for (HabitModel habit in provider.habits) {
-                    //         for (DateTime date in habit.completionDates) {
-                    //           DateTime _date =
-                    //               DateTime(date.year, date.month, date.day);
-                    //           if (_date == _day) {
-                    //             _isDone = true;
-                    //           }
-                    //         }
-                    //       }
-                    //       if (_isDone) {
-                    //         return [const Text("data")];
-                    //       }
-                    //       return [];
-                    //     },
-                    //   ),
-                    // ),
                     gap,
 
                     /// Motivation Card

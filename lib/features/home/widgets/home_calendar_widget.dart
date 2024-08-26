@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
-import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../core/utils/models/habit_model.dart';
-import '../../../core/utils/widgets/calendar.dart';
+
 import '../../../config/theme.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/models/habit_model.dart';
+import '../../../core/utils/widgets/calendar.dart';
+import '../../habit%20detail/pages/habit_detail.dart';
+import '../../user_data/habit_provider.dart';
 
 class HomeCalendarWidget extends StatefulWidget {
   const HomeCalendarWidget({super.key});
@@ -70,16 +70,16 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
 
   void onLongPressed(
       DateTime selectedDay, DateTime focusedDay, HabitProvider provider) {
-    DateTime _selectedDay =
+    DateTime formattedSelectedDay =
         DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
 
-    List<HabitModel> _habits = [];
+    List<HabitModel> completedHabitsList = [];
 
     provider.habits.forEach((habit) {
       for (var date in habit.completionDates) {
         date = DateTime(date.year, date.month, date.day);
-        if (date == _selectedDay) {
-          _habits.add(habit);
+        if (date == formattedSelectedDay) {
+          completedHabitsList.add(habit);
         }
       }
     });
@@ -92,11 +92,8 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
         ),
         child: ListView(
           shrinkWrap: true,
-          children: _habits.map((habit) {
+          children: completedHabitsList.map((habit) {
             return ListTile(
-              onTap: () => context.pushNamed(
-                HabitDetail.routeName,
-              ),
               title: Text(habit.title),
             );
           }).toList(),
@@ -106,19 +103,19 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
   }
 
   List<dynamic> eventLoader(DateTime day, HabitProvider provider) {
-    bool _isDone = false;
+    bool isDone = false;
 
-    DateTime _day = DateTime(day.year, day.month, day.day);
+    DateTime formattedDay = DateTime(day.year, day.month, day.day);
     for (HabitModel habit in provider.habits) {
       for (DateTime date in habit.completionDates) {
-        DateTime _date = DateTime(date.year, date.month, date.day);
-        if (_date == _day) {
-          _isDone = true;
+        DateTime formattedDate = DateTime(date.year, date.month, date.day);
+        if (formattedDate == formattedDay) {
+          isDone = true;
         }
       }
     }
-    if (_isDone) {
-      return [const Text("data")];
+    if (isDone) {
+      return [const SizedBox()];
     }
     return [];
   }
