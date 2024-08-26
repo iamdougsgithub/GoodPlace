@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:good_place/config/theme.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
@@ -14,6 +15,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await dotenv.load(fileName: ".env");
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
