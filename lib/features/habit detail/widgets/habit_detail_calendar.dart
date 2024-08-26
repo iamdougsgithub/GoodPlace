@@ -67,4 +67,8 @@ class _HabitDetailCalendar extends AppCalendar {
     super.onDaySelected,
     super.eventLoader,
   });
+  @override
+  Map<CalendarFormat, String> get availableCalendarFormats => {
+        CalendarFormat.month: "month",
+      };
 }

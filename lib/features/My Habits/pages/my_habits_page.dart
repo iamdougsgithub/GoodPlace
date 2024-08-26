@@ -1,12 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -66,7 +62,6 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
                         bottom: AppPaddings.smallPaddingValue,
                       ),
                       child: HabitTile(
-                        // habitModel: provider.habits[index],
                         index: index,
                       ),
                     );

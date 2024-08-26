@@ -151,17 +151,21 @@ class _AreYouSureDialog extends StatelessWidget {
       content: const Text(
         "After you clicked confirm your account will be deleted permanently and you will not be able to recover.",
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: () => context.pop(),
-          child: const Text("Cancel"),
-        ),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actions: <Widget>[
+        /// Delete Button
         TextButton(
           style: TextButton.styleFrom(
             foregroundColor: AppColors.errDark,
           ),
           onPressed: () async => await onIamSureTapped(context),
-          child: const Text("I am sure !"),
+          child: const Text("I do want to delete"),
+        ),
+
+        /// Cancel Button
+        ElevatedButton(
+          onPressed: () => context.pop(),
+          child: const Text("I don't want to delete"),
         ),
       ],
     );

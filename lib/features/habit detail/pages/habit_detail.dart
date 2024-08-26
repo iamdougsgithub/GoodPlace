@@ -35,15 +35,19 @@ class _HabitDetailState extends State<HabitDetail> {
       appBar: AppBar(),
       floatingActionButton: fab(habitProvider, habitIndex, context),
       extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          /// Header
-          _pageHeader(context, habitProvider, habitIndex),
-          const MotivationCardWidget(),
-          HabitDetailCalendar(
-            habitIndex: habitIndex,
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            /// Header
+            _pageHeader(context, habitProvider, habitIndex),
+            const MotivationCardWidget(),
+            HabitDetailCalendar(
+              habitIndex: habitIndex,
+            ),
+            const Gap(
+                AppPaddings.largePaddingValue + AppPaddings.smallPaddingValue),
+          ],
+        ),
       ),
     );
   }
