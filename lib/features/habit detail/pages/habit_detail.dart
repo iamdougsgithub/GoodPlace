@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
@@ -181,13 +182,21 @@ class _HabitDetailState extends State<HabitDetail> {
 
                     /// Purpose
                     Visibility(
-                      visible: habitModel.purpose != "",
-                      child: Text(
-                        habitModel.purpose ?? "",
-                        style: context.textTheme.labelLarge
-                            ?.copyWith(color: Colors.white),
-                      ),
-                    ),
+                        visible: habitModel.purpose != "",
+                        child: Markdown(
+                          data: habitModel.purpose ?? "",
+                          shrinkWrap: true,
+                          styleSheet: MarkdownStyleSheet(
+                              p: context.textTheme.labelLarge
+                                  ?.copyWith(color: Colors.white)),
+                        )
+
+                        // Text(
+                        //   habitModel.purpose ?? "",
+                        //   style: context.textTheme.labelLarge
+                        //       ?.copyWith(color: Colors.white),
+                        // ),
+                        ),
                   ],
                 ),
               ),

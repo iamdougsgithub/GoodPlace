@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:good_place/features/chatgpt/ChatGptService.dart';
 import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
 import 'package:good_place/features/home/quote_model.dart';
@@ -87,13 +88,18 @@ class _MotivationCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Markdown(
+                    data: text.text,
+                    shrinkWrap: true,
+                  )
+
                   /// Content
-                  Text(
-                    text.text,
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  // Text(
+                  //   text.text,
+                  //   style: context.textTheme.bodyLarge?.copyWith(
+                  //     fontWeight: FontWeight.w500,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
