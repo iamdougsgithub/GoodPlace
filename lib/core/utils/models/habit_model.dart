@@ -86,10 +86,10 @@ class HabitModel {
   @override
   String toString() {
     String doneStatus = done
-        ? "bugün ki görevimi yaptım."
-        : "bugün ki görevimi henüz yapmadım.";
+        ? "I completed today's task."
+        : "I haven't completed today's task yet.";
     String purposeText = purpose != null ? "purpose:$purpose," : "";
 
-    return "Alışkanlık title:$title,$purposeText mevcut streakCount:$streakCount,longestStreak:$longestStreak,$doneStatus";
+    return "Habit title:$title,$purposeText Current streakCount:$streakCount,longestStreak:$longestStreak,$doneStatus";
   }
 }

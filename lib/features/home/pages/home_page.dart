@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../core/utils/widgets/calendar.dart';
 import '../widgets/home_calendar_widget.dart';
 import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../widgets/i_drawer.dart';
 import '../widgets/motivation_card_widget.dart';
 import '../widgets/stat_grid_widget.dart';
-import '../widgets/streak_card_widget.dart';
 
 import '../../../config/theme.dart';
 import '../widgets/welcome_text.dart';

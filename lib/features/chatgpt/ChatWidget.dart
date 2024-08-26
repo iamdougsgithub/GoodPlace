@@ -49,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
       });
 
       var response = '';
-      getChatResponse(text, "dddmdmf").listen((word) {
+      ChatgptService().getChatResponse(text, "dddmdmf").listen((word) {
         setState(() {
           response += word;
           _messages[_messages.length - 1] = 'Bot: $response';

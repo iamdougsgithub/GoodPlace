@@ -1,85 +1,102 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-String url = dotenv.env['API_URL'] ?? 'API_URL not found';
-String _apiKey = dotenv.env['API_KEY'] ?? 'API_KEY not found';
+class ChatgptService {
+  String url = dotenv.env['API_URL'] ?? 'API_URL not found';
+  String _apiKey = dotenv.env['API_KEY'] ?? 'API_KEY not found';
 
-Stream<String> getChatResponse(
-    String userContentText, String systemContentText) async* {
-// response dan dönen veriyi işleme
-  Stream<String> checkAndProcessContent(
-      Map<String, dynamic> data, String key, Duration delay) async* {
-    if (data.containsKey(key)) {
-      String content = data[key];
-      // Metin daha kısa olması için
-      content = content.replaceAll('\n', '').replaceAll('\n\n', '');
+  Future<void> generateResponse(
+      String userContentText,
+      String systemContentText,
+      TextEditingController controller,
+      Function func) async {
+    controller.clear();
 
-      if (content != null && content.isNotEmpty) {
-        print('Content: $content');
-        await Future.delayed(delay);
-
-        yield content;
-      } else {
-        print('$key field is empty or null');
-      }
-    } else {
-      print('$key field is missing');
-    }
+    var response = '';
+    ChatgptService()
+        .getChatResponse(userContentText, systemContentText)
+        .listen((word) {
+      func(word);
+    });
   }
 
-  final headers = {
-    'Content-Type': 'application/json',
-    'api-key': _apiKey,
-  };
+  Stream<String> getChatResponse(
+      String userContentText, String systemContentText) async* {
+// response dan dönen veriyi işleme
+    Stream<String> checkAndProcessContent(
+        Map<String, dynamic> data, String key, Duration delay) async* {
+      if (data.containsKey(key)) {
+        String content = data[key];
+        // Metin daha kısa olması için
+        content = content.replaceAll('\n', '').replaceAll('\n\n', '');
 
-  final body = _getApiBody([
-    {
-      "role": "system",
-      "content": [
-        {"type": "text", "text": systemContentText}
-      ]
-    },
-    {
-      "role": "user",
-      "content": [
-        {"type": "text", "text": userContentText}
-      ]
+        if (content != null && content.isNotEmpty) {
+          print('Content: $content');
+          await Future.delayed(delay);
+
+          yield content;
+        } else {
+          print('$key field is empty or null');
+        }
+      } else {
+        print('$key field is missing');
+      }
     }
-  ]);
 
-  var request = http.Request('POST', Uri.parse(url))
-    ..headers.addAll(headers)
-    ..body = body;
+    final headers = {
+      'Content-Type': 'application/json',
+      'api-key': _apiKey,
+    };
 
-  var streamedResponse = await request.send();
+    final body = _getApiBody([
+      {
+        "role": "system",
+        "content": [
+          {"type": "text", "text": systemContentText}
+        ]
+      },
+      {
+        "role": "user",
+        "content": [
+          {"type": "text", "text": userContentText}
+        ]
+      }
+    ]);
 
-  await for (var line in streamedResponse.stream
-      .transform(utf8.decoder)
-      .transform(const LineSplitter())) {
-    if (line.isNotEmpty && line != "data: [DONE]") {
-      line = line.startsWith('data: ') ? line.substring(5) : line;
+    var request = http.Request('POST', Uri.parse(url))
+      ..headers.addAll(headers)
+      ..body = body;
 
-      final jsonData = jsonDecode(line);
+    var streamedResponse = await request.send();
 
-      final choices = jsonData['choices'] as List<dynamic>;
+    await for (var line in streamedResponse.stream
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())) {
+      if (line.isNotEmpty && line != "data: [DONE]") {
+        line = line.startsWith('data: ') ? line.substring(5) : line;
 
-      if (choices.isNotEmpty) {
-        final firstChoice = choices[0];
-        // "stream": false => 'message'
-        if (firstChoice.containsKey('message')) {
-          final message = firstChoice['message'] as Map<String, dynamic>;
-          yield* checkAndProcessContent(
-              message, 'content', Duration(milliseconds: 2));
-        }
+        final jsonData = jsonDecode(line);
 
-        // "stream": true => 'delta'
-        if (firstChoice.containsKey('delta')) {
-          final delta = firstChoice['delta'] as Map<String, dynamic>;
-          yield* checkAndProcessContent(
-              delta, 'content', Duration(milliseconds: 2));
-        }
+        final choices = jsonData['choices'] as List<dynamic>;
+
+        if (choices.isNotEmpty) {
+          final firstChoice = choices[0];
+          // "stream": false => 'message'
+          if (firstChoice.containsKey('message')) {
+            final message = firstChoice['message'] as Map<String, dynamic>;
+            yield* checkAndProcessContent(
+                message, 'content', Duration(milliseconds: 2));
+          }
+
+          // "stream": true => 'delta'
+          if (firstChoice.containsKey('delta')) {
+            final delta = firstChoice['delta'] as Map<String, dynamic>;
+            yield* checkAndProcessContent(
+                delta, 'content', Duration(milliseconds: 2));
+          }
 /*  Bu kısım [checkAndProcessContent] fonksiyon haline getirilmiştir.
         // 'delta' alanının var olup olmadığını kontrol et
         if (firstChoice.containsKey('message')) {
@@ -123,22 +140,23 @@ Stream<String> getChatResponse(
           }
         } 
         */
-        else {
-          print('Delta field is missing');
+          else {
+            print('Delta field is missing');
+          }
+        } else {
+          print('Choices list is empty');
         }
-      } else {
-        print('Choices list is empty');
       }
     }
   }
-}
 
-String _getApiBody(List<dynamic> jsonBody) {
-  return jsonEncode({
-    "messages": jsonBody,
-    "temperature": 0.8,
-    "top_p": 0.95,
-    "max_tokens": 800,
-    "stream": true,
-  });
+  String _getApiBody(List<dynamic> jsonBody) {
+    return jsonEncode({
+      "messages": jsonBody,
+      "temperature": 0.8,
+      "top_p": 0.95,
+      "max_tokens": 800,
+      "stream": true,
+    });
+  }
 }

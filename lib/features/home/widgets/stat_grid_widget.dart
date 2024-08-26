@@ -59,17 +59,17 @@ class _StatCard extends StatelessWidget {
   final Widget icon;
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: AppBorderRadius.largeBorderRadius,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: AppBorderRadius.largeBorderRadius,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppPaddings.smallPaddingValue,
+          vertical: AppPaddings.mediumPaddingValue,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppPaddings.smallPaddingValue,
-            vertical: AppPaddings.mediumPaddingValue,
-          ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

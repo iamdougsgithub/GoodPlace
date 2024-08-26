@@ -1,55 +1,72 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import '../../../core/utils/widgets/skeleton.dart';
-import '../quote_model.dart';
+import 'package:good_place/features/chatgpt/ChatGptService.dart';
+import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
+import 'package:good_place/features/home/quote_model.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/utils/widgets/image_container.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
-import '../quotable_api_service.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class MotivationCardWidget extends StatefulWidget {
+class HabitDetailMotivation extends StatefulWidget {
   /// Bu widget bir [FutureBuilder] içerisinde APICall yapıyor .
   ///  APICall tamamlanana kadar [_SkeletonMotivationCard] gösteriyor.
   /// APICall tamamlandıgında ise [_MotivationCard]'ı gösteriyor.
-  const MotivationCardWidget({
+  const HabitDetailMotivation({
     super.key,
+    required this.habitDetail,
   });
-
+  final String habitDetail;
   @override
-  State<MotivationCardWidget> createState() => _MotivationCardWidgetState();
+  State<HabitDetailMotivation> createState() => _HabitDetailMotivationState();
 }
 
-class _MotivationCardWidgetState extends State<MotivationCardWidget> {
+class _HabitDetailMotivationState extends State<HabitDetailMotivation> {
+  final TextEditingController motivationController = TextEditingController();
+  String response = "";
+
+  Future<void> generateResponse(
+    String userContentText,
+    String systemContentText,
+    TextEditingController controller,
+  ) async {
+    controller.clear();
+
+    var response = '';
+    ChatgptService()
+        .getChatResponse(userContentText, systemContentText)
+        .listen((word) {
+      setState(() {
+        response += word;
+        controller.text = response;
+      });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    Random random = Random();
+    int index = random.nextInt(motivationSystemContentList.length);
+    generateResponse(
+      widget.habitDetail,
+      motivationSystemContentList[index],
+      motivationController,
+    );
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: ApiService().getRandomQuote(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SkeletonWidget(_MotivationCard(_MockQuote.quote));
-          }
-
-          /// if data received show MotivationCard
-          if (snapshot.hasData) {
-            return InkWell(
-              onTap: () => setState(() {}),
-              child: _MotivationCard(snapshot.data!),
-            );
-          }
-
-          /// Eğerki [Quote] null gelirse [_MockQuote]'u göster.
-          return _MotivationCard(_MockQuote.quote);
-        });
+    return _MotivationCard(motivationController);
   }
 }
 
 class _MotivationCard extends StatelessWidget {
-  final Quote quote;
-  const _MotivationCard(this.quote);
+  final TextEditingController text;
+  const _MotivationCard(this.text);
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +89,9 @@ class _MotivationCard extends StatelessWidget {
                 children: [
                   /// Content
                   Text(
-                    quote.content,
+                    text.text,
                     style: context.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
-                    ),
-                  ),
-
-                  /// Author
-                  Text(
-                    "- ${quote.author}",
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ],

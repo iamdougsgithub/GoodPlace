@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,10 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:good_place/config/theme.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import 'config/routes.dart';

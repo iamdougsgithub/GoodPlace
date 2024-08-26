@@ -42,7 +42,9 @@ class _HomePageState extends State<HomePage> {
     controller.clear();
 
     var response = '';
-    getChatResponse(userContentText, systemContentText).listen((word) {
+    ChatgptService()
+        .getChatResponse(userContentText, systemContentText)
+        .listen((word) {
       setState(() {
         response += word;
         controller.text = response;

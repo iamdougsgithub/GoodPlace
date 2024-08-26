@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:good_place/logger.dart';
@@ -11,6 +12,7 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/habit_model.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
+import '../../chatgpt/ChatGptService.dart';
 import '../../habit detail/pages/habit_detail.dart';
 import '../../user_data/habit_provider.dart';
 import '../mixins/create_habit_mixin.dart';
@@ -26,6 +28,26 @@ class CreateHabitPage extends StatefulWidget {
 
 class _CreateHabitPageState extends State<CreateHabitPage>
     with CreateHabitMixin {
+  String response = "";
+
+  Future<void> generateResponse(
+    String userContentText,
+    String systemContentText,
+    TextEditingController controller,
+  ) async {
+    controller.clear();
+
+    var response = '';
+    ChatgptService()
+        .getChatResponse(userContentText, systemContentText)
+        .listen((word) {
+      setState(() {
+        response += word;
+        controller.text = response;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +98,15 @@ class _CreateHabitPageState extends State<CreateHabitPage>
                     width: 32,
                     height: 32,
                     child: GestureDetector(
-                      onTap: () => logger.i("CreateHabit AI Button"),
+                      onTap: () {
+                        generateResponse(
+                          habitNameController.text.isEmpty
+                              ? ""
+                              : habitNameController.text,
+                          purposeSystemContentText,
+                          purposeController,
+                        );
+                      },
                       child: Lottie.asset(AppAssets.aiButtonAnimation),
                     ),
                   ),
