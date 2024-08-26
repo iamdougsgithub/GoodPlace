@@ -26,9 +26,9 @@ class HabitModel {
 
   void _updateStreakCount() {
     if (completionDates.isNotEmpty) {
-      final lastCompletionDate = _stripTime(completionDates.last);
+      final lastCompletionDate = stripTime(completionDates.last);
 
-      final now = _stripTime(DateTime.now());
+      final now = stripTime(DateTime.now());
 
       final difference = now.difference(lastCompletionDate).inDays;
       if (difference > 1) {
@@ -39,15 +39,15 @@ class HabitModel {
 
   static _calculateDone(List<DateTime> completionDates) {
     if (completionDates.isEmpty) return false;
-    final today = _stripTime(DateTime.now());
+    final today = stripTime(DateTime.now());
 
-    final lastCompletionDate = _stripTime(completionDates.last);
+    final lastCompletionDate = stripTime(completionDates.last);
 
     return lastCompletionDate == today;
   }
 
   /// Strips the time part from a DateTime object, leaving only the date
-  static DateTime _stripTime(DateTime dateTime) {
+  static DateTime stripTime(DateTime dateTime) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 

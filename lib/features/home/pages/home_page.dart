@@ -67,7 +67,24 @@ class _HomePageState extends State<HomePage> {
                     WelcomeText().animate().fadeIn(),
 
                     /// Calendar
-                    const Calendar().animate().moveY(),
+                    Calendar(
+                      eventLoader: (day) {
+                        bool is_there = false;
+
+                        DateTime _day = DateTime(day.year, day.month, day.day);
+
+                        HabitProvider.instance.allCompletionDates.forEach((_) {
+                          DateTime a = _;
+                          if (a == _day) {
+                            is_there = true;
+                          }
+                        });
+                        if (is_there) {
+                          return [const Text("data")];
+                        }
+                        return [];
+                      },
+                    ).animate().moveY(),
                     gap,
 
                     /// Motivation Card

@@ -200,4 +200,19 @@ class HabitProvider with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  /// All Completion Dates for HomePage Calender
+  /// örnek kullanım:
+  /// final habitsProvider = Provider.of<HabitsProvider>(context);
+  ///  final allDates = habitsProvider.allCompletionDates;
+
+  List<DateTime> get allCompletionDates {
+    Set<DateTime> dates = {};
+    for (var habit in _habits) {
+      for (var date in habit.completionDates) {
+        dates.add(HabitModel.stripTime(date));
+      }
+    }
+    return dates.toList()..sort();
+  }
 }
