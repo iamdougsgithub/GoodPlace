@@ -7,7 +7,7 @@ abstract class FirebaseUtils {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // final FirebaseStorage storage = FirebaseStorage.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  static GoogleSignIn googleSignIn = GoogleSignIn();
 
   User? get currentUser => firebaseAuth.currentUser;
   // Auth state changes stream

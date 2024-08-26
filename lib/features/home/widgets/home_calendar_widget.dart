@@ -135,19 +135,18 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
   }
 
   List<dynamic> eventLoader(DateTime day, HabitProvider provider) {
-    bool isDone = false;
+    bool is_there = false;
 
-    DateTime formattedDay = DateTime(day.year, day.month, day.day);
-    for (HabitModel habit in provider.habits) {
-      for (DateTime date in habit.completionDates) {
-        DateTime formattedDate = DateTime(date.year, date.month, date.day);
-        if (formattedDate == formattedDay) {
-          isDone = true;
-        }
+    DateTime _day = DateTime(day.year, day.month, day.day);
+
+    HabitProvider.instance.allCompletionDates.forEach((_) {
+      DateTime a = _;
+      if (a == _day) {
+        is_there = true;
       }
-    }
-    if (isDone) {
-      return [const SizedBox()];
+    });
+    if (is_there) {
+      return [const Text("data")];
     }
     return [];
   }

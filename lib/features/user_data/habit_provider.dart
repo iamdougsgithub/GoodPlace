@@ -85,8 +85,6 @@ class HabitProvider with ChangeNotifier {
         DateTime(now.year, now.month, now.day + 1); // Ertesi gece yarısı
     Duration timeUntilMidnight = midnight.difference(now);
 
-    // print("timeUntilMidnight:$timeUntilMidnight  midnight:$midnight now:$now ");
-
     _midnightTimer = Timer(timeUntilMidnight, _resetHabitsAtMidnight);
   }
 
@@ -103,12 +101,118 @@ class HabitProvider with ChangeNotifier {
     super.dispose();
     _midnightTimer?.cancel();
   }
-/*
-  Future<void> getUser() async {
-    _habits = await _userService.getUserDetails();
-    if (_midnightTimer == null && _habits.isNotEmpty) {
-      _startMidnightTimer();
+
+  ///  =>>>>>>>>>>>  Home page calculation cards operations
+  int getTotalDone() {
+    return _habits.where((habit) => habit.done).length;
+  }
+
+  int getLongestStreak() {
+    int longestStreak = 0;
+
+    for (var habit in _habits) {
+      if (habit.longestStreak > longestStreak) {
+        longestStreak = habit.longestStreak;
+      }
     }
+    return longestStreak;
+  }
+
+  String getLongestMissedHabitInfo() {
+    //en uzun süredir yapılmamış habit
+    if (_habits.isEmpty) {
+      return 'No habits available';
+    }
+
+    HabitModel? longestMissedHabit;
+    Duration longestMissedDuration = Duration.zero;
+
+    for (var habit in _habits) {
+      if (habit.completionDates.isEmpty) {
+        return 'Title: ${habit.title}\nPurpose: ${habit.purpose}\nLast Completed: Never';
+      }
+      var lastCompletionDate = habit.completionDates.last;
+      var durationSinceLastCompletion =
+          DateTime.now().difference(lastCompletionDate);
+
+      if (durationSinceLastCompletion > longestMissedDuration) {
+        longestMissedDuration = durationSinceLastCompletion;
+        longestMissedHabit = habit;
+      }
+    }
+
+    if (longestMissedHabit != null) {
+      var lastCompletionDate = longestMissedHabit.completionDates.last;
+      return 'Title: ${longestMissedHabit.title}\nPurpose: ${longestMissedHabit.purpose}\nLast Completed: ${_formatDate(lastCompletionDate)}';
+    }
+
+    return 'No valid habit found';
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day}-${date.month}-${date.year}';
+  }
+
+  //// =>>>>>>>>>>>    Sort operations
+
+  /// Sort habits by streak count
+  void sortByStreakCount() {
+    _habits.sort((a, b) => b.streakCount.compareTo(a.streakCount));
     notifyListeners();
-  }*/
+  }
+
+  /// Sort habits by Longest streak
+  void sortByLongestStreak() {
+    _habits.sort((a, b) => b.longestStreak.compareTo(a.longestStreak));
+    notifyListeners();
+  }
+
+  /// Sort habits by date of last completion
+  void sortByRecentCompletion() {
+    _habits.sort((a, b) {
+      if (a.completionDates.isNotEmpty && b.completionDates.isNotEmpty) {
+        return b.completionDates.last.compareTo(a.completionDates.last);
+      } else if (a.completionDates.isNotEmpty) {
+        return -1;
+      } else if (b.completionDates.isNotEmpty) {
+        return 1;
+      }
+      return 0;
+    });
+    notifyListeners();
+  }
+
+  /// Sort habits by streakCount and then by date of last completion
+  void sortByStreakCountAndRecentCompletion() {
+    _habits.sort((a, b) {
+      int streakComparison = b.streakCount.compareTo(a.streakCount);
+      if (streakComparison != 0) {
+        return streakComparison;
+      }
+      if (a.completionDates.isNotEmpty && b.completionDates.isNotEmpty) {
+        return b.completionDates.last.compareTo(a.completionDates.last);
+      } else if (a.completionDates.isNotEmpty) {
+        return -1;
+      } else if (b.completionDates.isNotEmpty) {
+        return 1;
+      }
+      return 0;
+    });
+    notifyListeners();
+  }
+
+  /// All Completion Dates for HomePage Calender
+  /// örnek kullanım:
+  /// final habitsProvider = Provider.of<HabitsProvider>(context);
+  ///  final allDates = habitsProvider.allCompletionDates;
+
+  List<DateTime> get allCompletionDates {
+    Set<DateTime> dates = {};
+    for (var habit in _habits) {
+      for (var date in habit.completionDates) {
+        dates.add(HabitModel.stripTime(date));
+      }
+    }
+    return dates.toList()..sort();
+  }
 }

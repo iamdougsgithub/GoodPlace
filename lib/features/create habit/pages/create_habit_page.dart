@@ -3,12 +3,16 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:good_place/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/models/habit_model.dart';
 import '../../../core/utils/widgets/custom_text_form_field.dart';
+import '../../habit detail/pages/habit_detail.dart';
+import '../../user_data/habit_provider.dart';
 import '../mixins/create_habit_mixin.dart';
 import '../widgets/image_card.dart';
 
@@ -72,7 +76,7 @@ class _CreateHabitPageState extends State<CreateHabitPage>
                     width: 32,
                     height: 32,
                     child: GestureDetector(
-                      onTap: () => logger.i("asdasds"),
+                      onTap: () => logger.i("CreateHabit AI Button"),
                       child: Lottie.asset(AppAssets.aiButtonAnimation),
                     ),
                   ),
@@ -101,5 +105,55 @@ class _CreateHabitPageState extends State<CreateHabitPage>
         ),
       ),
     );
+  }
+
+  Row fab() {
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: AppPaddings.homeScreenHorizontalPadding,
+            child: FloatingActionButton.extended(
+              backgroundColor: AppColors.primaryButtonColor,
+              foregroundColor: Colors.white,
+              label: const Text("Add"),
+              onPressed: onAddTapped,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void onAddTapped() {
+    if (habitNameController.text.isNotEmpty) {
+      HabitModel habitModel = HabitModel(
+        title: habitNameController.text,
+        createDate: DateTime.now(),
+        streakCount: 0,
+        purpose: purposeController.text,
+        imageUrl: imageUrlController.text,
+        completionDates: [],
+        longestStreak: 0,
+      );
+      Provider.of<HabitProvider>(context, listen: false)
+          .addHabit(
+        habitModel,
+      )
+          .whenComplete(
+        () {
+          int length =
+              Provider.of<HabitProvider>(context, listen: false).habits.length;
+
+          if (length > 0) {
+            length--;
+          }
+          context.navigator.pushReplacementNamed(
+            HabitDetail.routeName,
+            arguments: length,
+          );
+        },
+      );
+    }
   }
 }

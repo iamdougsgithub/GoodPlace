@@ -42,10 +42,12 @@ class AuthService extends FirebaseUtils {
 
   Future<void> signOut() async {
     try {
-      if (googleSignIn.currentUser != null) {
-        await googleSignIn.signOut();
+      if (FirebaseUtils.googleSignIn.currentUser != null) {
+        await FirebaseUtils.googleSignIn.signOut();
       }
       await firebaseAuth.signOut();
+
+      // await FirebaseUtils.googleSignIn.disconnect();
     } catch (e) {
       logger.e(e);
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
