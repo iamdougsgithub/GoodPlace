@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
+import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/home/widgets/welcome_text.dart';
 import '../../../core/extensions/context_extension.dart';
@@ -173,7 +174,7 @@ class _AreYouSureDialog extends StatelessWidget {
 
   onIamSureTapped(BuildContext context) async {
     await UserDatabaseService().deleteUser().whenComplete(
-          () => context.pushReplacementNamed("/"),
+          () => context.pushReplacementNamed(WelcomePage.routeName),
         );
   }
 }

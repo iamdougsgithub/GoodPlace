@@ -151,6 +151,7 @@ class UserDatabaseService extends FirebaseUtils {
 
       await _usersCollection.doc(uid).delete();
       await firebaseAuth.currentUser?.delete();
+      await firebaseAuth.signOut();
       // print('Kullanıcı ve tüm dökümanlar başarıyla silindi.');
     } on FirebaseAuthException catch (authErr) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(authErr.code));
