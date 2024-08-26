@@ -7,6 +7,7 @@ import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_calendar.dart';
+import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class _HabitDetailState extends State<HabitDetail> {
         children: [
           /// Header
           _pageHeader(context, habitProvider, habitIndex),
+          const MotivationCardWidget(),
           HabitDetailCalendar(
             habitIndex: habitIndex,
           ),
