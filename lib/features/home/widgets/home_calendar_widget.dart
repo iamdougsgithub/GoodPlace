@@ -139,12 +139,8 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
 
     DateTime _day = DateTime(day.year, day.month, day.day);
 
-    HabitProvider.instance.allCompletionDates.forEach((_) {
-      DateTime a = _;
-      if (a == _day) {
-        is_there = true;
-      }
-    });
+    is_there = HabitProvider.instance.allCompletionDates.contains(_day);
+
     if (is_there) {
       return [const Text("data")];
     }

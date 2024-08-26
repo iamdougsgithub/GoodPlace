@@ -33,7 +33,9 @@ class _HabitDetailState extends State<HabitDetail> {
 
     final int habitIndex = ModalRoute.of(context)?.settings.arguments as int;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+      ),
       floatingActionButton: fab(habitProvider, habitIndex, context),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
