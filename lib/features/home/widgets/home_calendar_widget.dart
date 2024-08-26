@@ -83,23 +83,55 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
         }
       }
     });
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ConstrainedBox(
+    if (completedHabitsList.isNotEmpty) {
+      showModalBottomSheet(
+        context: context,
         constraints: BoxConstraints(
-          maxHeight: context.dynamicHeight(0.5),
-          minHeight: context.dynamicHeight(0.3),
+          maxHeight: context.dynamicHeight(0.6),
         ),
-        child: ListView(
-          shrinkWrap: true,
-          children: completedHabitsList.map((habit) {
-            return ListTile(
-              title: Text(habit.title),
-            );
-          }).toList(),
+        isScrollControlled: true,
+        enableDrag: true,
+        builder: (context) => Padding(
+          padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Total Habits",
+                    style: context.textTheme.labelLarge,
+                  ),
+                  Text(provider.habits.length.toString()),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Completed Habits",
+                    style: context.textTheme.labelLarge,
+                  ),
+                  Text(completedHabitsList.length.toString()),
+                ],
+              ),
+              const Divider(),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: completedHabitsList.map((habit) {
+                    return ListTile(
+                      title: Text(habit.title),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   List<dynamic> eventLoader(DateTime day, HabitProvider provider) {
