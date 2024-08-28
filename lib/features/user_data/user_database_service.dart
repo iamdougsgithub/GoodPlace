@@ -14,6 +14,9 @@ class UserDatabaseService extends FirebaseUtils {
 
   // String currentUserUid = AuthService().currentUser!.uid;
 
+  static final String userName =
+      AuthService().currentUser?.displayName ?? "User";
+
   CollectionReference getHabitsCollection() {
     return _usersCollection.doc(uid).collection('habits');
   }

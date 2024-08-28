@@ -90,6 +90,6 @@ class HabitModel {
         : "I haven't completed today's task yet.";
     String purposeText = purpose != null ? "purpose:$purpose," : "";
 
-    return "Habit title:$title,$purposeText Current streakCount:$streakCount,longestStreak:$longestStreak,$doneStatus";
+    return "Habit title:$title,$purposeText Current daily streakCount:$streakCount,longestStreak:$longestStreak,$doneStatus";
   }
 }

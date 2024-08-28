@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
-import 'package:good_place/features/onboarding/onboarding_page.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 
