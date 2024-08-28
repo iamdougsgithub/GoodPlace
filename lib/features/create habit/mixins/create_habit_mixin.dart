@@ -16,14 +16,7 @@ mixin CreateHabitMixin on State<CreateHabitPage> {
   final String appBarTitle = "Create Your Habit";
   final String habitNameTextFieldLabel = "Habit Name";
   final String habitPurposeTextFieldLabel = "My purpose";
-  @override
-  void dispose() {
-    habitNameController.dispose();
-    imageUrlController.dispose();
-    purposeController.dispose();
-    super.dispose();
-  }
-
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Row fab() {
     return Row(
       children: [
@@ -43,34 +36,45 @@ mixin CreateHabitMixin on State<CreateHabitPage> {
   }
 
   void onAddTapped() {
-    if (habitNameController.text.isNotEmpty) {
-      HabitModel habitModel = HabitModel(
-        title: habitNameController.text,
-        createDate: DateTime.now(),
-        streakCount: 0,
-        purpose: purposeController.text,
-        imageUrl: imageUrlController.text,
-        completionDates: [],
-        longestStreak: 0,
-      );
-      Provider.of<HabitProvider>(context, listen: false)
-          .addHabit(
-        habitModel,
-      )
-          .whenComplete(
-        () {
-          int length =
-              Provider.of<HabitProvider>(context, listen: false).habits.length;
+    if (mounted) {
+      if (formKey.currentState!.validate()) {
+        HabitModel habitModel = HabitModel(
+          title: habitNameController.text,
+          createDate: DateTime.now(),
+          streakCount: 0,
+          purpose: purposeController.text,
+          imageUrl: imageUrlController.text,
+          completionDates: [],
+          longestStreak: 0,
+        );
+        Provider.of<HabitProvider>(context, listen: false)
+            .addHabit(
+          habitModel,
+        )
+            .whenComplete(
+          () {
+            int length = Provider.of<HabitProvider>(context, listen: false)
+                .habits
+                .length;
 
-          if (length > 0) {
-            length--;
-          }
-          context.navigator.pushReplacementNamed(
-            HabitDetail.routeName,
-            arguments: length,
-          );
-        },
-      );
+            if (length > 0) {
+              length--;
+            }
+            context.navigator.pushReplacementNamed(
+              HabitDetail.routeName,
+              arguments: length,
+            );
+          },
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    habitNameController.dispose();
+    imageUrlController.dispose();
+    purposeController.dispose();
+    super.dispose();
   }
 }
