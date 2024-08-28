@@ -32,6 +32,27 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<String> _messages = [];
 
+  Future<void> generateResponse(
+    String? userContentText,
+    String? userContentImageUrl,
+    String systemContentText,
+    TextEditingController controller,
+  ) async {
+    controller.clear();
+    final body = ChatgptService().getApiBody(
+        systemContentText: systemContentText,
+        userContentText: userContentText,
+        imageUrl: userContentImageUrl);
+
+    var response = '';
+    ChatgptService().getChatResponse(body).listen((word) {
+      setState(() {
+        response += word;
+        controller.text = response;
+      });
+    });
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -47,9 +68,13 @@ class _ChatScreenState extends State<ChatScreen> {
         _messages.add('You: $text');
         _messages.add('Bot: ');
       });
+      final body = ChatgptService().getApiBody(
+          systemContentText:
+              "Sen alışkanlık asistanısın.Sadece bunla ilgili şeylere cevap verirsin.",
+          userContentText: text);
 
       var response = '';
-      ChatgptService().getChatResponse(text, "dddmdmf").listen((word) {
+      ChatgptService().getChatResponse(body).listen((word) {
         setState(() {
           response += word;
           _messages[_messages.length - 1] = 'Bot: $response';

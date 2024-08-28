@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/theme.dart';
@@ -31,16 +30,19 @@ class _CreateHabitPageState extends State<CreateHabitPage>
   String response = "";
 
   Future<void> generateResponse(
-    String userContentText,
+    String? userContentText,
+    String? userContentImageUrl,
     String systemContentText,
     TextEditingController controller,
   ) async {
     controller.clear();
+    final body = ChatgptService().getApiBody(
+        systemContentText: systemContentText,
+        userContentText: userContentText,
+        imageUrl: userContentImageUrl);
 
     var response = '';
-    ChatgptService()
-        .getChatResponse(userContentText, systemContentText)
-        .listen((word) {
+    ChatgptService().getChatResponse(body).listen((word) {
       setState(() {
         response += word;
         controller.text = response;
@@ -99,13 +101,19 @@ class _CreateHabitPageState extends State<CreateHabitPage>
                     height: 32,
                     child: GestureDetector(
                       onTap: () {
-                        generateResponse(
-                          habitNameController.text.isEmpty
-                              ? ""
-                              : habitNameController.text,
-                          purposeSystemContentText,
-                          purposeController,
-                        );
+                        if ((habitNameController.text.isNotEmpty) ||
+                            (imageUrlController.text.isNotEmpty)) {
+                          generateResponse(
+                            habitNameController.text,
+                            imageUrlController.text,
+                            purposeSystemContentText,
+                            purposeController,
+                          );
+                        } else {
+                          // TODO: Buraya ekrana yansıtılan Uyerı mesajı eklenebilir.
+                          print(
+                              'En az bir metin veya resim içeriği belirtmelisiniz.');
+                        }
                       },
                       child: Lottie.asset(AppAssets.aiButtonAnimation),
                     ),
