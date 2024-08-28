@@ -85,12 +85,12 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
           TextAreaFormField(
             // validator: (value) => widget.habitNameController.text.trim() == "" ?"" :,
             label: widget.habitPurposeTextFieldLabel,
-            suffixIcon: SizedBox(
-              width: 32,
-              height: 32,
-              child: GestureDetector(
-                onTap: onAIButtonTapped,
-                child: Lottie.asset(AppAssets.aiButtonAnimation),
+            suffixIcon: GestureDetector(
+              onTap: onAIButtonTapped,
+              child: Lottie.asset(
+                AppAssets.aiButtonAnimation,
+                width: 96,
+                height: 96,
               ),
             ),
             constraints: BoxConstraints(

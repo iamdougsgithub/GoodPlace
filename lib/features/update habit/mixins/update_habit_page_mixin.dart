@@ -73,7 +73,7 @@ mixin UpdateHabitMixin on State<UpdateHabitPage> {
           habitModel.id ?? "",
         )
             .whenComplete(() {
-          Toast.succToast(title: "${habitModel.title}Successfully updated.");
+          Toast.succToast(title: "${habitModel.title} Successfully updated.");
           context.pop();
         });
       }
