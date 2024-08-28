@@ -44,11 +44,10 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
               builder: (context, provider, child) => _HomeCalendar(
                 calendarFormat: calendarFormat,
                 eventLoader: (day) => eventLoader(day, provider),
-                onDayLongPressed: (selectedDay, focusedDay) =>
-                    onLongPressed(selectedDay, focusedDay, provider),
                 context: context,
                 focusedDay: currentDay,
                 onDaySelected: (selectedDay, focusedDay) {
+                  onLongPressed(selectedDay, focusedDay, provider);
                   setState(() {
                     currentDay = selectedDay;
                   });

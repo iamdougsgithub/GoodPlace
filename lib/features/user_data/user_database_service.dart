@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -125,7 +126,9 @@ class UserDatabaseService extends FirebaseUtils {
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
 
-      print('Error updating habit fields: $e');
+      if (kDebugMode) {
+        print('Error updating habit fields: $e');
+      }
     }
   }
 

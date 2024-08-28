@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:good_place/features/chatgpt/ChatGptService.dart';
 
 // AI ile chat örnek kullanım widgetı denemesidir. İleride gerekli olmazsa silebiliriz.
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
@@ -37,6 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _controller.dispose();
     super.dispose();
   }
+  
 
   void _sendMessage() {
     final text = _controller.text;
