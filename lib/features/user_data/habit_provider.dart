@@ -215,4 +215,13 @@ class HabitProvider with ChangeNotifier {
     }
     return dates.toList()..sort();
   }
+
+  // Get all Habit Tostring
+  String getAllHabitInformation() {
+    String combinedString = '';
+    for (int i = 0; i < _habits.length; i++) {
+      combinedString += '${i + 1}. ${_habits[i].toString()}\n';
+    }
+    return combinedString;
+  }
 }

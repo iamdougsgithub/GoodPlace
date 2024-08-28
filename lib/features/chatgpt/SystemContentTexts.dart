@@ -1,3 +1,5 @@
+import 'package:good_place/features/user_data/user_database_service.dart';
+
 String aiLimit =
     "While doing this, create a friendly and short message of maximum 220 characters. You only answer about the habit. If you're asked anything else, say you don't know.";
 String purposeSystemContentText =
@@ -27,3 +29,5 @@ List<String> motivationSystemContentList = [
   // "Kullanıcının hedeflerini ve alışkanlıklarını dikkate alarak, onları güldüren, düşündüren ve motive eden kısa ve öz mesaj yaz. Mesaj, alışkanlık değişiminin eğlenceli ve keyifli bir süreç olabileceğini vurgulamalı, kullanıcıya umut ve cesaret aşılamalı.",
   // "Kullanıcının alışkanlık oluşturma sürecinde kendini bir süper kahraman gibi hissetmesini sağlayacak motive edici sahip oldukları 'süper güçleri' hatırlatan ve enerji dolu kısa ve öz mesaj yaz."
 ];
+
+String userInfo = "I'm ${UserDatabaseService.userName}";

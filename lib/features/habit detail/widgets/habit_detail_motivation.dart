@@ -30,13 +30,14 @@ class _HabitDetailMotivationState extends State<HabitDetailMotivation> {
   String response = "";
 
   Future<void> generateResponse(
-    String? userContentText,
+    String userContentText,
     String systemContentText,
     TextEditingController controller,
   ) async {
     controller.clear();
     final body = ChatgptService().getApiBody(
-        systemContentText: systemContentText, userContentText: userContentText);
+        systemContentText: systemContentText,
+        userContentText: (userInfo + userContentText));
 
     var response = '';
     ChatgptService().getChatResponse(body).listen((word) {
