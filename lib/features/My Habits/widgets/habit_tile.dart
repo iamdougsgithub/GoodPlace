@@ -98,6 +98,10 @@ class HabitTile extends StatelessWidget {
             if (!habitModel.done) {
               habitProvider.updateHabit(habitModel.id ?? "");
               Toast.wellDone();
+            } else {
+              Toast.succToast(
+                  title: "You already done it for today.",
+                  desc: "You should wait for tomorrow.");
             }
           },
           icon: AppAssets.checkIcon,

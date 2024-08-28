@@ -4,10 +4,7 @@ import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
-import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
@@ -163,11 +160,14 @@ class _HabitCardState extends State<_HabitCard> {
                           if (!_isDone) {
                             habitProvider.updateHabit(habitModel.id ?? "");
                             Toast.wellDone();
+                            setState(() {
+                              _isDone = !_isDone;
+                            });
+                          } else {
+                            Toast.succToast(
+                                title: "You already done it for today.",
+                                desc: "You should wait for tomorrow.");
                           }
-
-                          setState(() {
-                            _isDone = !_isDone;
-                          });
                         },
                       ),
                     ),

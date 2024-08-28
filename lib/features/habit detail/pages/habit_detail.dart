@@ -93,7 +93,9 @@ class _HabitDetailState extends State<HabitDetail> {
                 .updateHabit(habitProvider.habits[habitIndex].id ?? "");
             Toast.wellDone();
           } else {
-            null;
+            Toast.succToast(
+                title: "You already done it for today.",
+                desc: "You should wait for tomorrow.");
           }
         });
   }
