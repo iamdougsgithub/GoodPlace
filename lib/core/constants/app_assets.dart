@@ -13,6 +13,11 @@ class AppAssets {
   static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
+
+  static Widget editIcon = const Icon(
+    Icons.edit,
+    color: Colors.white,
+  );
   static Widget chartIcon = const Icon(
     Icons.show_chart,
     color: Color(0xffF3E339),
