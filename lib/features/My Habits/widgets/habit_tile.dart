@@ -18,22 +18,61 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 
-class HabitTile extends StatelessWidget {
+class HabitTile extends StatefulWidget {
   final int index;
   const HabitTile({super.key, required this.index});
 
   @override
+  State<HabitTile> createState() => _HabitTileState();
+}
+
+class _HabitTileState extends State<HabitTile>
+    with SingleTickerProviderStateMixin {
+  late SlidableController slidableController;
+
+  open() async {
+    if (mounted) {
+      if (widget.index == 0) {
+        slidableController
+            .openTo(0.3)
+            .whenComplete(
+                () => slidableController.openTo(0, duration: Durations.medium4))
+            .whenComplete(
+              () => slidableController.openTo(-0.2),
+            )
+            .whenComplete(() =>
+                slidableController.openTo(0, duration: Durations.medium4));
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    slidableController = SlidableController(this);
+    open();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    slidableController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
-    HabitModel habitModel = habitProvider.habits[index];
+    HabitModel habitModel = habitProvider.habits[widget.index];
     return GestureDetector(
       onTap: () => context.navigator.pushNamed(
         HabitDetail.routeName,
-        arguments: index,
+        arguments: widget.index,
       ),
       child: ClipRRect(
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
+          closeOnScroll: true,
+          controller: slidableController,
           key: ValueKey(habitModel.id),
           startActionPane: checkButton(habitModel, habitProvider),
           endActionPane: deleteButton(habitModel),
