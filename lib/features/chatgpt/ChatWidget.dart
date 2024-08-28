@@ -99,8 +99,6 @@ class _ChatScreenState extends State<ChatScreen> {
             'role': 'ai',
             'content': '$response'
           };
-          print(_messages);
-          print(_messages.length);
         });
       });
     }

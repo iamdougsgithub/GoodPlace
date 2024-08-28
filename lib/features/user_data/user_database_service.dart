@@ -108,21 +108,8 @@ class UserDatabaseService extends FirebaseUtils {
   }
 
   Future<void> updateHabitFields(
-      //tek seferde güncelleme yapıldı
-      String habitId,
-      Map<String, dynamic> updatedFields) async {
+      String habitId, Map<String, dynamic> updatedFields) async {
     try {
-      /*
-      DateTime now = DateTime.now();
-
-      Map<String, dynamic> updatedFields = {
-        'completionDates': FieldValue.arrayUnion([now]),
-        'title': '""""""Updated Habit Title""""":)))',
-      };*/
-
-      // updatedFields["completionDates"] =
-      //     FieldValue.arrayUnion([updatedFields["completionDates"]]);
-
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');
     } catch (e) {

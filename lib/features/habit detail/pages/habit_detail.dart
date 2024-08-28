@@ -90,7 +90,7 @@ class _HabitDetailState extends State<HabitDetail> {
         onPressed: () {
           if (!habitProvider.habits[habitIndex].done) {
             Provider.of<HabitProvider>(context, listen: false)
-                .updateHabit(habitProvider.habits[habitIndex].id ?? "");
+                .updateDone(habitProvider.habits[habitIndex].id ?? "");
             Toast.wellDone();
           } else {
             null;

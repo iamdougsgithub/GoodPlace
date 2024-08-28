@@ -17,7 +17,7 @@ class ChatgptService {
         content = content.replaceAll('\n', '').replaceAll('\n\n', '');
 
         if (content != null && content.isNotEmpty) {
-          print('Content: $content');
+          //   print('Content: $content');
           await Future.delayed(delay);
 
           yield content;
