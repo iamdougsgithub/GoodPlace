@@ -35,6 +35,7 @@ class AuthManager extends StatelessWidget {
                   bool isOnboardingCompleted = futureSnapshot.data!;
                   return isOnboardingCompleted
                       ? ShowCaseWidget(
+                          autoPlayDelay: const Duration(seconds: 4),
                           // autoPlay: true,
                           enableAutoScroll: true,
                           autoPlay: TutorialManager.ins.tutorialState.isEmpty,

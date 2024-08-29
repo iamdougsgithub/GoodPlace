@@ -91,12 +91,16 @@ class TutorialManager extends FirebaseUtils {
 }
 
 enum TutorialKeys {
-  calendar("Calendar Desc"),
-  aiChat("AIChat Desc"),
-  createHabit("CreateHabit Desc"),
-  motivationCard("Motivation Desc"),
-  seeAll("See All Desc"),
-  habitCard("HabitCard Desc"),
+  calendar(
+      "Here, you can see the days you've completed your habits. If you tap on a specific day, you'll see a list of the habits you completed on that day.c"),
+  aiChat(
+      "Tap this button to chat with the AI about your habits. You can get suggestions and advice to improve your habits."),
+  createHabit("Tap this button to create a new habit."),
+  motivationCard(
+      "This card displays a motivational message. Tap on it to change the message."),
+  seeAll("Tap this to view all of your habits."),
+  habitCard(
+      "Tap this card to go to the habit details page. From this card, you can also mark the habit as completed."),
   statCard("StatCard Desc"),
   ;
 

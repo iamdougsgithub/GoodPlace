@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../config/theme.dart';
 
@@ -13,6 +15,12 @@ class AppAssets {
   static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
+
+  static Widget aiIcon = Lottie.asset(
+    AppAssets.aiButtonAnimation,
+    width: 96,
+    height: 96,
+  );
 
   static Widget editIcon = const Icon(
     Icons.edit,

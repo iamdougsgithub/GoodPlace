@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
@@ -136,10 +137,24 @@ class _HomePageState extends State<HomePage> {
         appBarTitle,
       ),
       actions: [
-        TutorialWidget(
-          description: TutorialKeys.aiChat.tutorialDesc,
-          tutorialKey: TutorialKeys.aiChat,
-          child: Icon(Icons.abc),
+        Padding(
+          padding:
+              const EdgeInsets.only(right: AppPaddings.xxsmallPaddingValue * 2),
+          child: TutorialWidget(
+            description: TutorialKeys.aiChat.tutorialDesc,
+            tutorialKey: TutorialKeys.aiChat,
+            child: ClipOval(
+              child: ColorFiltered(
+                colorFilter: const ColorFilter.mode(
+                  AppColors.primaryButtonColor,
+                  BlendMode.hue,
+                ),
+                child: CircleAvatar(
+                  child: AppAssets.aiIcon,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

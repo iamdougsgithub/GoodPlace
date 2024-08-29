@@ -87,11 +87,7 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
             label: widget.habitPurposeTextFieldLabel,
             suffixIcon: GestureDetector(
               onTap: onAIButtonTapped,
-              child: Lottie.asset(
-                AppAssets.aiButtonAnimation,
-                width: 96,
-                height: 96,
-              ),
+              child: AppAssets.aiIcon,
             ),
             constraints: BoxConstraints(
               maxHeight: context.dynamicHeight(0.18),
