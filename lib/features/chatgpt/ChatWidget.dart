@@ -49,6 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
   List<Map<String, String>> _messages = []; //user-ai
   late HabitProvider habitProvider;
   ChatgptService _chatgptService = ChatgptService();
+  bool isButtonEnabled = true;
 
   @override
   void initState() {
@@ -85,6 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
         _messages.add({'role': 'ai'}); // response henüz gelmedi
       });
+      isButtonEnabled = false;
 
       final body = _chatgptService.getApiBody(
           systemContentText:
@@ -100,6 +102,9 @@ class _ChatScreenState extends State<ChatScreen> {
             'content': '$response'
           };
         });
+      }, onDone: () {
+        isButtonEnabled = true; // response bitti butonu etkin yap
+        print('Response tamamlandı.');
       });
     }
   }
