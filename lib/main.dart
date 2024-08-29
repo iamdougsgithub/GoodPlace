@@ -9,9 +9,12 @@ import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'config/routes.dart';
+import 'core/resourcers/tutorial_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,8 +68,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   /// After 3 seconds navigate to [AuthManager]
   Future _splashManager() async {
+    await TutorialManager.ins.fetchTutorialStateFromFirebase();
     await Future.delayed(const Duration(seconds: 3));
     context.navigator.pushReplacementNamed("/");
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   final Duration _intervalDuration = const Duration(milliseconds: 300);

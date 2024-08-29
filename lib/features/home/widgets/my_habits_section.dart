@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
@@ -50,16 +52,19 @@ class MyHabitsSection extends StatelessWidget {
   Widget _habitList(
     HabitProvider habitProvider,
   ) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: habitProvider.habits.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return _HabitCard(
-            // habitModel: habitProvider.habits[index],
-            index: index,
-          );
-        }).animate().shimmer();
+    return TutorialWidget(
+      tutorialKey: TutorialKeys.habitCard,
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: habitProvider.habits.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return _HabitCard(
+              // habitModel: habitProvider.habits[index],
+              index: index,
+            );
+          }).animate().shimmer(),
+    );
   }
 
   Widget titleRow(BuildContext context) {
@@ -75,13 +80,16 @@ class MyHabitsSection extends StatelessWidget {
         ),
 
         /// See All button
-        TextButton(
-          onPressed: () => context.pushNamed(MyHabitsPage.routeName),
-          style: TextButton.styleFrom(),
-          child: Text(
-            "See All",
-            style: context.textTheme.labelLarge?.copyWith(
-              color: Colors.white,
+        TutorialWidget(
+          tutorialKey: TutorialKeys.seeAll,
+          child: TextButton(
+            onPressed: () => context.pushNamed(MyHabitsPage.routeName),
+            style: TextButton.styleFrom(),
+            child: Text(
+              "See All",
+              style: context.textTheme.labelLarge?.copyWith(
+                color: Colors.white,
+              ),
             ),
           ),
         ),

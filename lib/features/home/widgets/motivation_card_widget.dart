@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import '../../../core/utils/widgets/skeleton.dart';
 import '../quote_model.dart';
 import '../../../core/constants/app_assets.dart';
@@ -53,43 +55,46 @@ class _MotivationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: double.infinity),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: AppBorderRadius.smallBorderRadius,
-        ),
-        child: Stack(
-          children: [
-            /// Background image
-            ..._backgroundImage(),
+    return TutorialWidget(
+      tutorialKey: TutorialKeys.motivationCard,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: double.infinity),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: AppBorderRadius.smallBorderRadius,
+          ),
+          child: Stack(
+            children: [
+              /// Background image
+              ..._backgroundImage(),
 
-            /// content
-            Padding(
-              padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Content
-                  Text(
-                    quote.content,
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
+              /// content
+              Padding(
+                padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Content
+                    Text(
+                      quote.content,
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
 
-                  /// Author
-                  Text(
-                    "- ${quote.author}",
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
+                    /// Author
+                    Text(
+                      "- ${quote.author}",
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

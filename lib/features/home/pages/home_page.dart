@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 import '../widgets/home_calendar_widget.dart';
 import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -30,6 +34,20 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Future.microtask(() => HabitProvider.instance.getHabits());
+    Future.microtask(
+      () => TutorialManager.ins.show(
+        context,
+        [
+          TutorialKeys.aiChat,
+          TutorialKeys.calendar,
+          TutorialKeys.motivationCard,
+          TutorialKeys.seeAll,
+          TutorialKeys.habitCard,
+          TutorialKeys.createHabit,
+          TutorialKeys.statCard,
+        ],
+      ),
+    );
 
     super.initState();
   }
@@ -41,6 +59,8 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
+  final GlobalKey calendar = GlobalKey();
+  bool enableShowcase = true;
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -115,6 +135,13 @@ class _HomePageState extends State<HomePage> {
       title: Text(
         appBarTitle,
       ),
+      actions: [
+        TutorialWidget(
+          description: TutorialKeys.aiChat.tutorialDesc,
+          tutorialKey: TutorialKeys.aiChat,
+          child: Icon(Icons.abc),
+        ),
+      ],
     );
   }
 }

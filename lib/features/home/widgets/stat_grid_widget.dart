@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../config/theme.dart';
@@ -24,10 +26,13 @@ class StatGridWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: [
-            _StatCard(
-              icon: AppAssets.calendarIcon,
-              data: "${habitProvider.getLongestStreak()}",
-              label: "Longest streak",
+            TutorialWidget(
+              tutorialKey: TutorialKeys.statCard,
+              child: _StatCard(
+                icon: AppAssets.calendarIcon,
+                data: "${habitProvider.getLongestStreak()}",
+                label: "Longest streak",
+              ),
             ),
             _StatCard(
               icon: AppAssets.checkIcon,
