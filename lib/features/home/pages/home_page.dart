@@ -6,6 +6,7 @@ import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
+import 'package:good_place/features/AI%20chat/pages/ai_chat.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
 import '../widgets/home_calendar_widget.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   tutorialKey: TutorialKeys.createHabit,
                   child: AddHabitButton(),
                 ),
-                appBar: appBar(),
+                appBar: appBar(context),
                 drawer: IDrawer(
                   context: context,
                   selectedIndex: 0,
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar(BuildContext ctx) {
     return AppBar(
       centerTitle: true,
       backgroundColor: AppColors.homeScaffoldColor,
@@ -146,14 +147,22 @@ class _HomePageState extends State<HomePage> {
           child: TutorialWidget(
             description: TutorialKeys.aiChat.tutorialDesc,
             tutorialKey: TutorialKeys.aiChat,
-            child: ClipOval(
-              child: ColorFiltered(
-                colorFilter: const ColorFilter.mode(
-                  AppColors.primaryButtonColor,
-                  BlendMode.hue,
-                ),
-                child: CircleAvatar(
-                  child: AppAssets.aiIcon,
+            child: GestureDetector(
+              onTap: () => showModalBottomSheet(
+                showDragHandle: true,
+                isScrollControlled: true,
+                context: ctx,
+                builder: (ctx) => const AIChat(),
+              ),
+              child: ClipOval(
+                child: ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.primaryButtonColor,
+                    BlendMode.hue,
+                  ),
+                  child: CircleAvatar(
+                    child: AppAssets.aiIcon,
+                  ),
                 ),
               ),
             ),

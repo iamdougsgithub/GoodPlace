@@ -33,6 +33,7 @@ enum _AssetsPathEnum {
   wellDoneAnimation("${_rootAnimationPath}ani-well_done.json"),
   streakCardAnimation("${_rootAnimationPath}ani-streakCardAnimation.json"),
   totalDonePerDayCardAnimation("${_rootAnimationPath}ani-checkCardIcon.json"),
+  aiChatSendButton("${_rootAnimationPath}ani-chatSendButton.json"),
   ;
 
   static const String _rootIconPath = "lib/core/assets/icons/";

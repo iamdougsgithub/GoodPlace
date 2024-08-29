@@ -27,6 +27,8 @@ class AppAssets {
     width: 24,
     height: 24,
   );
+  static String aiChatSendButton = _AssetsPathEnum.aiChatSendButton.path;
+
   static Widget totalDonePerDayCardAnimation = Lottie.asset(
     _AssetsPathEnum.totalDonePerDayCardAnimation.path,
     alignment: Alignment.center,
