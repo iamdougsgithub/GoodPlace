@@ -129,7 +129,7 @@ class HabitProvider with ChangeNotifier {
 
     for (var habit in _habits) {
       if (habit.completionDates.isEmpty) {
-        return 'Title: ${habit.title}\nLast Completed: Never';
+        return '${habit.title}\nLast Completed: Never';
       }
       var lastCompletionDate = habit.completionDates.last;
       var durationSinceLastCompletion =
@@ -143,7 +143,7 @@ class HabitProvider with ChangeNotifier {
 
     if (longestMissedHabit != null) {
       var lastCompletionDate = longestMissedHabit.completionDates.last;
-      return 'Title: ${longestMissedHabit.title}\nLast Completed: ${_formatDate(lastCompletionDate)}';
+      return '${longestMissedHabit.title}\nLast Completed: ${_formatDate(lastCompletionDate)}';
     }
 
     return 'No valid habit found';

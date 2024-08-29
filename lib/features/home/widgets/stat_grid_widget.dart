@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
+import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,9 @@ class StatGridWidget extends StatelessWidget {
       builder: (context, habitProvider, child) {
         return GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             mainAxisSpacing: AppPaddings.smallPaddingValue,
-            crossAxisSpacing: AppPaddings.smallPaddingValue,
+            crossAxisSpacing: AppPaddings.xxsmallPaddingValue,
           ),
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -29,13 +30,13 @@ class StatGridWidget extends StatelessWidget {
             TutorialWidget(
               tutorialKey: TutorialKeys.statCard,
               child: _StatCard(
-                icon: AppAssets.calendarIcon,
+                icon: AppAssets.streakCardAnimation,
                 data: "${habitProvider.getLongestStreak()}",
                 label: "Longest streak",
               ),
             ),
             _StatCard(
-              icon: AppAssets.checkIcon,
+              icon: AppAssets.totalDonePerDayCardAnimation,
               data: "${habitProvider.getTotalDone()}",
               label: "Total done per day",
             ),
@@ -43,11 +44,6 @@ class StatGridWidget extends StatelessWidget {
               icon: AppAssets.chartIcon,
               data: habitProvider.getLongestMissedHabitInfo(),
               label: "Long time not done",
-            ),
-            _StatCard(
-              icon: Image.asset(AppAssets.averagePerDailyCardIcon),
-              data: "${habitProvider.habits.length} ",
-              label: "Habit Count",
             ),
           ],
         );
@@ -64,42 +60,83 @@ class _StatCard extends StatelessWidget {
   final Widget icon;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadius.largeBorderRadius,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppPaddings.smallPaddingValue,
-          vertical: AppPaddings.mediumPaddingValue,
-        ),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// icon
-              icon,
-              const Gap(AppPaddings.smallPaddingValue),
-              Text(
-                data,
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: AppColors.homeScaffoldColor,
+    return LayoutBuilder(
+      builder: (context, constraints) => Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Card(
+            clipBehavior: Clip.antiAlias,
+            color: AppColors.orangeTextColor,
+            // shape:,
+            child: Stack(
+              children: [
+                Center(
+                  child: SizedBox(
+                    height: constraints.maxHeight * .7,
+                    width: constraints.maxWidth * 1,
+                    child: icon,
+                  ),
                 ),
-              ),
-              const Gap(AppPaddings.smallPaddingValue),
 
-              /// label
-              Text(
-                label,
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
+                /// Data
+                Positioned.fill(
+                  child: CardBackgroundImageFilter(
+                    opacity: 0.2,
+                    child: Center(
+                      child: FittedBox(
+                        child: Text(
+                          data,
+                          style: context.textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                          // textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          FittedBox(
+            child: Text(
+              label,
+              style: context.textTheme.labelLarge?.copyWith(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
+
+    //  ClipRRect(
+    //   borderRadius: AppBorderRadius.smallBorderRadius,
+    //   child: GridTileBar(
+    //     backgroundColor: AppColors.secondaryButtonColor,
+    //     // dense: true,
+    //     // dense: true,
+    //     // tileColor: AppColors.authScaffoldColor,
+    //     // leading: SizedBox(child: icon),
+    //     subtitle: FittedBox(
+    //       child: Center(
+    //           child: Text(
+    //         label,
+    //         style: context.textTheme.labelLarge,
+    //       )),
+    //     ),
+    //     title: Center(
+    //       child: Text(
+    //         data,
+    //         style: context.textTheme.titleLarge,
+    //         textAlign: TextAlign.center,
+    //       ),
+    //     ),
+    //     trailing: icon,
+
+    //     leading: icon,
+    //   ),
+    // );
   }
 }

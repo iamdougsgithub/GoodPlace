@@ -16,7 +16,6 @@ class StreakCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// TODO : Burayı sonra yap
     return Consumer<HabitProvider>(
       builder: (context, provider, child) => Container(
         width: double.infinity,

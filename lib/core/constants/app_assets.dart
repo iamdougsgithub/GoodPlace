@@ -21,6 +21,18 @@ class AppAssets {
     width: 96,
     height: 96,
   );
+  static Widget streakCardAnimation = Lottie.asset(
+    _AssetsPathEnum.streakCardAnimation.path,
+    alignment: Alignment.center,
+    width: 24,
+    height: 24,
+  );
+  static Widget totalDonePerDayCardAnimation = Lottie.asset(
+    _AssetsPathEnum.totalDonePerDayCardAnimation.path,
+    alignment: Alignment.center,
+    width: 24,
+    height: 24,
+  );
 
   static Widget editIcon = const Icon(
     Icons.edit,

@@ -105,6 +105,8 @@ class _HomePageState extends State<HomePage> {
                           const StatGridWidget(),
 
                           gap,
+                          gap,
+                          gap,
                         ]
                             .animate(
                                 interval: const Duration(milliseconds: 200))
