@@ -78,8 +78,8 @@ class TutorialManager extends FirebaseUtils {
     TutorialKeys.statCard,
   ];
   static List<TutorialKeys> createHabitPageTutorialKeList = [
-    TutorialKeys.aiWriter,
     TutorialKeys.imageContainer,
+    TutorialKeys.aiWriter,
   ];
   static List<TutorialKeys> myHabitsPageTutorialKeList = [
     TutorialKeys.sortHabits,

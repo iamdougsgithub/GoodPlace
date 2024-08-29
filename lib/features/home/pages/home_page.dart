@@ -33,6 +33,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Future.microtask(
+        () => TutorialManager.ins.fetchTutorialStateFromFirebase());
+
+    Future.microtask(
         () => Provider.of<HabitProvider>(context, listen: false).getHabits());
     super.initState();
   }
@@ -53,6 +56,7 @@ class _HomePageState extends State<HomePage> {
             context,
             TutorialManager.homeTutorialKeList,
           );
+
           return PopScope(
             canPop: false,
             child: Theme(

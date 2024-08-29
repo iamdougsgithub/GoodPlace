@@ -25,7 +25,7 @@ class _CreateHabitPageState extends State<CreateHabitPage>
   @override
   Widget build(BuildContext context) {
     return TutorialWrapper(
-      autoPlay: TutorialManager.ins
+      autoPlay: !TutorialManager.ins
           .checkTutorialState(TutorialManager.createHabitPageTutorialKeList),
       child: Scaffold(
         backgroundColor: AppColors.homeScaffoldColor,

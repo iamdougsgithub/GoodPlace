@@ -60,7 +60,7 @@ mixin CreateHabitMixin on State<CreateHabitPage> {
             if (length > 0) {
               length--;
             }
-            context.navigator.pushReplacementNamed(
+            context.navigator.popAndPushNamed(
               HabitDetail.routeName,
               arguments: length,
             );

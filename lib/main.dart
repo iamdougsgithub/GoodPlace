@@ -68,7 +68,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   /// After 3 seconds navigate to [AuthManager]
   Future _splashManager() async {
-    await TutorialManager.ins.fetchTutorialStateFromFirebase();
     await Future.delayed(const Duration(seconds: 3));
     context.navigator.pushReplacementNamed("/");
   }

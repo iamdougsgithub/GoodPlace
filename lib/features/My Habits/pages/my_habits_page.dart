@@ -28,7 +28,6 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
   final String pageTitle = "My Habits";
   @override
   void initState() {
-    logger.i("My habit init");
     super.initState();
   }
 
@@ -63,10 +62,7 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
                 actions: [
                   TutorialWidget(
                     tutorialKey: TutorialKeys.sortHabits,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: AppAssets.sortIcon,
-                    ),
+                    child: sortButton(),
                   )
                 ],
               ),
@@ -96,6 +92,35 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
           }),
         ),
       ),
+    );
+  }
+
+  PopupMenuButton<dynamic> sortButton() {
+    final HabitProvider habitProvider =
+        Provider.of<HabitProvider>(context, listen: false);
+    return PopupMenuButton(
+      icon: Icon(Icons.sort),
+      position: PopupMenuPosition.under,
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            onTap: habitProvider.sortByLongestStreak,
+            child: Text("Longest Streak"),
+          ),
+          PopupMenuItem(
+            onTap: habitProvider.sortByStreakCount,
+            child: Text("Streak Count"),
+          ),
+          PopupMenuItem(
+            onTap: habitProvider.sortByRecentCompletion,
+            child: Text("Recent Completion"),
+          ),
+          PopupMenuItem(
+            onTap: habitProvider.sortByStreakCountAndRecentCompletion,
+            child: Text("Streak Count & Recent Completion"),
+          ),
+        ];
+      },
     );
   }
 
