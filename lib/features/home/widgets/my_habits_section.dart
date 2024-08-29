@@ -6,9 +6,9 @@ import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:toastification/toastification.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -60,7 +60,6 @@ class MyHabitsSection extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return _HabitCard(
-              // habitModel: habitProvider.habits[index],
               index: index,
             );
           }).animate().shimmer(),
@@ -83,7 +82,9 @@ class MyHabitsSection extends StatelessWidget {
         TutorialWidget(
           tutorialKey: TutorialKeys.seeAll,
           child: TextButton(
-            onPressed: () => context.pushNamed(MyHabitsPage.routeName),
+            onPressed: () {
+              context.navigator.pushNamed(MyHabitsPage.routeName);
+            },
             style: TextButton.styleFrom(),
             child: Text(
               "See All",

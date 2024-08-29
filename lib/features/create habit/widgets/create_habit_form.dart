@@ -55,9 +55,8 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
 
   @override
   void initState() {
-    TutorialManager.ins.show(context, [
-      TutorialKeys.aiWriter,
-    ]);
+    TutorialManager.ins
+        .show(context, TutorialManager.createHabitPageTutorialKeList);
     super.initState();
   }
 

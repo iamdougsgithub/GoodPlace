@@ -5,6 +5,7 @@ import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import '../../../config/theme.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/resourcers/tutorial_manager.dart';
 import '../mixins/create_habit_mixin.dart';
 import '../widgets/create_habit_form.dart';
 import '../widgets/image_card.dart';
@@ -24,6 +25,8 @@ class _CreateHabitPageState extends State<CreateHabitPage>
   @override
   Widget build(BuildContext context) {
     return TutorialWrapper(
+      autoPlay: TutorialManager.ins
+          .checkTutorialState(TutorialManager.createHabitPageTutorialKeList),
       child: Scaffold(
         backgroundColor: AppColors.homeScaffoldColor,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -40,8 +43,11 @@ class _CreateHabitPageState extends State<CreateHabitPage>
               child: Column(
                 children: [
                   /// Image Card
-                  ImageCard(
-                    urlController: imageUrlController,
+                  TutorialWidget(
+                    tutorialKey: TutorialKeys.imageContainer,
+                    child: ImageCard(
+                      urlController: imageUrlController,
+                    ),
                   ),
                   const Gap(AppPaddings.smallPaddingValue),
                   CreateHabitForm(

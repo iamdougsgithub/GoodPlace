@@ -55,46 +55,43 @@ class _MotivationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TutorialWidget(
-      tutorialKey: TutorialKeys.motivationCard,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: double.infinity),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: AppBorderRadius.smallBorderRadius,
-          ),
-          child: Stack(
-            children: [
-              /// Background image
-              ..._backgroundImage(),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minWidth: double.infinity),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: AppBorderRadius.smallBorderRadius,
+        ),
+        child: Stack(
+          children: [
+            /// Background image
+            ..._backgroundImage(),
 
-              /// content
-              Padding(
-                padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// Content
-                    Text(
-                      quote.content,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+            /// content
+            Padding(
+              padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Content
+                  Text(
+                    quote.content,
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
                     ),
+                  ),
 
-                    /// Author
-                    Text(
-                      "- ${quote.author}",
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
+                  /// Author
+                  Text(
+                    "- ${quote.author}",
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

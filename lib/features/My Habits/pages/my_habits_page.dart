@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
+import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -23,6 +26,11 @@ class MyHabitsPage extends StatefulWidget {
 
 class _MyHabitsPageState extends State<MyHabitsPage> {
   final String pageTitle = "My Habits";
+  @override
+  void initState() {
+    logger.i("My habit init");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,44 +41,60 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
       },
       child: Theme(
         data: myHabitsThemeOverride(context),
-        child: Builder(builder: (context) {
-          return Scaffold(
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            drawer: IDrawer(
-              context: context,
-              selectedIndex: 1,
-            ),
-            floatingActionButton: AddHabitButton(),
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text(pageTitle),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: AppAssets.sortIcon,
-                )
-              ],
-            ),
-            body: Padding(
-              padding: AppPaddings.homeScreenHorizontalPadding,
-              child: Consumer<HabitProvider>(
-                builder: (context, provider, child) => ListView.builder(
-                  itemCount: provider.habits.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: AppPaddings.smallPaddingValue,
-                      ),
-                      child: HabitTile(
-                        index: index,
-                      ),
-                    );
-                  },
+        child: TutorialWrapper(
+          autoPlay: !TutorialManager.ins.checkTutorialState(
+            TutorialManager.myHabitsPageTutorialKeList,
+          ),
+          child: Builder(builder: (context) {
+            TutorialManager.ins.show(
+              context,
+              TutorialManager.myHabitsPageTutorialKeList,
+            );
+            return Scaffold(
+              backgroundColor: context.theme.scaffoldBackgroundColor,
+              drawer: IDrawer(
+                context: context,
+                selectedIndex: 1,
+              ),
+              floatingActionButton: AddHabitButton(),
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text(pageTitle),
+                actions: [
+                  TutorialWidget(
+                    tutorialKey: TutorialKeys.sortHabits,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: AppAssets.sortIcon,
+                    ),
+                  )
+                ],
+              ),
+              body: Padding(
+                padding: AppPaddings.homeScreenHorizontalPadding,
+                child: Consumer<HabitProvider>(
+                  builder: (context, provider, child) => TutorialWidget(
+                    tutorialKey: TutorialKeys.habitTile,
+                    child: ListView.builder(
+                      itemCount: provider.habits.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: AppPaddings.smallPaddingValue,
+                          ),
+                          child: HabitTile(
+                            index: index,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

@@ -4,8 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_calendar.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_motivation.dart';
 import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
@@ -33,28 +35,40 @@ class _HabitDetailState extends State<HabitDetail> {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
 
     final int habitIndex = ModalRoute.of(context)?.settings.arguments as int;
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-      ),
-      floatingActionButton: fab(habitProvider, habitIndex, context),
-      extendBodyBehindAppBar: true,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /// Header
-            _pageHeader(context, habitProvider, habitIndex),
-            HabitDetailMotivation(
-              habitDetail: habitProvider.habits[habitIndex].toString(),
+    return TutorialWrapper(
+      autoPlay: TutorialManager.ins
+          .checkTutorialState(TutorialManager.habitDetailPageKeyList),
+      child: Builder(builder: (context) {
+        TutorialManager.ins
+            .show(context, TutorialManager.habitDetailPageKeyList);
+
+        return Scaffold(
+          appBar: AppBar(
+            scrolledUnderElevation: 0,
+          ),
+          floatingActionButton: fab(habitProvider, habitIndex, context),
+          extendBodyBehindAppBar: true,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                /// Header
+                _pageHeader(context, habitProvider, habitIndex),
+                TutorialWidget(
+                  tutorialKey: TutorialKeys.habitDetailMotivationCard,
+                  child: HabitDetailMotivation(
+                    habitDetail: habitProvider.habits[habitIndex].toString(),
+                  ),
+                ),
+                HabitDetailCalendar(
+                  habitIndex: habitIndex,
+                ),
+                const Gap(AppPaddings.largePaddingValue +
+                    AppPaddings.smallPaddingValue),
+              ],
             ),
-            HabitDetailCalendar(
-              habitIndex: habitIndex,
-            ),
-            const Gap(
-                AppPaddings.largePaddingValue + AppPaddings.smallPaddingValue),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 

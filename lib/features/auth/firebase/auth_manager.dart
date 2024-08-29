@@ -35,9 +35,7 @@ class AuthManager extends StatelessWidget {
                 } else if (futureSnapshot.hasData) {
                   bool isOnboardingCompleted = futureSnapshot.data!;
                   return isOnboardingCompleted
-                      ? const TutorialWrapper(
-                          child: HomePage(),
-                        )
+                      ? const HomePage()
                       : const OnboardingPage();
                 } else {
                   return const Center(child: Text('No user details available'));

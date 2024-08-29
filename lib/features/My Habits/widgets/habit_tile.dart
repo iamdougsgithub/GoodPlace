@@ -26,39 +26,7 @@ class HabitTile extends StatefulWidget {
   State<HabitTile> createState() => _HabitTileState();
 }
 
-class _HabitTileState extends State<HabitTile>
-    with SingleTickerProviderStateMixin {
-  late SlidableController slidableController;
-
-  open() async {
-    if (mounted) {
-      if (widget.index == 0) {
-        slidableController
-            .openTo(0.3)
-            .whenComplete(
-                () => slidableController.openTo(0, duration: Durations.medium4))
-            .whenComplete(
-              () => slidableController.openTo(-0.2),
-            )
-            .whenComplete(() =>
-                slidableController.openTo(0, duration: Durations.medium4));
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    slidableController = SlidableController(this);
-    open();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    slidableController.dispose();
-    super.dispose();
-  }
-
+class _HabitTileState extends State<HabitTile> {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
@@ -72,8 +40,6 @@ class _HabitTileState extends State<HabitTile>
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
           closeOnScroll: true,
-          controller: slidableController,
-          key: ValueKey(habitModel.id),
           startActionPane: checkButton(habitModel, habitProvider),
           endActionPane: deleteButton(habitModel),
           child: Container(

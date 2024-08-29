@@ -45,7 +45,6 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
             bottom: AppPaddings.smallPaddingValue,
           ),
           child: Column(
-            // key: a,
             children: [
               /// Calendar
               Consumer<HabitProvider>(
@@ -147,7 +146,7 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
 
     DateTime _day = DateTime(day.year, day.month, day.day);
 
-    is_there = HabitProvider.instance.allCompletionDates.contains(_day);
+    is_there = provider.allCompletionDates.contains(_day);
 
     if (is_there) {
       return [const Text("data")];

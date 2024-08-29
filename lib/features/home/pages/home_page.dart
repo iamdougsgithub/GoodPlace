@@ -7,9 +7,7 @@ import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
-import 'package:showcaseview/showcaseview.dart';
 import '../widgets/home_calendar_widget.dart';
 import '../widgets/my_habits_section.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -31,91 +29,90 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
-  // late HabitProvider habitProvider;
+
   @override
   void initState() {
-    Future.microtask(() => HabitProvider.instance.getHabits());
     Future.microtask(
-      () => TutorialManager.ins.show(
-        context,
-        [
-          TutorialKeys.aiChat,
-          TutorialKeys.calendar,
-          TutorialKeys.motivationCard,
-          TutorialKeys.seeAll,
-          TutorialKeys.habitCard,
-          TutorialKeys.createHabit,
-          TutorialKeys.statCard,
-        ],
-      ),
-    );
-
+        () => Provider.of<HabitProvider>(context, listen: false).getHabits());
     super.initState();
   }
 
   @override
   void didChangeDependencies() async {
-    HabitProvider.instance = Provider.of<HabitProvider>(context);
-
     super.didChangeDependencies();
   }
 
-  final GlobalKey calendar = GlobalKey();
-  bool enableShowcase = true;
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Theme(
-        data: homePageThemeOverride(context),
-        child: Scaffold(
-          floatingActionButton: const AddHabitButton(),
-          appBar: appBar(),
-          drawer: IDrawer(
-            context: context,
-            selectedIndex: 0,
-          ),
-          body: RefreshIndicator(
-            onRefresh: () async => await HabitProvider.instance.getHabits(),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: AppPaddings.homeScreenHorizontalPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // WelcomeText
-                    WelcomeText(),
+    return TutorialWrapper(
+        autoPlay: !TutorialManager.ins.checkTutorialState(
+          TutorialManager.homeTutorialKeList,
+        ),
+        child: Builder(builder: (context) {
+          TutorialManager.ins.show(
+            context,
+            TutorialManager.homeTutorialKeList,
+          );
+          return PopScope(
+            canPop: false,
+            child: Theme(
+              data: homePageThemeOverride(context),
+              child: Scaffold(
+                floatingActionButton: const TutorialWidget(
+                  tutorialKey: TutorialKeys.createHabit,
+                  child: AddHabitButton(),
+                ),
+                appBar: appBar(),
+                drawer: IDrawer(
+                  context: context,
+                  selectedIndex: 0,
+                ),
+                body: RefreshIndicator(
+                  onRefresh: () async =>
+                      await HabitProvider.instance.getHabits(),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: AppPaddings.homeScreenHorizontalPadding,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // WelcomeText
+                          WelcomeText(),
 
-                    /// Calendar
-                    const HomeCalendarWidget(),
+                          /// Calendar
+                          const HomeCalendarWidget(),
 
-                    gap,
+                          gap,
 
-                    /// Motivation Card
-                    const MotivationCardWidget(),
-                    gap,
-                    // My Habit Section
-                    const MyHabitsSection(),
-                    gap,
+                          /// Motivation Card
+                          const TutorialWidget(
+                              tutorialKey: TutorialKeys.motivationCard,
+                              child: MotivationCardWidget()),
+                          gap,
+                          // My Habit Section
+                          const MyHabitsSection(),
+                          gap,
 
-                    // /// Streak Card
-                    // const StreakCardWidget(),
-                    // gap,
+                          // /// Streak Card
+                          // const StreakCardWidget(),
+                          // gap,
 
-                    /// Grid
-                    const StatGridWidget(),
+                          /// Grid
+                          const StatGridWidget(),
 
-                    gap,
-                  ]
-                      .animate(interval: const Duration(milliseconds: 200))
-                      .fadeIn(),
+                          gap,
+                        ]
+                            .animate(
+                                interval: const Duration(milliseconds: 200))
+                            .fadeIn(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        }));
   }
 
   ThemeData homePageThemeOverride(BuildContext context) {
