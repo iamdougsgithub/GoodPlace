@@ -24,13 +24,32 @@ class TutorialWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Showcase(
-      disableBarrierInteraction: true,
       disposeOnTap: true,
-      // onBarrierClick: () => logger.i("barrier"),
+      onToolTipClick: () => onTargetClicked(),
+      onBarrierClick: () => onTargetClicked(),
       onTargetClick: () => onTargetClicked(),
       key: TutorialManager.keyMap[tutorialKey]!,
       description: tutorialKey.tutorialDesc,
       child: child,
+    );
+  }
+}
+
+class TutorialWrapper extends StatelessWidget {
+  final Widget child;
+
+  const TutorialWrapper({super.key, required this.child});
+  @override
+  Widget build(BuildContext context) {
+    return ShowCaseWidget(
+      disableBarrierInteraction: true,
+      autoPlayDelay: const Duration(seconds: 4),
+      enableAutoScroll: true,
+      autoPlay: TutorialManager.ins.tutorialState.isEmpty,
+      onComplete: (p0, p1) {
+        TutorialManager.ins.onAutoPlayComplete(p1);
+      },
+      builder: (context) => child,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/pages/welcome_page.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
@@ -34,15 +35,8 @@ class AuthManager extends StatelessWidget {
                 } else if (futureSnapshot.hasData) {
                   bool isOnboardingCompleted = futureSnapshot.data!;
                   return isOnboardingCompleted
-                      ? ShowCaseWidget(
-                          autoPlayDelay: const Duration(seconds: 4),
-                          // autoPlay: true,
-                          enableAutoScroll: true,
-                          autoPlay: TutorialManager.ins.tutorialState.isEmpty,
-                          onComplete: (p0, p1) {
-                            TutorialManager.ins.onAutoPlayComplete(p1);
-                          },
-                          builder: (context) => const HomePage(),
+                      ? const TutorialWrapper(
+                          child: HomePage(),
                         )
                       : const OnboardingPage();
                 } else {

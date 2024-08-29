@@ -23,6 +23,7 @@ class TutorialManager extends FirebaseUtils {
   static final GlobalKey _seeAll = GlobalKey();
   static final GlobalKey _habitCard = GlobalKey();
   static final GlobalKey _statCard = GlobalKey();
+  static final GlobalKey _aiWriter = GlobalKey();
 
   static Map _tutorialState = {};
 
@@ -41,6 +42,7 @@ class TutorialManager extends FirebaseUtils {
     TutorialKeys.seeAll: _seeAll,
     TutorialKeys.habitCard: _habitCard,
     TutorialKeys.statCard: _statCard,
+    TutorialKeys.aiWriter: _aiWriter,
   };
 
   /// This function shows a [Showcase].
@@ -95,6 +97,7 @@ enum TutorialKeys {
       "Here, you can see the days you've completed your habits. If you tap on a specific day, you'll see a list of the habits you completed on that day.c"),
   aiChat(
       "Tap this button to chat with the AI about your habits. You can get suggestions and advice to improve your habits."),
+  aiWriter("You can get suggestions and advice to improve your habits."),
   createHabit("Tap this button to create a new habit."),
   motivationCard(
       "This card displays a motivational message. Tap on it to change the message."),

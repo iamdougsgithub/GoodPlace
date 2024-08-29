@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../core/constants/app_assets.dart';
@@ -52,6 +54,14 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
   }
 
   @override
+  void initState() {
+    TutorialManager.ins.show(context, [
+      TutorialKeys.aiWriter,
+    ]);
+    super.initState();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
@@ -85,9 +95,12 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
           TextAreaFormField(
             // validator: (value) => widget.habitNameController.text.trim() == "" ?"" :,
             label: widget.habitPurposeTextFieldLabel,
-            suffixIcon: GestureDetector(
-              onTap: onAIButtonTapped,
-              child: AppAssets.aiIcon,
+            suffixIcon: TutorialWidget(
+              tutorialKey: TutorialKeys.aiWriter,
+              child: GestureDetector(
+                onTap: onAIButtonTapped,
+                child: AppAssets.aiIcon,
+              ),
             ),
             constraints: BoxConstraints(
               maxHeight: context.dynamicHeight(0.18),

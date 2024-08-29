@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -22,35 +23,37 @@ class _CreateHabitPageState extends State<CreateHabitPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScaffoldColor,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          context.mediaQuery.viewInsets.bottom > 1 ? null : fab(),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
-      appBar: AppBar(
-        title: Text(appBarTitle),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: AppPaddings.homeScreenHorizontalPadding,
-            child: Column(
-              children: [
-                /// Image Card
-                ImageCard(
-                  urlController: imageUrlController,
-                ),
-                const Gap(AppPaddings.smallPaddingValue),
-                CreateHabitForm(
-                  habitNameTextFieldLabel: habitNameTextFieldLabel,
-                  habitNameController: habitNameController,
-                  habitPurposeTextFieldLabel: habitPurposeTextFieldLabel,
-                  purposeController: purposeController,
-                  formKey: formKey,
-                  imageUrlController: imageUrlController,
-                ),
-              ],
+    return TutorialWrapper(
+      child: Scaffold(
+        backgroundColor: AppColors.homeScaffoldColor,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton:
+            context.mediaQuery.viewInsets.bottom > 1 ? null : fab(),
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
+        appBar: AppBar(
+          title: Text(appBarTitle),
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: AppPaddings.homeScreenHorizontalPadding,
+              child: Column(
+                children: [
+                  /// Image Card
+                  ImageCard(
+                    urlController: imageUrlController,
+                  ),
+                  const Gap(AppPaddings.smallPaddingValue),
+                  CreateHabitForm(
+                    habitNameTextFieldLabel: habitNameTextFieldLabel,
+                    habitNameController: habitNameController,
+                    habitPurposeTextFieldLabel: habitPurposeTextFieldLabel,
+                    purposeController: purposeController,
+                    formKey: formKey,
+                    imageUrlController: imageUrlController,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
