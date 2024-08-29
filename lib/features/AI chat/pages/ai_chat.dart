@@ -1,20 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
+import 'package:good_place/features/AI%20chat/mixins/ai_chat_mixin.dart';
 
-import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
-import 'package:good_place/features/chatgpt/ChatGptService.dart';
-import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/features/user_data/user_database_service.dart';
-import 'package:good_place/logger.dart';
 
 import '../../../config/theme.dart';
 import '../widgets/ai_chat_send_button.dart';
@@ -26,83 +19,9 @@ class AIChat extends StatefulWidget {
   State<AIChat> createState() => _AIChatState();
 }
 
-class _AIChatState extends State<AIChat> {
-  final TextEditingController controller = TextEditingController();
-  String allHabitInformationContent = "";
-
-  final List<Map<String, String>> messages = []; //user-ai
-  late HabitProvider habitProvider;
-  final ChatgptService chatgptService = ChatgptService();
-  Stream? b = null;
-  @override
-  void initState() {
-    super.initState();
-    _initializeChat();
-  }
-
-  void _initializeChat() {
-    setState(() {
-      messages.add({
-        'role': 'ai',
-        'content':
-            'Hello ${UserDatabaseService.userName}!👋 How can I help you?😊😊'
-      });
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    habitProvider = Provider.of<HabitProvider>(context);
-    allHabitInformationContent = habitProvider.getAllHabitInformation();
-  }
-
-  StreamSubscription<String>? a = null;
-// mesaj gönderme butonuna tıklanınca çalışan method
-  void sendMessage() {
-    final userMessage = controller.text;
-    focusNode.unfocus();
-
-    controller.clear();
-
-    if (userMessage.isNotEmpty) {
-      setState(() {
-        messages.add({'role': 'user', 'content': userMessage});
-
-        messages.add({'role': 'ai'}); // response henüz gelmedi
-      });
-
-      final body = chatgptService.getApiBody(
-          systemContentText:
-              "Sen alışkanlık asistanısın.Sadece bunla ilgili şeylere cevap verirsin. Ve ingilizce konuş",
-          userContentText: getMessageHistory() + userMessage);
-
-      var response = '';
-      b = chatgptService.getChatResponse(body);
-      a = chatgptService.getChatResponse(body).listen((word) {
-        setState(() {
-          response += word;
-          messages[messages.length - 1] = {'role': 'ai', 'content': response};
-        });
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: Durations.medium2, curve: Curves.linear);
-      });
-    }
-  }
-
-  String getMessageHistory() {
-    String contextHistory = allHabitInformationContent;
-    for (var message in messages) {
-      contextHistory += "\n${message['role']}: ${message['content']}";
-    }
-    return contextHistory;
-  }
-
-  final FocusNode focusNode = FocusNode();
-  ScrollController scrollController = ScrollController();
+class _AIChatState extends State<AIChat> with AiChatMixin {
   @override
   Widget build(BuildContext context) {
-    logger.i(b);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: AppColors.authScaffoldColor,
     ));
