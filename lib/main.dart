@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,12 +10,9 @@ import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/notification/notification_service.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/firebase_options.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'config/routes.dart';
-import 'core/resourcers/tutorial_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

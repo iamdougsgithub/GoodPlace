@@ -6,6 +6,7 @@ import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/features/AI%20chat/pages/ai_chat.dart';
 import 'package:good_place/features/AI%20chat/widgets/ai_chat_send_button.dart';
 import 'package:good_place/features/chatgpt/ChatGptService.dart';
+import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
 import 'package:good_place/logger.dart';
@@ -24,6 +25,7 @@ mixin AiChatMixin on State<AIChat> {
   final List<Map<String, String>> messages = []; //user-ai
   late HabitProvider habitProvider;
   final ChatgptService chatgptService = ChatgptService();
+  bool isButtonEnabled = true;
 
   ///Lifecycle Functions
   @override
@@ -70,12 +72,11 @@ mixin AiChatMixin on State<AIChat> {
       setState(() {
         messages.add({'role': 'user', 'content': userMessage});
 
-        messages.add({'role': 'ai'}); // response henüz gelmedi
+        messages.add({'role': 'ai'});
       });
-
+      isButtonEnabled = false;
       final body = chatgptService.getApiBody(
-          systemContentText:
-              "Sen alışkanlık asistanısın.Sadece bunla ilgili şeylere cevap verirsin. Ve ingilizce konuş",
+          systemContentText: aiLimit,
           userContentText: getMessageHistory() + userMessage);
 
       var response = '';
@@ -88,8 +89,13 @@ mixin AiChatMixin on State<AIChat> {
             curve: Curves.linear);
         setState(() {
           response += word;
-          messages[messages.length - 1] = {'role': 'ai', 'content': response};
+          messages[messages.length - 1] = {
+            'role': 'ai',
+            'content': '$response'
+          };
         });
+      }, onDone: () {
+        isButtonEnabled = true; // response bitti butonu etkin yap
       });
     }
   }
