@@ -1,1 +1,45 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"goodplace-milu","appId":"1:428931836064:android:f966c278f192be214ac1c5","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"goodplace-milu","configurations":{"ios":"1:428931836064:ios:d8fdb31d6de8f09a4ac1c5"}}},"ios":{"default":{"projectId":"goodplace-milu","appId":"1:428931836064:ios:d8fdb31d6de8f09a4ac1c5","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "goodplace-milu",
+          "appId": "1:428931836064:android:f966c278f192be214ac1c5",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "goodplace-milu",
+          "configurations": {
+            "ios": "1:428931836064:ios:d8fdb31d6de8f09a4ac1c5"
+          }
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "goodplace-milu",
+          "appId": "1:428931836064:ios:d8fdb31d6de8f09a4ac1c5",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ]
+}
