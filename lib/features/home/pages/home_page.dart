@@ -149,6 +149,7 @@ class _HomePageState extends State<HomePage> {
             tutorialKey: TutorialKeys.aiChat,
             child: GestureDetector(
               onTap: () => showModalBottomSheet(
+                backgroundColor: AppColors.authScaffoldColor,
                 showDragHandle: true,
                 isScrollControlled: true,
                 context: ctx,

@@ -78,16 +78,16 @@ mixin AiChatMixin on State<AIChat> {
 
       var response = '';
       chatgptService.getChatResponse(body).listen((word) {
-        setState(() {
-          response += word;
-          messages[messages.length - 1] = {'role': 'ai', 'content': response};
-        });
         context.mediaQuery.removeViewInsets(removeBottom: true);
         scrollController.animateTo(
             scrollController.position.maxScrollExtent +
                 kBottomNavigationBarHeight,
-            duration: Durations.medium2,
+            duration: Durations.medium4,
             curve: Curves.linear);
+        setState(() {
+          response += word;
+          messages[messages.length - 1] = {'role': 'ai', 'content': response};
+        });
       });
     }
   }

@@ -12,7 +12,6 @@ import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
-import '../widgets/ai_chat_send_button.dart';
 
 class AIChat extends StatefulWidget {
   const AIChat({super.key});
@@ -37,7 +36,8 @@ class _AIChatState extends State<AIChat> with AiChatMixin {
           children: [
             Flexible(
               child: Padding(
-                padding: AppPaddings.authScreenHorizontalPadding,
+                padding: AppPaddings.authScreenHorizontalPadding +
+                    const EdgeInsets.only(top: AppPaddings.smallPaddingValue),
                 child: ListView.builder(
                   controller: scrollController,
                   itemCount: messages.length,
