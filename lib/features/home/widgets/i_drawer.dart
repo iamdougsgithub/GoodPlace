@@ -3,6 +3,7 @@ import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/home/widgets/welcome_text.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
@@ -22,11 +23,13 @@ class IDrawer extends StatefulWidget {
   State<IDrawer> createState() => _IDrawerState();
 }
 
-class _IDrawerState extends State<IDrawer> {
+class _IDrawerState extends State<IDrawer> with SingleTickerProviderStateMixin {
   late int selectedIndex;
+  late AnimationController controller;
   @override
   void initState() {
     super.initState();
+    controller = AnimationController(vsync: this);
     selectedIndex = widget.selectedIndex;
   }
 
@@ -42,7 +45,11 @@ class _IDrawerState extends State<IDrawer> {
 
         /// Home
         NavigationDrawerDestination(
-          icon: AppAssets.homeIcon,
+          icon: Lottie.asset(
+            AppAssets.homeIconPath,
+            width: 24,
+            repeat: false,
+          ),
           label: const Text(
             "Home",
           ),

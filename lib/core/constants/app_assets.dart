@@ -21,6 +21,11 @@ class AppAssets {
     width: 96,
     height: 96,
   );
+  static Widget noHabitsFound = Lottie.asset(
+    _AssetsPathEnum.noHabitsFound.path,
+    fit: BoxFit.fill,
+    alignment: Alignment.center,
+  );
   static Widget streakCardAnimation = Lottie.asset(
     _AssetsPathEnum.streakCardAnimation.path,
     alignment: Alignment.center,
@@ -35,6 +40,7 @@ class AppAssets {
     width: 24,
     height: 24,
   );
+  static String homeIconPath = _AssetsPathEnum.homeIcon.path;
 
   static Widget editIcon = const Icon(
     Icons.edit,
@@ -69,9 +75,9 @@ class AppAssets {
     Icons.logout_outlined,
     color: AppColors.errDark,
   );
-  static Widget homeIcon = const Icon(
-    Icons.home_rounded,
-  );
+  // static Widget homeIcon = const Icon(
+  //   Icons.home_rounded,
+  // );
   static Widget removeIcon = Icon(
     Icons.delete_outlined,
     color: AppColors.errLight,

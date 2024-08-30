@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
@@ -69,23 +70,45 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
               body: Padding(
                 padding: AppPaddings.homeScreenHorizontalPadding,
                 child: Consumer<HabitProvider>(
-                  builder: (context, provider, child) => TutorialWidget(
-                    tutorialKey: TutorialKeys.habitTile,
-                    child: ListView.builder(
-                      itemCount: provider.habits.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: AppPaddings.smallPaddingValue,
+                  builder: (context, provider, child) => provider
+                          .habits.isNotEmpty
+                      ? TutorialWidget(
+                          tutorialKey: TutorialKeys.habitTile,
+                          child: ListView.builder(
+                            itemCount: provider.habits.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: AppPaddings.smallPaddingValue,
+                                ),
+                                child: HabitTile(
+                                  index: index,
+                                ),
+                              );
+                            },
                           ),
-                          child: HabitTile(
-                            index: index,
+                        )
+                      : Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: context.dynamicHeight(0.3),
+                                child: AppAssets.noHabitsFound,
+                              ),
+                              MarkdownBody(
+                                data:
+                                    "It seems you haven't added any **habits** yet.\nJust click the **add** button and start your tracking journey.",
+                                styleSheet: MarkdownStyleSheet(
+                                  textAlign: WrapAlignment.center,
+                                  p: context.textTheme.bodyLarge?.copyWith(
+                                    foreground: Paint()..color = Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                 ),
               ),
             );
@@ -98,28 +121,36 @@ class _MyHabitsPageState extends State<MyHabitsPage> {
   PopupMenuButton<dynamic> sortButton() {
     final HabitProvider habitProvider =
         Provider.of<HabitProvider>(context, listen: false);
+    final buttons = [
+      PopupMenuItem(
+        onTap: habitProvider.sortByLongestStreak,
+        child: Text("Longest Streak"),
+      ),
+      PopupMenuItem(
+        onTap: habitProvider.sortByStreakCount,
+        child: Text("Streak Count"),
+      ),
+      PopupMenuItem(
+        onTap: habitProvider.sortByRecentCompletion,
+        child: Text("Recent Completion"),
+      ),
+      PopupMenuItem(
+        onTap: habitProvider.sortByStreakCountAndRecentCompletion,
+        child: Text("Streak Count & Recent Completion"),
+      ),
+    ];
+
     return PopupMenuButton(
       icon: Icon(Icons.sort),
       position: PopupMenuPosition.under,
       itemBuilder: (context) {
-        return [
-          PopupMenuItem(
-            onTap: habitProvider.sortByLongestStreak,
-            child: Text("Longest Streak"),
-          ),
-          PopupMenuItem(
-            onTap: habitProvider.sortByStreakCount,
-            child: Text("Streak Count"),
-          ),
-          PopupMenuItem(
-            onTap: habitProvider.sortByRecentCompletion,
-            child: Text("Recent Completion"),
-          ),
-          PopupMenuItem(
-            onTap: habitProvider.sortByStreakCountAndRecentCompletion,
-            child: Text("Streak Count & Recent Completion"),
-          ),
-        ];
+        return habitProvider.habits.isEmpty
+            ? [
+                PopupMenuItem(
+                  child: Text("You don't have habits to sort"),
+                ),
+              ]
+            : buttons;
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -38,13 +39,20 @@ class MyHabitsSection extends StatelessWidget {
     );
   }
 
-  Card _noHabitsCard(BuildContext context) {
-    return Card(
-      child: Center(
-        child: Text(
-          "You don't have any habits . Add now.",
-          style: context.textTheme.labelLarge,
-        ),
+  Widget _noHabitsCard(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Flexible(child: AppAssets.noHabitsFound),
+          Markdown(
+              shrinkWrap: true,
+              data: "You don't have any habits.**Add Now**.",
+              styleSheet: MarkdownStyleSheet(
+                textAlign: WrapAlignment.center,
+                p: context.textTheme.bodyLarge
+                    ?.copyWith(foreground: Paint()..color = Colors.white),
+              )),
+        ],
       ),
     );
   }

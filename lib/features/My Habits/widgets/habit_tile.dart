@@ -41,7 +41,7 @@ class _HabitTileState extends State<HabitTile> {
         child: Slidable(
           closeOnScroll: true,
           startActionPane: checkButton(habitModel, habitProvider),
-          endActionPane: deleteButton(habitModel),
+          endActionPane: deleteButton(habitModel, habitProvider),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -66,7 +66,6 @@ class _HabitTileState extends State<HabitTile> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       contentColumn(context, habitModel),
-                      // Gap(c.maxWidth / 2),
                       streakColumn(context, habitModel),
                     ],
                   );
@@ -79,13 +78,12 @@ class _HabitTileState extends State<HabitTile> {
     );
   }
 
-  ActionPane deleteButton(HabitModel habitModel) {
+  ActionPane deleteButton(HabitModel habitModel, HabitProvider habitProvider) {
     return ActionPane(
       motion: Container(
         color: AppColors.errDark,
         child: IconButton(
-          onPressed: () =>
-              HabitProvider.instance.deleteHabit(habitModel.id ?? ""),
+          onPressed: () => habitProvider.deleteHabit(habitModel.id ?? ""),
           icon: AppAssets.removeIcon,
         ),
       ).animate().shake(),
