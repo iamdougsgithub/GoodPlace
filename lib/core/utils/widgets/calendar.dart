@@ -50,7 +50,8 @@ abstract class AppCalendar extends TableCalendar {
   CalendarBuilders get calendarBuilders => CalendarBuilders(
         markerBuilder: (context, day, events) {
           if (events.isNotEmpty) {
-            return AppAssets.totalDonePerDayCardAnimation;
+            return AppAssets.totalDonePerDayCardAnimation(
+                width: 24, height: 24);
           }
           return null;
         },

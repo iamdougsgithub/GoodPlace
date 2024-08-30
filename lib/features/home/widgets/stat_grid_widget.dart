@@ -36,12 +36,14 @@ class StatGridWidget extends StatelessWidget {
               ),
             ),
             _StatCard(
-              icon: AppAssets.totalDonePerDayCardAnimation,
+              icon:
+                  AppAssets.totalDonePerDayCardAnimation(height: 64, width: 64),
               data: "${habitProvider.getTotalDone()}",
               label: "Total done per day",
             ),
             _StatCard(
-              icon: AppAssets.chartIcon,
+              icon:
+                  AppAssets.longTimeNotDoneCardAnimation(width: 96, height: 96),
               data: habitProvider.getLongestMissedHabitInfo(),
               label: "Long time not done",
             ),
@@ -64,23 +66,25 @@ class _StatCard extends StatelessWidget {
       builder: (context, constraints) => Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Card(
-            clipBehavior: Clip.antiAlias,
-            color: AppColors.orangeTextColor,
-            // shape:,
-            child: Stack(
-              children: [
-                Center(
-                  child: SizedBox(
-                    height: constraints.maxHeight * .7,
-                    width: constraints.maxWidth * 1,
+          SizedBox(
+            height: constraints.maxHeight * .8,
+            width: constraints.maxWidth,
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              color: AppColors.orangeTextColor,
+              // shape:,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  /// Icon
+                  Positioned(
+                    right: 0,
+                    top: 0,
                     child: icon,
                   ),
-                ),
 
-                /// Data
-                Positioned.fill(
-                  child: CardBackgroundImageFilter(
+                  /// Data
+                  CardBackgroundImageFilter(
                     opacity: 0.2,
                     child: Center(
                       child: FittedBox(
@@ -94,8 +98,8 @@ class _StatCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           FittedBox(

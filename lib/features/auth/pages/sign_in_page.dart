@@ -1,6 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/utils/widgets/custom_toast.dart';
+import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/auth/mixins/sign_in_page_mixin.dart';
 import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
@@ -71,7 +74,20 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
             children: [
               const Gap(AppPaddings.smallPaddingValue),
               TextButton(
-                onPressed: () {},
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  backgroundColor: AppColors.authScaffoldColor,
+                  constraints: BoxConstraints(
+                    maxHeight: context.dynamicHeight(0.8),
+                    minWidth: context.dynamicWidth(1),
+                  ),
+                  isDismissible: false,
+                  builder: (context) => _ResetPasswordSheet(
+                    passwordResetController: passwordResetController,
+                  ),
+                ), //  AuthService().sendPasswordResetEmail(email: ),
                 child: Text(forgotPassword),
               ),
             ],
@@ -96,6 +112,76 @@ class _SignInPageState extends State<SignInPage> with SignInPageMixin {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ResetPasswordSheet extends StatefulWidget {
+  const _ResetPasswordSheet({
+    required this.passwordResetController,
+  });
+
+  final TextEditingController passwordResetController;
+
+  @override
+  State<_ResetPasswordSheet> createState() => _ResetPasswordSheetState();
+}
+
+class _ResetPasswordSheetState extends State<_ResetPasswordSheet>
+    with EmailValidator {
+  @override
+  void dispose() {
+    widget.passwordResetController.clear();
+    super.dispose();
+  }
+
+  send() {
+    if (EmailValidator.validate(widget.passwordResetController.text)) {
+      AuthService()
+          .sendPasswordResetEmail(email: widget.passwordResetController.text)
+          .whenComplete(
+            () => mounted ? context.pop() : null,
+          )
+          .whenComplete(() => Toast.succToast(
+              title: "Password Reset Email Sent",
+              desc: "Please check your email."));
+    } else {
+      Toast.errToast(title: "Please provide valid email address");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: AppPaddings.authScreenHorizontalPadding,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "Reset Password",
+              style: context.textTheme.titleMedium,
+            ),
+            EmailField(
+              controller: widget.passwordResetController,
+              textInputAction: TextInputAction.done,
+            ),
+            Row(
+              children: [
+                ExpandedFilledButton(
+                  label: "Send",
+                  onPressed: () =>
+                      widget.passwordResetController.text.trim().isNotEmpty
+                          ? send()
+                          : null,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

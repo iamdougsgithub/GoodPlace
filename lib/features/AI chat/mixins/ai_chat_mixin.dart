@@ -121,19 +121,22 @@ mixin AiChatMixin on State<AIChat> {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                chipButton(
-                  label: "Recommend me a habit.",
-                ),
-                const Gap(AppPaddings.smallPaddingValue),
-                chipButton(
-                  label: "I need some help about my habits",
-                ),
-              ],
+          Visibility(
+            visible: isButtonEnabled,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  chipButton(
+                    label: "Recommend me a habit.",
+                  ),
+                  const Gap(AppPaddings.smallPaddingValue),
+                  chipButton(
+                    label: "I need some help about my habits",
+                  ),
+                ],
+              ),
             ),
           ),
           Row(
@@ -155,7 +158,9 @@ mixin AiChatMixin on State<AIChat> {
               ),
               const Gap(AppPaddings.xxsmallPaddingValue),
               AIChatSendButton(
-                onTap: controller.text.isNotEmpty ? sendMessage : null,
+                onTap: controller.text.trim().isNotEmpty && isButtonEnabled
+                    ? sendMessage
+                    : null,
               )
             ],
           ),

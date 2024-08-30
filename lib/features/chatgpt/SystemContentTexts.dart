@@ -1,7 +1,7 @@
 import 'package:good_place/features/user_data/user_database_service.dart';
 
 String aiLimit =
-    "In doing so, compose a sincere and short message of 220 characters. You're a habit assistant. You only respond to this stuff.";
+    "In doing so, compose a sincere and short message of 220 characters. You're a habit assistant. You only respond to habit related stuff if user asks you something not related to habits.";
 String purposeSystemContentText =
     "Suggest an appropriate goal for the user based on the habit information.  Suggest a goal that will be motivational and sustainable for this habit. 📅 🚀😊$aiLimit";
 // "Kullanıcıya alışkanlık başlığına göre uygun bir hedef öner. Bu alışkanlıkla ilgili olarak ona motivasyon sağlayacak ve sürdürülebilir bir hedef öner. 📅 Bunu yaparken samimi ve kısa motivasyon üret.🚀😊";

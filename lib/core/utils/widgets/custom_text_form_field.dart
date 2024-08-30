@@ -15,7 +15,7 @@ abstract class _CustomFormField extends TextFormField {
     super.validator,
     super.obscureText,
     this.helper,
-    this.expands = false,
+    this.isExpandable = false,
     this.constraints,
     this.buildCounter,
     this.maxLength,
@@ -34,7 +34,7 @@ abstract class _CustomFormField extends TextFormField {
   final TextInputType? keyboardType;
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
-  final bool expands;
+  final bool isExpandable;
   final BoxConstraints? constraints;
   final InputCounterWidgetBuilder? buildCounter;
   @override
@@ -86,9 +86,8 @@ abstract class _CustomFormField extends TextFormField {
               validator: validator,
               textInputAction: textInputAction,
               textCapitalization: textCapitalization,
-              expands: expands,
-              minLines: expands ? null : 1,
-              maxLines: expands ? null : 1,
+              minLines: isExpandable ? null : 1,
+              maxLines: isExpandable ? null : 1,
               maxLength: maxLength,
               textAlignVertical: TextAlignVertical.top,
             );
@@ -201,11 +200,8 @@ class TextAreaFormField extends _CustomFormField {
     super.constraints,
     super.suffix,
     super.suffixIcon,
+    super.isExpandable,
   });
-
-  @override
-  // TODO: implement expands
-  bool get expands => true;
 
   @override
   TextInputType? get keyboardType => TextInputType.text;

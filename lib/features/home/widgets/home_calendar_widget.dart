@@ -56,7 +56,7 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
                   context: context,
                   focusedDay: currentDay,
                   onDaySelected: (selectedDay, focusedDay) {
-                    onLongPressed(selectedDay, focusedDay, provider);
+                    openSelectedDayHabitList(selectedDay, focusedDay, provider);
                     setState(() {
                       currentDay = selectedDay;
                     });
@@ -73,7 +73,7 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
     );
   }
 
-  void onLongPressed(
+  void openSelectedDayHabitList(
       DateTime selectedDay, DateTime focusedDay, HabitProvider provider) {
     DateTime formattedSelectedDay =
         DateTime(selectedDay.year, selectedDay.month, selectedDay.day);

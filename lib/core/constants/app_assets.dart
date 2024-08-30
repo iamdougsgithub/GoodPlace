@@ -16,11 +16,12 @@ class AppAssets {
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
 
-  static Widget aiIcon = Lottie.asset(
-    AppAssets.aiButtonAnimation,
-    width: 96,
-    height: 96,
-  );
+  static Widget aiIcon(double width, double height) => Lottie.asset(
+        AppAssets.aiButtonAnimation,
+        width: width,
+        height: height,
+        fit: BoxFit.fill,
+      );
   static Widget noHabitsFound = Lottie.asset(
     _AssetsPathEnum.noHabitsFound.path,
     fit: BoxFit.fill,
@@ -28,28 +29,35 @@ class AppAssets {
   );
   static Widget streakCardAnimation = Lottie.asset(
     _AssetsPathEnum.streakCardAnimation.path,
-    alignment: Alignment.center,
-    width: 24,
-    height: 24,
+    alignment: Alignment.topRight,
+    width: 64,
+    height: 64,
   );
+  static Widget totalDonePerDayCardAnimation(
+          {required double width, required double height}) =>
+      Lottie.asset(
+        _AssetsPathEnum.totalDonePerDayCardAnimation.path,
+        alignment: Alignment.topRight,
+        width: width,
+        height: height,
+      );
+  static Widget longTimeNotDoneCardAnimation(
+          {required double width, required double height}) =>
+      Lottie.asset(
+        _AssetsPathEnum.longTimeNotDoneCard.path,
+        alignment: Alignment.topRight,
+        width: width,
+        height: height,
+      );
   static String aiChatSendButton = _AssetsPathEnum.aiChatSendButton.path;
 
-  static Widget totalDonePerDayCardAnimation = Lottie.asset(
-    _AssetsPathEnum.totalDonePerDayCardAnimation.path,
-    alignment: Alignment.center,
-    width: 24,
-    height: 24,
-  );
   static String homeIconPath = _AssetsPathEnum.homeIcon.path;
 
   static Widget editIcon = const Icon(
     Icons.edit,
     color: Colors.white,
   );
-  static Widget chartIcon = const Icon(
-    Icons.show_chart,
-    color: Color(0xffF3E339),
-  );
+
   static Widget calendarIcon = const Icon(
     Icons.calendar_today_outlined,
     color: Color(0xffFFB8B8),

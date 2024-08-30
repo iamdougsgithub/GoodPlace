@@ -152,16 +152,10 @@ class _HomePageState extends State<HomePage> {
                 context: ctx,
                 builder: (ctx) => const AIChat(),
               ),
-              child: ClipOval(
-                child: ColorFiltered(
-                  colorFilter: const ColorFilter.mode(
-                    AppColors.primaryButtonColor,
-                    BlendMode.hue,
-                  ),
-                  child: CircleAvatar(
-                    child: AppAssets.aiIcon,
-                  ),
-                ),
+              child: CircleAvatar(
+                radius: 32,
+                backgroundColor: AppColors.orangeTextColor,
+                child: AppAssets.aiIcon(256, 256),
               ),
             ),
           ),

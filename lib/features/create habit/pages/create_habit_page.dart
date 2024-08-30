@@ -43,11 +43,8 @@ class _CreateHabitPageState extends State<CreateHabitPage>
               child: Column(
                 children: [
                   /// Image Card
-                  TutorialWidget(
-                    tutorialKey: TutorialKeys.imageContainer,
-                    child: ImageCard(
-                      urlController: imageUrlController,
-                    ),
+                  ImageCard(
+                    urlController: imageUrlController,
                   ),
                   const Gap(AppPaddings.smallPaddingValue),
                   CreateHabitForm(

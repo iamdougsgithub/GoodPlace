@@ -127,7 +127,7 @@ class _AIMessageBox extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: Colors.transparent,
-          child: AppAssets.aiIcon,
+          child: AppAssets.aiIcon(96, 96),
         ),
         Padding(
           padding: const EdgeInsets.only(

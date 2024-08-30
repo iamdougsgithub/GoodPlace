@@ -98,15 +98,17 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
               tutorialKey: TutorialKeys.aiWriter,
               child: GestureDetector(
                 onTap: onAIButtonTapped,
-                child: AppAssets.aiIcon,
+                child: AppAssets.aiIcon(96, 96),
               ),
             ),
+            isExpandable: true,
             constraints: BoxConstraints(
-              maxHeight: context.dynamicHeight(0.18),
+              maxHeight: context.dynamicHeight(0.4),
             ),
             controller: widget.purposeController,
             textInputAction: TextInputAction.done,
-            maxLength: 500,
+            maxLength: 300,
+
             textCapitalization: TextCapitalization.sentences,
             buildCounter: (context,
                 {required currentLength,
