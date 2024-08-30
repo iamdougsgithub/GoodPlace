@@ -30,7 +30,7 @@ class _AIChatState extends State<AIChat> with AiChatMixin {
       height: context.dynamicHeight(0.9),
       child: Scaffold(
         backgroundColor: AppColors.authScaffoldColor,
-        floatingActionButton: textField(),
+        floatingActionButton: bottomSection(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Column(
           children: [
@@ -54,8 +54,8 @@ class _AIChatState extends State<AIChat> with AiChatMixin {
                 ),
               ),
             ),
-            const Gap(
-              kBottomNavigationBarHeight,
+            const SizedBox(
+              height: kBottomNavigationBarHeight * 2,
             ),
           ],
         ),
