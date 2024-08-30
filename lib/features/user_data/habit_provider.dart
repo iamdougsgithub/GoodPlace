@@ -70,6 +70,25 @@ class HabitProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateHabitFields(
+    String habitId,
+    HabitModel model,
+  ) async {
+    int index = _habits.indexWhere((h) => h.id == habitId);
+
+    Map<String, dynamic> updatedFields = {
+      'imageUrl': model.imageUrl,
+      'purpose': model.purpose,
+      'title': model.title,
+    };
+
+    _userService.updateHabitFields(habitId, updatedFields);
+    _habits[index].imageUrl = model.imageUrl;
+    _habits[index].purpose = model.purpose;
+    _habits[index].title = model.title;
+    notifyListeners();
+  }
+
   // Habit sil
   Future<void> deleteHabit(String habitId) async {
     await _userService.deleteHabit(habitId);

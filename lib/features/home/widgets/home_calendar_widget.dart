@@ -66,10 +66,6 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
                   }),
                 ),
               ),
-              const Gap(AppPaddings.smallPaddingValue),
-
-              /// Text
-              calendarCardFooter(context)
             ],
           ),
         ),
@@ -154,28 +150,6 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
       return [const Text("data")];
     }
     return [];
-  }
-
-  Row calendarCardFooter(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // All Complete
-        Row(
-          children: [
-            const CircleAvatar(
-              radius: 4,
-              backgroundColor: AppColors.homeScaffoldColor,
-            ),
-            const Gap(4),
-            Text(
-              "Completed",
-              style: context.textTheme.bodySmall,
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }
 

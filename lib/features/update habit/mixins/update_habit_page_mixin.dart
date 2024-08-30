@@ -60,17 +60,24 @@ mixin UpdateHabitMixin on State<UpdateHabitPage> {
       if (formKey.currentState!.validate()) {
         HabitModel habitModel = HabitModel(
           id: _habitModel.id,
-          title: habitNameController.text,
-          createDate: DateTime.now(),
-          streakCount: 0,
-          purpose: purposeController.text,
-          imageUrl: imageUrlController.text,
-          completionDates: [],
-          longestStreak: 0,
+          title: habitNameController.text.isNotEmpty
+              ? habitNameController.text
+              : _habitModel.title,
+          createDate: _habitModel.createDate,
+          streakCount: _habitModel.streakCount,
+          purpose: purposeController.text.isNotEmpty
+              ? purposeController.text
+              : _habitModel.purpose,
+          imageUrl: imageUrlController.text.isNotEmpty
+              ? imageUrlController.text
+              : _habitModel.imageUrl,
+          completionDates: _habitModel.completionDates,
+          longestStreak: _habitModel.longestStreak,
         );
         Provider.of<HabitProvider>(context, listen: false)
-            .updateHabit(
+            .updateHabitFields(
           habitModel.id ?? "",
+          habitModel,
         )
             .whenComplete(() {
           Toast.succToast(title: "${habitModel.title} Successfully updated.");
