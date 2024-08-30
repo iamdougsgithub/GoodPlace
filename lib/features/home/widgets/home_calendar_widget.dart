@@ -38,6 +38,8 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
       description: TutorialKeys.calendar.tutorialDesc,
       tutorialKey: TutorialKeys.calendar,
       child: Card(
+        color: Color.lerp(
+            AppColors.authScaffoldColor, AppColors.orangeTextColor, 1),
         child: Padding(
           padding: const EdgeInsets.only(
             left: AppPaddings.smallPaddingValue,
@@ -167,29 +169,7 @@ class _HomeCalendarWidgetState extends State<HomeCalendarWidget> {
             ),
             const Gap(4),
             Text(
-              "All Complete",
-              style: context.textTheme.bodySmall,
-            ),
-          ],
-        ),
-        const Gap(AppPaddings.smallPaddingValue),
-        // Some Complete
-        Row(
-          children: [
-            Container(
-              width: 8,
-              height: 8,
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(
-                    side: BorderSide(
-                  width: 2,
-                  color: AppColors.homeScaffoldColor,
-                )),
-              ),
-            ),
-            const Gap(4),
-            Text(
-              "Some Complete",
+              "Completed",
               style: context.textTheme.bodySmall,
             ),
           ],
@@ -207,6 +187,5 @@ class _HomeCalendar extends AppCalendar {
     super.calendarFormat,
     required super.focusedDay,
     super.eventLoader,
-    super.onDayLongPressed,
   });
 }

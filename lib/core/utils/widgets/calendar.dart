@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_place/core/constants/app_assets.dart';
-import 'package:good_place/logger.dart';
 import '../../extensions/context_extension.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -49,10 +48,12 @@ abstract class AppCalendar extends TableCalendar {
 
   @override
   CalendarBuilders get calendarBuilders => CalendarBuilders(
-        // markerBuilder: (context, day, events) {
-        //   logger.i(events);
-        //   return AppAssets.checkIcon;
-        // },
+        markerBuilder: (context, day, events) {
+          if (events.isNotEmpty) {
+            return AppAssets.totalDonePerDayCardAnimation;
+          }
+          return null;
+        },
         defaultBuilder: (context, day, focusedDay) {
           return Column(
             children: [
