@@ -16,6 +16,11 @@ class AuthManager extends StatelessWidget {
 
   const AuthManager({super.key});
 
+  Future<String> _initializeTutorial() async {
+    await Future(() => TutorialManager.ins.fetchTutorialStateFromFirebase());
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -35,7 +40,16 @@ class AuthManager extends StatelessWidget {
                 } else if (futureSnapshot.hasData) {
                   bool isOnboardingCompleted = futureSnapshot.data!;
                   return isOnboardingCompleted
-                      ? const HomePage()
+                      ? FutureBuilder<Object>(
+                          future: _initializeTutorial(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return const HomePage();
+                            }
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          })
                       : const OnboardingPage();
                 } else {
                   return const Center(child: Text('No user details available'));

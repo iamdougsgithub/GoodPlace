@@ -77,7 +77,7 @@ class _TutorialWrapperState extends State<TutorialWrapper> {
     return ShowCaseWidget(
       disableBarrierInteraction: true,
       autoPlayDelay: const Duration(milliseconds: 3500),
-      // enableAutoScroll: true,
+      enableAutoScroll: widget.autoPlay,
       autoPlay: widget.autoPlay,
       onComplete: (p0, p1) {
         TutorialManager.ins.onAutoPlayComplete(p1);

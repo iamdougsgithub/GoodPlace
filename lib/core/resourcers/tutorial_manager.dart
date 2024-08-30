@@ -75,7 +75,6 @@ class TutorialManager extends FirebaseUtils {
     TutorialKeys.seeAll,
     TutorialKeys.habitCard,
     TutorialKeys.createHabit,
-    TutorialKeys.statCard,
   ];
   static List<TutorialKeys> createHabitPageTutorialKeList = [
     TutorialKeys.imageContainer,
