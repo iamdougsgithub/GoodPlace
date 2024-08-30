@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:good_place/features/chatgpt/ChatGptService.dart';
+import 'package:good_place/features/chatgpt/SystemContentTexts.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:good_place/features/user_data/user_database_service.dart';
 import 'package:good_place/firebase_options.dart';
@@ -49,6 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
   List<Map<String, String>> _messages = []; //user-ai
   late HabitProvider habitProvider;
   ChatgptService _chatgptService = ChatgptService();
+  bool isButtonEnabled = true;
 
   @override
   void initState() {
@@ -85,10 +87,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
         _messages.add({'role': 'ai'}); // response henüz gelmedi
       });
+      isButtonEnabled = false;
 
       final body = _chatgptService.getApiBody(
-          systemContentText:
-              "Sen alışkanlık asistanısın.Sadece bunla ilgili şeylere cevap verirsin.",
+          systemContentText: aiLimit,
           userContentText: getMessageHistory() + userMessage);
 
       var response = '';
@@ -99,9 +101,10 @@ class _ChatScreenState extends State<ChatScreen> {
             'role': 'ai',
             'content': '$response'
           };
-          print(_messages);
-          print(_messages.length);
         });
+      }, onDone: () {
+        isButtonEnabled = true; // response bitti butonu etkin yap
+        print('Response tamamlandı.');
       });
     }
   }

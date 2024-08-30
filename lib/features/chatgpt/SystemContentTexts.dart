@@ -1,15 +1,15 @@
 import 'package:good_place/features/user_data/user_database_service.dart';
 
 String aiLimit =
-    "While doing this, create a friendly and short message of maximum 220 characters. You only answer about the habit. If you're asked anything else, say you don't know.";
+    "In doing so, compose a sincere and short message of 220 characters. You're a habit assistant. You only respond to this stuff.";
 String purposeSystemContentText =
     "Suggest an appropriate goal for the user based on the habit information.  Suggest a goal that will be motivational and sustainable for this habit. 📅 🚀😊$aiLimit";
 // "Kullanıcıya alışkanlık başlığına göre uygun bir hedef öner. Bu alışkanlıkla ilgili olarak ona motivasyon sağlayacak ve sürdürülebilir bir hedef öner. 📅 Bunu yaparken samimi ve kısa motivasyon üret.🚀😊";
 
 List<String> motivationSystemContentList = [
-  "Based on the habit details provided by the user, create a short and concise message that encourages, motivates, and inspires them to reach their goals. The message should be tailored to the user's needs, friendly, fun, and positive. You can also add a quote related to the habit details.$aiLimit",
+  " Based on the habit information provided by the user, create a message that encourages, motivates and inspires them to achieve their goals. The message should be tailored to the user's needs, friendly, fun and positive. You can also include a quote about the habit details.$aiLimit",
 
-  "Create a brief and concise message that will guide and motivate users on their habit-building journey. The messages should highlight the user's strengths, encourage them, and emphasize the importance of achieving big goals with small steps. Use friendly and personalized expressions to add a personal touch.$aiLimit",
+  "Create messages that will guide and motivate users on their habit-forming journey. Messages should highlight the user's strengths, encourage them and emphasise the importance of achieving big goals with small steps. Use friendly and personalised wording to add a personal touch.$aiLimit",
 
   "Give the user a motivational message based on the habit.$aiLimit",
 

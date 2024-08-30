@@ -46,9 +46,34 @@ class HabitProvider with ChangeNotifier {
 // Yoksa sadece streakCount,completionDates değerlerini değiştirebiliriz.
 //update: streakCount ve completionDates e bugünün tarihi eklenecek
   Future<void> updateHabit(
-    String habitId,
-  ) async {
+      String habitId, Map<String, dynamic> updatedFields) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
+
+    updatedFields.forEach((key, value) {
+      if (key == 'done') {
+        _habits[index].done = true;
+      } else if (key == 'title') {
+        _habits[index].title = value;
+      } else if (key == 'purpose') {
+        _habits[index].purpose = value;
+      } else if (key == 'imageUrl') {
+        _habits[index].imageUrl = value;
+      } else if (key == 'completionDates') {
+        _habits[index].completionDates.add(DateTime.now());
+      } else if (key == 'streakCount') {
+        _habits[index].streakCount = value;
+      } else if (key == 'longestStreak') {
+        _habits[index].longestStreak = value;
+      }
+    });
+
+    _userService.updateHabitFields(habitId, updatedFields);
+    notifyListeners();
+  }
+
+  void updateDone(String habitId) {
+    int index = _habits.indexWhere((h) => h.id == habitId);
+
     DateTime now = DateTime.now();
     _habits[index].streakCount += 1;
     if (_habits[index].streakCount > _habits[index].longestStreak) {
@@ -56,18 +81,12 @@ class HabitProvider with ChangeNotifier {
     }
 
     Map<String, dynamic> updatedFields = {
+      'done': true,
       'completionDates': FieldValue.arrayUnion([now]),
       'streakCount': (_habits[index].streakCount),
       'longestStreak': (_habits[index].longestStreak),
     };
-
-    _userService.updateHabitFields(habitId, updatedFields);
-
-    _habits[index].completionDates.add(now); // burası değişecek
-    _habits[index].done = true; // burası değişecek
-    _habits[index].streakCount = updatedFields["streakCount"];
-
-    notifyListeners();
+    updateHabit(habitId, updatedFields);
   }
 
   Future<void> updateHabitFields(

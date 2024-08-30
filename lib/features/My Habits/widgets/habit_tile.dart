@@ -99,7 +99,7 @@ class _HabitTileState extends State<HabitTile> {
         child: IconButton(
           onPressed: () {
             if (!habitModel.done) {
-              habitProvider.updateHabit(habitModel.id ?? "");
+              habitProvider.updateDone(habitModel.id ?? "");
               Toast.wellDone();
             } else {
               Toast.succToast(
