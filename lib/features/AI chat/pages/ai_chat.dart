@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/features/AI%20chat/mixins/ai_chat_mixin.dart';
 
 import 'package:good_place/core/constants/app_paddings.dart';
@@ -60,49 +62,6 @@ class _AIChatState extends State<AIChat> with AiChatMixin {
       ),
     );
   }
-
-  Widget textField() {
-    controller.addListener(() {
-      setState(() {});
-    });
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPaddings.xxsmallPaddingValue * 2),
-      color: AppColors.authScaffoldColor,
-      child: Row(
-        children: [
-          Flexible(
-            child: TextField(
-              autofocus: true,
-              focusNode: focusNode,
-              controller: controller,
-              keyboardType: TextInputType.text,
-              minLines: null,
-              maxLines: null,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                  constraints: BoxConstraints(
-                maxHeight: context.dynamicHeight(0.2),
-              )),
-            ),
-          ),
-          const Gap(AppPaddings.xxsmallPaddingValue),
-          AIChatSendButton(
-            onTap: controller.text.isNotEmpty ? sendMessage : null,
-          )
-        ],
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(() {});
-    controller.dispose();
-    scrollController.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
 }
 
 class _UserMessageBox extends StatelessWidget {
@@ -111,32 +70,45 @@ class _UserMessageBox extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppPaddings.smallPaddingValue),
-      child: Wrap(
-        alignment: WrapAlignment.end,
-        children: [
-          Card(
-            color: AppColors.primaryButtonColor,
-            child: Padding(
-              padding:
-                  const EdgeInsets.all(AppPaddings.xxsmallPaddingValue * 3),
-              child: SizedBox(
-                width: context.dynamicWidth(0.5),
-                child: MarkdownBody(
-                  data: message,
-                  styleSheet: MarkdownStyleSheet(
-                    p: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+              bottom: AppPaddings.smallPaddingValue,
+              right: AppPaddings.xxsmallPaddingValue),
+          child: Wrap(
+            alignment: WrapAlignment.end,
+            children: [
+              ChatBubble(
+                alignment: Alignment.centerRight,
+                clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
+                backGroundColor: AppColors.primaryButtonColor,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.all(AppPaddings.xxsmallPaddingValue * 3),
+                  child: SizedBox(
+                    width: context.dynamicWidth(0.5),
+                    child: MarkdownBody(
+                      data: message,
+                      styleSheet: MarkdownStyleSheet(
+                        p: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      shrinkWrap: true,
                     ),
                   ),
-                  shrinkWrap: true,
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const CircleAvatar(
+          child: Icon(Icons.person),
+        ),
+      ],
     );
   }
 }
@@ -150,31 +122,43 @@ class _AIMessageBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppPaddings.smallPaddingValue),
-      child: Wrap(
-        children: [
-          Card(
-            color: AppColors.orangeTextColor,
-            child: Padding(
-              padding:
-                  const EdgeInsets.all(AppPaddings.xxsmallPaddingValue * 3),
-              child: SizedBox(
-                width: context.dynamicWidth(0.6),
-                child: MarkdownBody(
-                  data: message,
-                  styleSheet: MarkdownStyleSheet(
-                    p: context.textTheme.bodyMedium?.copyWith(
-                        // color: Colors.white,
-                        ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: AppAssets.aiIcon,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+              bottom: AppPaddings.smallPaddingValue,
+              left: AppPaddings.xxsmallPaddingValue),
+          child: Wrap(
+            children: [
+              ChatBubble(
+                backGroundColor: AppColors.orangeTextColor,
+                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.all(AppPaddings.xxsmallPaddingValue * 3),
+                  child: SizedBox(
+                    width: context.dynamicWidth(0.6),
+                    child: MarkdownBody(
+                      data: message,
+                      styleSheet: MarkdownStyleSheet(
+                        p: context.textTheme.bodyMedium?.copyWith(
+                            // color: Colors.white,
+                            ),
+                      ),
+                      shrinkWrap: true,
+                    ),
                   ),
-                  shrinkWrap: true,
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
