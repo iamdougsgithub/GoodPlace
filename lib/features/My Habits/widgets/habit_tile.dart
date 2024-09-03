@@ -18,25 +18,30 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 
-class HabitTile extends StatelessWidget {
+class HabitTile extends StatefulWidget {
   final int index;
   const HabitTile({super.key, required this.index});
 
   @override
+  State<HabitTile> createState() => _HabitTileState();
+}
+
+class _HabitTileState extends State<HabitTile> {
+  @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
-    HabitModel habitModel = habitProvider.habits[index];
+    HabitModel habitModel = habitProvider.habits[widget.index];
     return GestureDetector(
       onTap: () => context.navigator.pushNamed(
         HabitDetail.routeName,
-        arguments: index,
+        arguments: widget.index,
       ),
       child: ClipRRect(
         borderRadius: AppBorderRadius.smallBorderRadius,
         child: Slidable(
-          key: ValueKey(habitModel.id),
+          closeOnScroll: true,
           startActionPane: checkButton(habitModel, habitProvider),
-          endActionPane: deleteButton(habitModel),
+          endActionPane: deleteButton(habitModel, habitProvider),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -61,7 +66,6 @@ class HabitTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       contentColumn(context, habitModel),
-                      // Gap(c.maxWidth / 2),
                       streakColumn(context, habitModel),
                     ],
                   );
@@ -74,13 +78,12 @@ class HabitTile extends StatelessWidget {
     );
   }
 
-  ActionPane deleteButton(HabitModel habitModel) {
+  ActionPane deleteButton(HabitModel habitModel, HabitProvider habitProvider) {
     return ActionPane(
       motion: Container(
         color: AppColors.errDark,
         child: IconButton(
-          onPressed: () =>
-              HabitProvider.instance.deleteHabit(habitModel.id ?? ""),
+          onPressed: () => habitProvider.deleteHabit(habitModel.id ?? ""),
           icon: AppAssets.removeIcon,
         ),
       ).animate().shake(),
@@ -96,8 +99,12 @@ class HabitTile extends StatelessWidget {
         child: IconButton(
           onPressed: () {
             if (!habitModel.done) {
-              habitProvider.updateHabit(habitModel.id ?? "");
+              habitProvider.updateDone(habitModel.id ?? "");
               Toast.wellDone();
+            } else {
+              Toast.succToast(
+                  title: "You already done it for today.",
+                  desc: "You should wait for tomorrow.");
             }
           },
           icon: AppAssets.checkIcon,

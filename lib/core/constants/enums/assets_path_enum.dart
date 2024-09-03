@@ -30,7 +30,14 @@ enum _AssetsPathEnum {
 
   // Animations
   aiButtonAnimation("${_rootAnimationPath}ani-ai.json"),
-  wellDoneAnimation("${_rootAnimationPath}ani-well_done.json");
+  wellDoneAnimation("${_rootAnimationPath}ani-well_done.json"),
+  streakCardAnimation("${_rootAnimationPath}ani-streakCardAnimation.json"),
+  totalDonePerDayCardAnimation("${_rootAnimationPath}ani-checkCardIcon.json"),
+  aiChatSendButton("${_rootAnimationPath}ani-chatSendButton.json"),
+  noHabitsFound("${_rootAnimationPath}ani-noHabitsFound.json"),
+  homeIcon("${_rootAnimationPath}ani-homeIcon.json"),
+  longTimeNotDoneCard("${_rootAnimationPath}ani-longTimeNotDoneCard.json"),
+  ;
 
   static const String _rootIconPath = "lib/core/assets/icons/";
   static const String _rootImagePath = "lib/core/assets/images/";

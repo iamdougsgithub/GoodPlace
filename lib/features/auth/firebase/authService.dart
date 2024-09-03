@@ -86,11 +86,10 @@ class AuthService extends FirebaseUtils {
   }
 */
 
-/*
   Future<void> sendPasswordResetEmail({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    await firebaseAuth.sendPasswordResetEmail(email: email);
   }
-
+/*
   Future<void> confirmPasswordReset({
     required String code,
     required String newPassword,

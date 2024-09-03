@@ -46,9 +46,34 @@ class HabitProvider with ChangeNotifier {
 // Yoksa sadece streakCount,completionDates değerlerini değiştirebiliriz.
 //update: streakCount ve completionDates e bugünün tarihi eklenecek
   Future<void> updateHabit(
-    String habitId,
-  ) async {
+      String habitId, Map<String, dynamic> updatedFields) async {
     int index = _habits.indexWhere((h) => h.id == habitId);
+
+    updatedFields.forEach((key, value) {
+      if (key == 'done') {
+        _habits[index].done = true;
+      } else if (key == 'title') {
+        _habits[index].title = value;
+      } else if (key == 'purpose') {
+        _habits[index].purpose = value;
+      } else if (key == 'imageUrl') {
+        _habits[index].imageUrl = value;
+      } else if (key == 'completionDates') {
+        _habits[index].completionDates.add(DateTime.now());
+      } else if (key == 'streakCount') {
+        _habits[index].streakCount = value;
+      } else if (key == 'longestStreak') {
+        _habits[index].longestStreak = value;
+      }
+    });
+
+    _userService.updateHabitFields(habitId, updatedFields);
+    notifyListeners();
+  }
+
+  void updateDone(String habitId) {
+    int index = _habits.indexWhere((h) => h.id == habitId);
+
     DateTime now = DateTime.now();
     _habits[index].streakCount += 1;
     if (_habits[index].streakCount > _habits[index].longestStreak) {
@@ -56,17 +81,30 @@ class HabitProvider with ChangeNotifier {
     }
 
     Map<String, dynamic> updatedFields = {
+      'done': true,
       'completionDates': FieldValue.arrayUnion([now]),
       'streakCount': (_habits[index].streakCount),
       'longestStreak': (_habits[index].longestStreak),
     };
+    updateHabit(habitId, updatedFields);
+  }
+
+  Future<void> updateHabitFields(
+    String habitId,
+    HabitModel model,
+  ) async {
+    int index = _habits.indexWhere((h) => h.id == habitId);
+
+    Map<String, dynamic> updatedFields = {
+      'imageUrl': model.imageUrl,
+      'purpose': model.purpose,
+      'title': model.title,
+    };
 
     _userService.updateHabitFields(habitId, updatedFields);
-
-    _habits[index].completionDates.add(now); // burası değişecek
-    _habits[index].done = true; // burası değişecek
-    _habits[index].streakCount = updatedFields["streakCount"];
-
+    _habits[index].imageUrl = model.imageUrl;
+    _habits[index].purpose = model.purpose;
+    _habits[index].title = model.title;
     notifyListeners();
   }
 
@@ -129,7 +167,7 @@ class HabitProvider with ChangeNotifier {
 
     for (var habit in _habits) {
       if (habit.completionDates.isEmpty) {
-        return 'Title: ${habit.title}\nLast Completed: Never';
+        return '${habit.title}\nLast Completed: Never';
       }
       var lastCompletionDate = habit.completionDates.last;
       var durationSinceLastCompletion =
@@ -143,7 +181,7 @@ class HabitProvider with ChangeNotifier {
 
     if (longestMissedHabit != null) {
       var lastCompletionDate = longestMissedHabit.completionDates.last;
-      return 'Title: ${longestMissedHabit.title}\nLast Completed: ${_formatDate(lastCompletionDate)}';
+      return '${longestMissedHabit.title}\nLast Completed: ${_formatDate(lastCompletionDate)}';
     }
 
     return 'No valid habit found';
@@ -214,5 +252,14 @@ class HabitProvider with ChangeNotifier {
       }
     }
     return dates.toList()..sort();
+  }
+
+  // Get all Habit Tostring
+  String getAllHabitInformation() {
+    String combinedString = '';
+    for (int i = 0; i < _habits.length; i++) {
+      combinedString += '${i + 1}. ${_habits[i].toString()}\n';
+    }
+    return combinedString;
   }
 }

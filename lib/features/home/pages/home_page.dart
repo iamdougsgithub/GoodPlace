@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_border_radius.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/add_habit_button.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
+import 'package:good_place/features/AI%20chat/pages/ai_chat.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_balloon/speech_balloon.dart';
@@ -29,75 +33,93 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String appBarTitle = "Home";
   static const Gap gap = Gap(AppPaddings.smallPaddingValue);
-  // late HabitProvider habitProvider;
+
   @override
   void initState() {
-    Future.microtask(() => HabitProvider.instance.getHabits());
-
+    Future.microtask(
+        () => Provider.of<HabitProvider>(context, listen: false).getHabits());
     super.initState();
   }
 
   @override
   void didChangeDependencies() async {
-    HabitProvider.instance = Provider.of<HabitProvider>(context);
-
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Theme(
-        data: homePageThemeOverride(context),
-        child: Scaffold(
-          floatingActionButton: const AddHabitButton(),
-          appBar: appBar(),
-          drawer: IDrawer(
-            context: context,
-            selectedIndex: 0,
-          ),
-          body: RefreshIndicator(
-            onRefresh: () async => await HabitProvider.instance.getHabits(),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: AppPaddings.homeScreenHorizontalPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // WelcomeText
-                    WelcomeText(),
+    return TutorialWrapper(
+        autoPlay: !TutorialManager.ins.checkTutorialState(
+          TutorialManager.homeTutorialKeList,
+        ),
+        child: Builder(builder: (context) {
+          TutorialManager.ins.show(
+            context,
+            TutorialManager.homeTutorialKeList,
+          );
 
-                    /// Calendar
-                    const HomeCalendarWidget(),
+          return PopScope(
+            canPop: false,
+            child: Theme(
+              data: homePageThemeOverride(context),
+              child: Scaffold(
+                floatingActionButton: const TutorialWidget(
+                  tutorialKey: TutorialKeys.createHabit,
+                  child: AddHabitButton(),
+                ),
+                appBar: appBar(context),
+                drawer: IDrawer(
+                  context: context,
+                  selectedIndex: 0,
+                ),
+                body: RefreshIndicator(
+                  onRefresh: () async =>
+                      await HabitProvider.instance.getHabits(),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: AppPaddings.homeScreenHorizontalPadding,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // WelcomeText
+                          WelcomeText(),
 
-                    gap,
+                          /// Calendar
+                          const HomeCalendarWidget(),
 
-                    /// Motivation Card
-                    const MotivationCardWidget(),
-                    gap,
-                    // My Habit Section
-                    const MyHabitsSection(),
-                    gap,
+                          gap,
 
-                    // /// Streak Card
-                    // const StreakCardWidget(),
-                    // gap,
+                          /// Motivation Card
+                          const TutorialWidget(
+                              tutorialKey: TutorialKeys.motivationCard,
+                              child: MotivationCardWidget()),
+                          gap,
+                          // My Habit Section
+                          const MyHabitsSection(),
+                          gap,
 
-                    /// Grid
-                    const StatGridWidget(),
+                          // /// Streak Card
+                          // const StreakCardWidget(),
+                          // gap,
 
-                    gap,
-                  ]
-                      .animate(interval: const Duration(milliseconds: 200))
-                      .fadeIn(),
+                          /// Grid
+                          const StatGridWidget(),
+
+                          gap,
+                          gap,
+                          gap,
+                        ]
+                            .animate(
+                                interval: const Duration(milliseconds: 200))
+                            .fadeIn(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        }));
   }
 
   ThemeData homePageThemeOverride(BuildContext context) {
@@ -110,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar(BuildContext ctx) {
     return AppBar(
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(32),
@@ -139,16 +161,28 @@ class _HomePageState extends State<HomePage> {
         appBarTitle,
       ),
       actions: [
-        Tooltip(
-          message:
-              "Good Nigtht Mustafa Emr Çelik . Sana nasıl yardımcı olabilirim ?",
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.radio_button_off_sharp,
+        Padding(
+          padding:
+              const EdgeInsets.only(right: AppPaddings.xxsmallPaddingValue * 2),
+          child: TutorialWidget(
+            description: TutorialKeys.aiChat.tutorialDesc,
+            tutorialKey: TutorialKeys.aiChat,
+            child: GestureDetector(
+              onTap: () => showModalBottomSheet(
+                backgroundColor: AppColors.authScaffoldColor,
+                showDragHandle: true,
+                isScrollControlled: true,
+                context: ctx,
+                builder: (ctx) => const AIChat(),
+              ),
+              child: CircleAvatar(
+                radius: 32,
+                backgroundColor: AppColors.orangeTextColor,
+                child: AppAssets.aiIcon(256, 256),
+              ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

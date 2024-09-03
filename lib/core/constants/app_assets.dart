@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../config/theme.dart';
 
@@ -13,10 +15,49 @@ class AppAssets {
   static String passwordShowIcon = _AssetsPathEnum.passwordShow.path;
   static String averagePerDailyCardIcon =
       _AssetsPathEnum.averagePerDailyCardIcon.path;
-  static Widget chartIcon = const Icon(
-    Icons.show_chart,
-    color: Color(0xffF3E339),
+
+  static Widget aiIcon(double width, double height) => Lottie.asset(
+        AppAssets.aiButtonAnimation,
+        width: width,
+        height: height,
+        fit: BoxFit.fill,
+      );
+  static Widget noHabitsFound = Lottie.asset(
+    _AssetsPathEnum.noHabitsFound.path,
+    fit: BoxFit.fill,
+    alignment: Alignment.center,
   );
+  static Widget streakCardAnimation = Lottie.asset(
+    _AssetsPathEnum.streakCardAnimation.path,
+    alignment: Alignment.topRight,
+    width: 64,
+    height: 64,
+  );
+  static Widget totalDonePerDayCardAnimation(
+          {required double width, required double height}) =>
+      Lottie.asset(
+        _AssetsPathEnum.totalDonePerDayCardAnimation.path,
+        alignment: Alignment.topRight,
+        width: width,
+        height: height,
+      );
+  static Widget longTimeNotDoneCardAnimation(
+          {required double width, required double height}) =>
+      Lottie.asset(
+        _AssetsPathEnum.longTimeNotDoneCard.path,
+        alignment: Alignment.topRight,
+        width: width,
+        height: height,
+      );
+  static String aiChatSendButton = _AssetsPathEnum.aiChatSendButton.path;
+
+  static String homeIconPath = _AssetsPathEnum.homeIcon.path;
+
+  static Widget editIcon = const Icon(
+    Icons.edit,
+    color: Colors.white,
+  );
+
   static Widget calendarIcon = const Icon(
     Icons.calendar_today_outlined,
     color: Color(0xffFFB8B8),
@@ -42,9 +83,9 @@ class AppAssets {
     Icons.logout_outlined,
     color: AppColors.errDark,
   );
-  static Widget homeIcon = const Icon(
-    Icons.home_rounded,
-  );
+  // static Widget homeIcon = const Icon(
+  //   Icons.home_rounded,
+  // );
   static Widget removeIcon = Icon(
     Icons.delete_outlined,
     color: AppColors.errLight,

@@ -37,14 +37,17 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController motivationController = TextEditingController();
 
   // Bu fonksiyon, getChatResponse fonksiyonunu kullanarak metin oluşturur ve ilgili TextField'e yazar.
-  Future<void> generateResponse(String userContentText,
-      String systemContentText, TextEditingController controller) async {
+  Future<void> generateResponse(
+    String? userContentText,
+    String systemContentText,
+    TextEditingController controller,
+  ) async {
     controller.clear();
+    final body = ChatgptService().getApiBody(
+        systemContentText: systemContentText, userContentText: userContentText);
 
     var response = '';
-    ChatgptService()
-        .getChatResponse(userContentText, systemContentText)
-        .listen((word) {
+    ChatgptService().getChatResponse(body).listen((word) {
       setState(() {
         response += word;
         controller.text = response;

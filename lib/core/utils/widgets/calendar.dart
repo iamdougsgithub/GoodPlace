@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_place/core/constants/app_assets.dart';
 import '../../extensions/context_extension.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -21,6 +22,7 @@ abstract class AppCalendar extends TableCalendar {
 
   @override
   CalendarStyle get calendarStyle => const CalendarStyle(
+        // markerDecoration: ,
         defaultTextStyle: TextStyle(
             // foreground: Paint()..color = Colors.red,
             ),
@@ -46,6 +48,13 @@ abstract class AppCalendar extends TableCalendar {
 
   @override
   CalendarBuilders get calendarBuilders => CalendarBuilders(
+        markerBuilder: (context, day, events) {
+          if (events.isNotEmpty) {
+            return AppAssets.totalDonePerDayCardAnimation(
+                width: 24, height: 24);
+          }
+          return null;
+        },
         defaultBuilder: (context, day, focusedDay) {
           return Column(
             children: [

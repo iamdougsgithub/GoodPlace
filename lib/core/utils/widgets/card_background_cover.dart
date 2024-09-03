@@ -12,12 +12,16 @@ class CardBackgroundImageFilter extends StatelessWidget {
   const CardBackgroundImageFilter({
     super.key,
     required this.child,
+    this.opacity = 0.5,
+    this.color = AppColors.darkTextColor,
   });
+  final double opacity;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: AppColors.darkTextColor.withOpacity(0.5),
+      color: color.withOpacity(opacity),
       child: child,
     );
   }

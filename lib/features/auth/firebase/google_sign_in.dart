@@ -17,7 +17,7 @@ class GoogleSignInService {
         );
         return credential;
       }
-      return "Google sign in failed";
+      return null;
     } catch (e) {
       logger.e(e);
       return e.toString();

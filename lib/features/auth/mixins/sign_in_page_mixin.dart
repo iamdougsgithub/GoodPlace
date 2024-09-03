@@ -21,6 +21,7 @@ mixin SignInPageMixin on State<SignInPage> {
   final String signUp = 'SIGN UP';
 
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordResetController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   onLoginTapped() async {

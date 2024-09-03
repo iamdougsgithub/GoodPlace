@@ -5,11 +5,13 @@ import 'package:gap/gap.dart';
 import 'package:good_place/core/constants/app_assets.dart';
 import 'package:good_place/core/constants/app_paddings.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
 import 'package:good_place/core/utils/widgets/card_background_cover.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_calendar.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_motivation.dart';
-import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
+import 'package:good_place/features/update%20habit/pages/update_habit_page.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -33,26 +35,40 @@ class _HabitDetailState extends State<HabitDetail> {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
 
     final int habitIndex = ModalRoute.of(context)?.settings.arguments as int;
-    return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: fab(habitProvider, habitIndex, context),
-      extendBodyBehindAppBar: true,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /// Header
-            _pageHeader(context, habitProvider, habitIndex),
-            HabitDetailMotivation(
-              habitDetail: habitProvider.habits[habitIndex].toString(),
+    return TutorialWrapper(
+      autoPlay: TutorialManager.ins
+          .checkTutorialState(TutorialManager.habitDetailPageKeyList),
+      child: Builder(builder: (context) {
+        TutorialManager.ins
+            .show(context, TutorialManager.habitDetailPageKeyList);
+
+        return Scaffold(
+          appBar: AppBar(
+            scrolledUnderElevation: 0,
+          ),
+          floatingActionButton: fab(habitProvider, habitIndex, context),
+          extendBodyBehindAppBar: true,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                /// Header
+                _pageHeader(context, habitProvider, habitIndex),
+                TutorialWidget(
+                  tutorialKey: TutorialKeys.habitDetailMotivationCard,
+                  child: HabitDetailMotivation(
+                    habitDetail: habitProvider.habits[habitIndex].toString(),
+                  ),
+                ),
+                HabitDetailCalendar(
+                  habitIndex: habitIndex,
+                ),
+                const Gap(AppPaddings.largePaddingValue +
+                    AppPaddings.smallPaddingValue),
+              ],
             ),
-            HabitDetailCalendar(
-              habitIndex: habitIndex,
-            ),
-            const Gap(
-                AppPaddings.largePaddingValue + AppPaddings.smallPaddingValue),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 
@@ -81,7 +97,30 @@ class _HabitDetailState extends State<HabitDetail> {
     );
   }
 
-  FloatingActionButton fab(
+  Widget fab(
+      HabitProvider habitProvider, int habitIndex, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        editHabit(habitProvider, habitIndex, context),
+        const Gap(AppPaddings.smallPaddingValue),
+        checkHabit(habitProvider, habitIndex, context),
+      ],
+    );
+  }
+
+  FloatingActionButton editHabit(
+      HabitProvider habitProvider, int habitIndex, BuildContext context) {
+    return FloatingActionButton.small(
+        backgroundColor: AppColors.primaryButtonColor,
+        child: AppAssets.editIcon,
+        onPressed: () => context.navigator.push(MaterialPageRoute(
+              builder: (context) =>
+                  UpdateHabitPage(habitModel: habitProvider.habits[habitIndex]),
+            )));
+  }
+
+  FloatingActionButton checkHabit(
       HabitProvider habitProvider, int habitIndex, BuildContext context) {
     return FloatingActionButton(
         backgroundColor: AppColors.primaryButtonColor,
@@ -89,10 +128,12 @@ class _HabitDetailState extends State<HabitDetail> {
         onPressed: () {
           if (!habitProvider.habits[habitIndex].done) {
             Provider.of<HabitProvider>(context, listen: false)
-                .updateHabit(habitProvider.habits[habitIndex].id ?? "");
+                .updateDone(habitProvider.habits[habitIndex].id ?? "");
             Toast.wellDone();
           } else {
-            null;
+            Toast.succToast(
+                title: "You already done it for today.",
+                desc: "You should wait for tomorrow.");
           }
         });
   }

@@ -35,11 +35,12 @@ class _HabitDetailMotivationState extends State<HabitDetailMotivation> {
     TextEditingController controller,
   ) async {
     controller.clear();
+    final body = ChatgptService().getApiBody(
+        systemContentText: systemContentText,
+        userContentText: (userInfo + userContentText));
 
     var response = '';
-    ChatgptService()
-        .getChatResponse(userContentText, systemContentText)
-        .listen((word) {
+    ChatgptService().getChatResponse(body).listen((word) {
       setState(() {
         response += word;
         controller.text = response;
@@ -85,22 +86,10 @@ class _MotivationCard extends StatelessWidget {
             /// content
             Padding(
               padding: const EdgeInsets.all(AppPaddings.smallPaddingValue),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Markdown(
-                    data: text.text,
-                    shrinkWrap: true,
-                  )
-
-                  /// Content
-                  // Text(
-                  //   text.text,
-                  //   style: context.textTheme.bodyLarge?.copyWith(
-                  //     fontWeight: FontWeight.w500,
-                  //   ),
-                  // ),
-                ],
+              child: Markdown(
+                data: text.text,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
               ),
             ),
           ],
@@ -135,7 +124,7 @@ class _MotivationCard extends StatelessWidget {
     ];
   }
 }
-
+/*
 class _MockQuote {
   static Quote quote = Quote(
     id: "id",
@@ -149,3 +138,4 @@ class _MockQuote {
     dateModified: DateTime.now(),
   );
 }
+*/

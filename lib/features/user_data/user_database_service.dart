@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:good_place/core/resourcers/error_texts.dart';
 import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
@@ -12,6 +13,9 @@ class UserDatabaseService extends FirebaseUtils {
       FirebaseFirestore.instance.collection('users');
 
   // String currentUserUid = AuthService().currentUser!.uid;
+
+  static final String userName =
+      AuthService().currentUser?.displayName ?? "User";
 
   CollectionReference getHabitsCollection() {
     return _usersCollection.doc(uid).collection('habits');
@@ -31,9 +35,14 @@ class UserDatabaseService extends FirebaseUtils {
     }
   }
 
-  Future<bool> getUserDetails() async {
+  Future getUserDoc() async {
+    DocumentSnapshot user = await _usersCollection.doc(uid).get();
+    return user;
+  }
+
+  Future<bool> checkUserOnFireStore() async {
     if (AuthService().currentUser != null) {
-      DocumentSnapshot userDoc = await _usersCollection.doc(uid).get();
+      DocumentSnapshot userDoc = await getUserDoc();
 
       if (userDoc.exists) {
         // Kullanıcı cloud da var
@@ -105,27 +114,16 @@ class UserDatabaseService extends FirebaseUtils {
   }
 
   Future<void> updateHabitFields(
-      //tek seferde güncelleme yapıldı
-      String habitId,
-      Map<String, dynamic> updatedFields) async {
+      String habitId, Map<String, dynamic> updatedFields) async {
     try {
-      /*
-      DateTime now = DateTime.now();
-
-      Map<String, dynamic> updatedFields = {
-        'completionDates': FieldValue.arrayUnion([now]),
-        'title': '""""""Updated Habit Title""""":)))',
-      };*/
-
-      // updatedFields["completionDates"] =
-      //     FieldValue.arrayUnion([updatedFields["completionDates"]]);
-
       await getHabitsCollection().doc(habitId).update(updatedFields);
       print('Habit fields updated successfully.');
     } catch (e) {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
 
-      print('Error updating habit fields: $e');
+      if (kDebugMode) {
+        print('Error updating habit fields: $e');
+      }
     }
   }
 

@@ -1,31 +1,14 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ChatgptService {
   String url = dotenv.env['API_URL'] ?? 'API_URL not found';
-  String _apiKey = dotenv.env['API_KEY'] ?? 'API_KEY not found';
+  final String _apiKey = dotenv.env['API_KEY'] ?? 'API_KEY not found';
 
-  Future<void> generateResponse(
-      String userContentText,
-      String systemContentText,
-      TextEditingController controller,
-      Function func) async {
-    controller.clear();
-
-    var response = '';
-    ChatgptService()
-        .getChatResponse(userContentText, systemContentText)
-        .listen((word) {
-      func(word);
-    });
-  }
-
-  Stream<String> getChatResponse(
-      String userContentText, String systemContentText) async* {
-// response dan dönen veriyi işleme
+  Stream<String> getChatResponse(String requestBody) async* {
+// ################  response dan dönen veriyi işleme
     Stream<String> checkAndProcessContent(
         Map<String, dynamic> data, String key, Duration delay) async* {
       if (data.containsKey(key)) {
@@ -34,7 +17,7 @@ class ChatgptService {
         content = content.replaceAll('\n', '').replaceAll('\n\n', '');
 
         if (content != null && content.isNotEmpty) {
-          print('Content: $content');
+          //   print('Content: $content');
           await Future.delayed(delay);
 
           yield content;
@@ -46,29 +29,15 @@ class ChatgptService {
       }
     }
 
+// ###############
     final headers = {
       'Content-Type': 'application/json',
       'api-key': _apiKey,
     };
 
-    final body = _getApiBody([
-      {
-        "role": "system",
-        "content": [
-          {"type": "text", "text": systemContentText}
-        ]
-      },
-      {
-        "role": "user",
-        "content": [
-          {"type": "text", "text": userContentText}
-        ]
-      }
-    ]);
-
     var request = http.Request('POST', Uri.parse(url))
       ..headers.addAll(headers)
-      ..body = body;
+      ..body = requestBody;
 
     var streamedResponse = await request.send();
 
@@ -150,13 +119,52 @@ class ChatgptService {
     }
   }
 
-  String _getApiBody(List<dynamic> jsonBody) {
+  String getApiBody({
+    required String systemContentText,
+    String? userContentText,
+    String? imageUrl,
+  }) {
     return jsonEncode({
-      "messages": jsonBody,
+      "messages": _buildMessages(systemContentText, userContentText, imageUrl),
       "temperature": 0.8,
       "top_p": 0.95,
       "max_tokens": 800,
       "stream": true,
     });
+  }
+
+  List<Map<String, dynamic>> _buildMessages(
+    String systemContentText,
+    String? userContentText,
+    String? imageUrl,
+  ) {
+    List<Map<String, dynamic>> messages = [
+      {
+        "role": "system",
+        "content": [
+          {"type": "text", "text": systemContentText}
+        ]
+      }
+    ];
+
+    if ((userContentText != null && userContentText.isNotEmpty) ||
+        (imageUrl != null && imageUrl.isNotEmpty)) {
+      List<Map<String, dynamic>> userContent = [];
+
+      if (userContentText != null && userContentText.isNotEmpty) {
+        userContent.add({"type": "text", "text": userContentText});
+      }
+
+      if (imageUrl != null && imageUrl.isNotEmpty) {
+        userContent.add({
+          "type": "image_url",
+          "image_url": {"url": imageUrl}
+        });
+      }
+
+      messages.add({"role": "user", "content": userContent});
+    }
+
+    return messages;
   }
 }
