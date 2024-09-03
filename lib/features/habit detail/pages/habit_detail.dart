@@ -10,7 +10,6 @@ import 'package:good_place/core/utils/widgets/card_background_cover.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_calendar.dart';
 import 'package:good_place/features/habit%20detail/widgets/habit_detail_motivation.dart';
-import 'package:good_place/features/home/widgets/motivation_card_widget.dart';
 import 'package:good_place/features/update%20habit/pages/update_habit_page.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

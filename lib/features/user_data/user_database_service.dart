@@ -35,9 +35,14 @@ class UserDatabaseService extends FirebaseUtils {
     }
   }
 
-  Future<bool> getUserDetails() async {
+  Future getUserDoc() async {
+    DocumentSnapshot user = await _usersCollection.doc(uid).get();
+    return user;
+  }
+
+  Future<bool> checkUserOnFireStore() async {
     if (AuthService().currentUser != null) {
-      DocumentSnapshot userDoc = await _usersCollection.doc(uid).get();
+      DocumentSnapshot userDoc = await getUserDoc();
 
       if (userDoc.exists) {
         // Kullanıcı cloud da var

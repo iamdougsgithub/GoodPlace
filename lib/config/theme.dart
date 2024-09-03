@@ -164,6 +164,10 @@ class AppTextStyles {
         wordSpacing: wordSpacing,
       );
   TextTheme textTheme = TextTheme(
+    headlineLarge: font(
+      fontSize: 48,
+      fontWeight: FontWeight.bold,
+    ),
     headlineMedium: font(
       fontSize: 31,
       color: AppColors.darkTextColor,

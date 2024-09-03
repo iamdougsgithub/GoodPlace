@@ -82,8 +82,7 @@ class OnboardingPage extends StatelessWidget {
                           if (viewModel.currentIndex ==
                               viewModel.onboardingContents.length - 1) {
                             viewModel.completeOnboarding();
-                            context.navigator
-                                .pushReplacementNamed(HomePage.routeName);
+                            context.navigator.pushReplacementNamed("/");
                           } else {
                             viewModel.nextPage();
                           }

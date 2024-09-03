@@ -6,6 +6,8 @@ import 'package:good_place/core/resourcers/firebase_utils.dart';
 import 'package:good_place/logger.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../features/user_data/user_database_service.dart';
+
 class TutorialManager extends FirebaseUtils {
   TutorialManager._() {
     assert(keyMap.length == TutorialKeys.values.length,
@@ -119,15 +121,14 @@ class TutorialManager extends FirebaseUtils {
     Map<String, bool> tutorialData,
   ) async {
     tutorialState.addAll(tutorialData);
-    await firestore.collection("users").doc(uid).update({
-      "tutorialState": tutorialState,
-    });
+    await UserDatabaseService().updateUserField("tutorialState", tutorialState);
+
     await fetchTutorialStateFromFirebase();
   }
 
   Future fetchTutorialStateFromFirebase() async {
     final DocumentSnapshot<Map<String, dynamic>> userData =
-        await firestore.collection("users").doc(uid).get();
+        await UserDatabaseService().getUserDoc();
 
     final Map fetchedTutorialState = userData.data()!["tutorialState"] ?? {};
     _tutorialState = fetchedTutorialState;
