@@ -3,7 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:good_place/core/extensions/context_extension.dart';
 import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
+import 'package:good_place/logger.dart';
 import 'package:lottie/lottie.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -32,6 +34,7 @@ class CreateHabitForm extends StatefulWidget {
 }
 
 class _CreateHabitFormState extends State<CreateHabitForm> {
+  bool isAIButtonEnabled = true;
   Future<void> generateResponse(
     String? userContentText,
     String? userContentImageUrl,
@@ -39,6 +42,9 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
     TextEditingController controller,
   ) async {
     controller.clear();
+    setState(() {
+      isAIButtonEnabled = false;
+    });
     final body = ChatgptService().getApiBody(
         systemContentText: systemContentText,
         userContentText: userContentText,
@@ -50,6 +56,8 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
         response += word;
         controller.text = response;
       });
+    }).onDone(() {
+      isAIButtonEnabled = true;
     });
   }
 
@@ -94,11 +102,21 @@ class _CreateHabitFormState extends State<CreateHabitForm> {
           TextAreaFormField(
             // validator: (value) => widget.habitNameController.text.trim() == "" ?"" :,
             label: widget.habitPurposeTextFieldLabel,
-            suffixIcon: TutorialWidget(
-              tutorialKey: TutorialKeys.aiWriter,
-              child: GestureDetector(
-                onTap: onAIButtonTapped,
-                child: AppAssets.aiIcon(96, 96),
+            suffixIcon: Skeletonizer(
+              enabled: !isAIButtonEnabled,
+              child: Skeleton.replace(
+                replace: !isAIButtonEnabled,
+                replacement: const Padding(
+                    padding:
+                        EdgeInsets.all(AppPaddings.xxsmallPaddingValue * 2),
+                    child: CircularProgressIndicator()),
+                child: TutorialWidget(
+                  tutorialKey: TutorialKeys.aiWriter,
+                  child: GestureDetector(
+                    onTap: isAIButtonEnabled ? onAIButtonTapped : null,
+                    child: AppAssets.aiIcon(96, 96),
+                  ),
+                ),
               ),
             ),
             isExpandable: true,
