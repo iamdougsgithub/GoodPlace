@@ -10,7 +10,6 @@ import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/AI%20chat/pages/ai_chat.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:speech_balloon/speech_balloon.dart';
 import 'package:toastification/toastification.dart';
 import '../widgets/home_calendar_widget.dart';
 import '../widgets/my_habits_section.dart';
@@ -134,26 +133,6 @@ class _HomePageState extends State<HomePage> {
 
   AppBar appBar(BuildContext ctx) {
     return AppBar(
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(32),
-        child: Padding(
-          padding: AppPaddings.homeScreenHorizontalPadding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SpeechBalloon(
-                  borderRadius: AppBorderRadius.smallBorderRadiusValue,
-                  nipLocation: NipLocation.top,
-                  innerBorderRadius: 24,
-                  width: 300,
-                  child: Text(
-                    "Good Nigtht Mustafa Emr Çelik . \nSana nasıl yardımcı olabilirim ?",
-                    textAlign: TextAlign.end,
-                  )),
-            ],
-          ),
-        ),
-      ),
       centerTitle: true,
       backgroundColor: AppColors.homeScaffoldColor,
       foregroundColor: Colors.white,

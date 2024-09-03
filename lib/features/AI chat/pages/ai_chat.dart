@@ -39,6 +39,7 @@ class _AIChatState extends State<AIChat> with AiChatMixin {
                 padding: AppPaddings.authScreenHorizontalPadding +
                     const EdgeInsets.only(top: AppPaddings.smallPaddingValue),
                 child: ListView.builder(
+                  physics: const ClampingScrollPhysics(),
                   controller: scrollController,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
