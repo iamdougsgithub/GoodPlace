@@ -35,7 +35,6 @@ The Flutter plugins used in this project are as follows:
 
 ### State Management & Utilities
 - **[provider](https://pub.dev/packages/provider)**
-- **[shared_preferences](https://pub.dev/packages/shared_preferences)**
 - **[intl](https://pub.dev/packages/intl)**
 - **[dio](https://pub.dev/packages/dio)**
 - **[email_validator](https://pub.dev/packages/email_validator)**
