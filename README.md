@@ -1,6 +1,11 @@
 # GoodPlace
 Kişilerin alışkanlıklarını takip edebileceği alışkanlık kazandırma ve iyi hissettirme platformu.
 
+## Quick Navigation
+- [Plugins](#plugins)
+- [Usage](#usage)
+
+
 <details>
     <summary><h2>Plugins</h2></summary>
 
