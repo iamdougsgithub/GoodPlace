@@ -1,7 +1,17 @@
 # GoodPlace
-Kişilerin alışkanlıklarını takip edebileceği alışkanlık kazandırma ve iyi hissettirme platformu.
+The Habit Tracker project is a comprehensive Flutter application designed to help users in effectively tracking their habits and staying motivated. 
+Authentication is managed through **Firebase Authentication**, with both email and Google Sign-In options integrated, and user login status is overseen by an **Auth Manager**. Upon their first use, users are introduced to the application through **onboarding** and **tutorial** screens.
+
+**CRUD (Create, Read, Update, Delete)** operations for habits are implemented using **Firestore**. Habit management is dynamically handled across all pages with the **Provider** package. A congratulatory **animation** has been added to celebrate when users complete their habits.
+
+The app integrates the Dio package to fetch random motivational quotes from an **[API](https://github.com/lukePeavey/quotable)**, keeping users inspired.
+
+Additionally, the integration of **GoodPlaceT** provides personalized AI-powered habit motivation and **AI-based** habit support chat, further enhancing user interaction.
+
+**Firebase Notifications** are utilized to send motivational reminders to users, ensuring they remain engaged and stay on track with their habits.
 
 ## Quick Navigation
+- [GoodPlace](#goodplace)
 - [Plugins](#plugins)
 - [Usage](#usage)
 
