@@ -1,7 +1,8 @@
 # GoodPlace
 Kişilerin alışkanlıklarını takip edebileceği alışkanlık kazandırma ve iyi hissettirme platformu.
 
-## Plugins
+<details>
+    <summary><h2>Plugins</h2></summary>
 
 The Flutter plugins used in this project are as follows:
 
