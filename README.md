@@ -20,7 +20,6 @@ The Flutter plugins used in this project are as follows:
 
 ### State Management & Utilities
 - **[provider](https://pub.dev/packages/provider)**
-- **[get_it](https://pub.dev/packages/get_it)**
 - **[shared_preferences](https://pub.dev/packages/shared_preferences)**
 - **[intl](https://pub.dev/packages/intl)**
 - **[dio](https://pub.dev/packages/dio)**
@@ -46,7 +45,6 @@ The Flutter plugins used in this project are as follows:
 - **[flutter_dotenv](https://pub.dev/packages/flutter_dotenv)**
 - **[showcaseview](https://pub.dev/packages/showcaseview)**
 - **[flutter_chat_bubble](https://pub.dev/packages/flutter_chat_bubble)**
-- **[cloud_functions](https://pub.dev/packages/cloud_functions)**
 
 ### Other Utilities
 - **[flutter_markdown](https://pub.dev/packages/flutter_markdown)**
