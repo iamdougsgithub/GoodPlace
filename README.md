@@ -50,6 +50,7 @@ The Flutter plugins used in this project are as follows:
 - **[flutter_markdown](https://pub.dev/packages/flutter_markdown)**
 - **[grock](https://pub.dev/packages/grock)**
 
+</details>
 
 ## Usage
 
@@ -68,8 +69,10 @@ In order to run this project, you have to follow the steps below:
    ```bash
    android -> app -> google-services.json
    ```
+4. For running on **iOS**, you have to do some configurations from Xcode. Follow the official [iOS setup guide](https://docs.flutter.dev/get-started/install/macos#deploy-to-ios-devices).
 
-4. For running on **iOS**, you have to do some configurations from Xcode. Follow the guide [here](https://firebase.flutter.dev/docs/messaging/apple-integration).
+- [Firebase iOS setup guide](https://firebase.google.com/docs/ios/setup)
+- [Google Sign-In setup guide for iOS](https://developers.google.com/identity/sign-in/ios/start)
 
 5. Get Flutter packages:
 
