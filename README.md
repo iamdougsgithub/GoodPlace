@@ -21,7 +21,7 @@ Authentication is managed through **Firebase Authentication**, with both email a
 
 The app integrates the Dio package to fetch random motivational quotes from an **[API](https://github.com/lukePeavey/quotable)**, keeping users inspired.
 
-GoodPlace features an **AI-based** tool. **GoodPlaceT**, that provides real-time, personalized habit motivation and support through **streaming**. AI-generated responses are displayed live, offering motivational quotes based on the user's habit progress, such as whether they've completed their habit for the day. During habit creation, GoodPlaceT can also generate a meaningful purpose using the user’s input, like the habit's **image or title**. 
+GoodPlace features an **AI-based** tool (using **OpenAI**). **GoodPlaceT**, that provides real-time, personalized habit motivation and support through **streaming**. AI-generated responses are displayed live, offering motivational quotes based on the user's habit progress, such as whether they've completed their habit for the day. During habit creation, GoodPlaceT can also generate a meaningful purpose using the user’s input, like the habit's **image or title**. 
 
 Additionally, with **GoodPlaceT**, you can engage in conversations about your habits. The AI assistant offers personalized guidance and suggestions based on your **chat history**, helping you improve your habit-building process. Whether you're looking for advice, feedback, or motivation, GoodPlaceT is there to support you. It answers questions related to your habit goals, provides relevant tips, and ensures you stay on track with consistent progress.
 
