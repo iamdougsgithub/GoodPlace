@@ -1,5 +1,12 @@
 # GoodPlace
 The Habit Tracker project is a comprehensive Flutter application designed to help users in effectively tracking their habits and staying motivated. 
+## Quick Navigation
+- [GoodPlace](#goodplace)
+- [Features](#features)
+- [Plugins](#plugins)
+- [Usage](#usage)
+
+## Features
 Authentication is managed through **Firebase Authentication**, with both email and Google Sign-In options integrated, and user login status is overseen by an **Auth Manager**. Upon their first use, users are introduced to the application through **onboarding** and **tutorial** screens.
 
 **CRUD (Create, Read, Update, Delete)** operations for habits are implemented using **Firestore**. Habit management is dynamically handled across all pages with the **Provider** package. A congratulatory **animation** has been added to celebrate when users complete their habits.
@@ -15,11 +22,6 @@ GoodPlace features an **AI-based** tool. **GoodPlaceT**, that provides real-time
 Additionally, with **GoodPlaceT**, you can engage in conversations about your habits. The AI assistant offers personalized guidance and suggestions based on your **chat history**, helping you improve your habit-building process. Whether you're looking for advice, feedback, or motivation, GoodPlaceT is there to support you. It answers questions related to your habit goals, provides relevant tips, and ensures you stay on track with consistent progress.
 
 **Firebase Notifications** are utilized to send motivational reminders to users, ensuring they remain engaged and stay on track with their habits.
-
-## Quick Navigation
-- [GoodPlace](#goodplace)
-- [Plugins](#plugins)
-- [Usage](#usage)
 
 
 <details>
@@ -105,4 +107,11 @@ In order to run this project, you have to follow the steps below:
    ```bash
    flutter run
    ```
-   
+
+## Acknowledgements
+
+Thanks for taking the time to read through this README! 🦸‍♂️🦸‍♀️ 
+
+Feel free to dive into the code, break things, fix things, and have fun. If you encounter any bugs or just want to share your thoughts, don’t hesitate to reach out.☕💻
+
+Happy coding and good luck with your habit tracking adventures!
