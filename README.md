@@ -1,5 +1,5 @@
 # GoodPlace
-The Habit Tracker project is a comprehensive Flutter application designed to help users in effectively tracking their habits and staying motivated. 
+The **Habit Tracker** project is a comprehensive **Flutter** application designed to help users in effectively tracking their habits and staying motivated. 
 
 GoodPlace - Get inspired by yesterday, focus on tomorrow!
 
