@@ -4,6 +4,10 @@ Authentication is managed through **Firebase Authentication**, with both email a
 
 **CRUD (Create, Read, Update, Delete)** operations for habits are implemented using **Firestore**. Habit management is dynamically handled across all pages with the **Provider** package. A congratulatory **animation** has been added to celebrate when users complete their habits.
 
+**Main Calendar**: At the top of the home page, you can use the calendar feature to get a visual summary of your daily habits. Clicking on any date displays all habits completed on that day in a pop-up view. This calendar helps you quickly review and track your past achievements and progress.
+
+**Habit Detail Calendar**: On each habit's detail page, there is a specialized calendar showing only the days on which that specific habit was completed. This allows you to monitor the progress of individual habits more closely and see your consistency over time.
+
 The app integrates the Dio package to fetch random motivational quotes from an **[API](https://github.com/lukePeavey/quotable)**, keeping users inspired.
 
 GoodPlace features an **AI-based** tool. **GoodPlaceT**, that provides real-time, personalized habit motivation and support through **streaming**. AI-generated responses are displayed live, offering motivational quotes based on the user's habit progress, such as whether they've completed their habit for the day. During habit creation, GoodPlaceT can also generate a meaningful purpose using the user’s input, like the habit's **image or title**. 
