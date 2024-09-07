@@ -6,6 +6,7 @@ GoodPlace - Get inspired by yesterday, focus on tomorrow!
 ## Quick Navigation
 - [GoodPlace](#goodplace)
 - [Features](#features)
+- [App Teaser](#app-teaser)
 - [Plugins](#plugins)
 - [Usage](#usage)
 
@@ -26,6 +27,8 @@ Additionally, with **GoodPlaceT**, you can engage in conversations about your ha
 
 **Firebase Notifications** are utilized to send motivational reminders to users, ensuring they remain engaged and stay on track with their habits.
 
+## App Teaser
+[![App Teaser](https://img.youtube.com/vi/x11NhJtpc4I/maxresdefault.jpg)](https://www.youtube.com/watch?v=x11NhJtpc4I)
 
 <details>
     <summary><h2>Plugins</h2></summary>
