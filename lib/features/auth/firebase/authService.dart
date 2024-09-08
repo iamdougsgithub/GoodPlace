@@ -36,27 +36,32 @@ class AuthService extends FirebaseUtils {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {
       print('Sign In Error: $e');
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
   Future<void> signOut() async {
     try {
-      if (googleSignIn.currentUser != null) {
-        await googleSignIn.signOut();
+      if (FirebaseUtils.googleSignIn.currentUser != null) {
+        await FirebaseUtils.googleSignIn.signOut();
       }
       await firebaseAuth.signOut();
+
+      // await FirebaseUtils.googleSignIn.disconnect();
     } catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
   Future<void> deleteUser() async {
     try {
       await firebaseAuth.currentUser!.delete();
-    } on Exception catch (e) {
+    } on FirebaseException catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
+    } catch (e) {
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
@@ -68,7 +73,7 @@ class AuthService extends FirebaseUtils {
       Toast.errToast(title: AppErrorText.errorMessageConverter(e.code));
     } catch (e) {
       logger.e(e);
-      Toast.errToast(title: e.toString());
+      Toast.errToast(title: AppErrorText.errorMessageConverter(e.toString()));
     }
   }
 
@@ -81,11 +86,10 @@ class AuthService extends FirebaseUtils {
   }
 */
 
-/*
   Future<void> sendPasswordResetEmail({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    await firebaseAuth.sendPasswordResetEmail(email: email);
   }
-
+/*
   Future<void> confirmPasswordReset({
     required String code,
     required String newPassword,

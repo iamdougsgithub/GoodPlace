@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:good_place/logger.dart';
 import '../../../config/theme.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -18,6 +19,8 @@ class AuthBaseView extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
+    final ScrollController controller = ScrollController();
+
     return Theme(
       data: authTheme(context),
       child: Scaffold(
@@ -27,7 +30,6 @@ class AuthBaseView extends StatelessWidget {
           leading: GestureDetector(
             onTap: () => context.pop(),
             child: Container(
-              // width: ,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   // color: Colors.red,
@@ -37,16 +39,22 @@ class AuthBaseView extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              AuthTitleWidget(title: title),
-              Padding(
-                padding: AppPaddings.authScreenHorizontalPadding,
-                child: child,
-              ),
-            ],
-          ),
-        ),
+            controller: controller,
+            // physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                AuthTitleWidget(title: title),
+                Padding(
+                  padding: AppPaddings.authScreenHorizontalPadding,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: context.dynamicHeight(0.7),
+                    ),
+                    child: child,
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

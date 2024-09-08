@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:good_place/core/constants/app_assets.dart';
+import 'package:good_place/core/resourcers/tutorial_manager.dart';
 import 'package:good_place/core/utils/models/habit_model.dart';
+import 'package:good_place/core/utils/widgets/tutorial_widget.dart';
 import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/habit%20detail/pages/habit_detail.dart';
-import 'package:good_place/features/home/widgets/habit_list_builder.dart';
+import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/user_data/habit_provider.dart';
-import 'package:good_place/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/widgets/card_background_cover.dart';
 import '../../../core/constants/app_border_radius.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
 
 class MyHabitsSection extends StatelessWidget {
   const MyHabitsSection({super.key});
@@ -35,13 +39,20 @@ class MyHabitsSection extends StatelessWidget {
     );
   }
 
-  Card _noHabitsCard(BuildContext context) {
-    return Card(
-      child: Center(
-        child: Text(
-          "You don't have any habits . Add now.",
-          style: context.textTheme.labelLarge,
-        ),
+  Widget _noHabitsCard(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Flexible(child: AppAssets.noHabitsFound),
+          Markdown(
+              shrinkWrap: true,
+              data: "You don't have any habits.**Add Now**.",
+              styleSheet: MarkdownStyleSheet(
+                textAlign: WrapAlignment.center,
+                p: context.textTheme.bodyLarge
+                    ?.copyWith(foreground: Paint()..color = Colors.white),
+              )),
+        ],
       ),
     );
   }
@@ -49,19 +60,21 @@ class MyHabitsSection extends StatelessWidget {
   Widget _habitList(
     HabitProvider habitProvider,
   ) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: habitProvider.habits.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return _HabitCard(
-            // habitModel: habitProvider.habits[index],
-            index: index,
-          );
-        });
+    return TutorialWidget(
+      tutorialKey: TutorialKeys.habitCard,
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: habitProvider.habits.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return _HabitCard(
+              index: index,
+            );
+          }).animate().shimmer(),
+    );
   }
 
-  Row titleRow(BuildContext context) {
+  Widget titleRow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -74,18 +87,23 @@ class MyHabitsSection extends StatelessWidget {
         ),
 
         /// See All button
-        TextButton(
-          onPressed: () => context.pushNamed(MyHabitsPage.routeName),
-          style: TextButton.styleFrom(),
-          child: Text(
-            "See All",
-            style: context.textTheme.labelLarge?.copyWith(
-              color: Colors.white,
+        TutorialWidget(
+          tutorialKey: TutorialKeys.seeAll,
+          child: TextButton(
+            onPressed: () {
+              context.navigator.pushNamed(MyHabitsPage.routeName);
+            },
+            style: TextButton.styleFrom(),
+            child: Text(
+              "See All",
+              style: context.textTheme.labelLarge?.copyWith(
+                color: Colors.white,
+              ),
             ),
           ),
         ),
       ],
-    );
+    ).animate().fadeIn();
   }
 }
 
@@ -157,12 +175,16 @@ class _HabitCardState extends State<_HabitCard> {
 
                         onChanged: (_) {
                           if (!_isDone) {
-                            habitProvider.updateHabit(habitModel.id ?? "");
+                            habitProvider.updateDone(habitModel.id ?? "");
+                            Toast.wellDone();
+                            setState(() {
+                              _isDone = !_isDone;
+                            });
+                          } else {
+                            Toast.succToast(
+                                title: "You already done it for today.",
+                                desc: "You should wait for tomorrow.");
                           }
-
-                          setState(() {
-                            _isDone = !_isDone;
-                          });
                         },
                       ),
                     ),

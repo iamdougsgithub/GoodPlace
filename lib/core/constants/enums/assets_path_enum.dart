@@ -27,10 +27,21 @@ enum _AssetsPathEnum {
   onboardingSecondPageImage("${_rootImagePath}img_onboarding_2.png"),
   onboardingThirdPageImage("${_rootImagePath}img_onboarding_3.png"),
   onboardingFourthPageImage("${_rootImagePath}img_onboarding_4.png"),
+
+  // Animations
+  aiButtonAnimation("${_rootAnimationPath}ani-ai.json"),
+  wellDoneAnimation("${_rootAnimationPath}ani-well_done.json"),
+  streakCardAnimation("${_rootAnimationPath}ani-streakCardAnimation.json"),
+  totalDonePerDayCardAnimation("${_rootAnimationPath}ani-checkCardIcon.json"),
+  aiChatSendButton("${_rootAnimationPath}ani-chatSendButton.json"),
+  noHabitsFound("${_rootAnimationPath}ani-noHabitsFound.json"),
+  homeIcon("${_rootAnimationPath}ani-homeIcon.json"),
+  longTimeNotDoneCard("${_rootAnimationPath}ani-longTimeNotDoneCard.json"),
   ;
 
   static const String _rootIconPath = "lib/core/assets/icons/";
   static const String _rootImagePath = "lib/core/assets/images/";
+  static const String _rootAnimationPath = "lib/core/assets/animations/";
 
   final String path;
 

@@ -15,11 +15,12 @@ abstract class _CustomFormField extends TextFormField {
     super.validator,
     super.obscureText,
     this.helper,
-    this.expands = false,
+    this.isExpandable = false,
     this.constraints,
     this.buildCounter,
     this.maxLength,
     this.textCapitalization = TextCapitalization.none,
+    this.suffixIcon,
   });
 
   final int? maxLength;
@@ -28,11 +29,12 @@ abstract class _CustomFormField extends TextFormField {
   final String? hintText;
   final Widget? icon;
   final Widget? suffix;
+  final Widget? suffixIcon;
   final Widget? helper;
   final TextInputType? keyboardType;
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
-  final bool expands;
+  final bool isExpandable;
   final BoxConstraints? constraints;
   final InputCounterWidgetBuilder? buildCounter;
   @override
@@ -49,6 +51,7 @@ abstract class _CustomFormField extends TextFormField {
                 label: Text(label),
                 hintText: hintText,
                 icon: icon,
+                suffixIcon: suffixIcon,
                 suffix: validator != null
                     ? validated
                         ? AppAssets.textFieldCheckIcon
@@ -83,9 +86,8 @@ abstract class _CustomFormField extends TextFormField {
               validator: validator,
               textInputAction: textInputAction,
               textCapitalization: textCapitalization,
-              expands: expands,
-              minLines: expands ? null : 1,
-              maxLines: expands ? null : 1,
+              minLines: isExpandable ? null : 1,
+              maxLines: isExpandable ? null : 1,
               maxLength: maxLength,
               textAlignVertical: TextAlignVertical.top,
             );
@@ -134,6 +136,7 @@ class PasswordField extends _CustomFormField {
   FormFieldBuilder<String> get builder => (_) => StatefulBuilder(
         builder: (context, setState) => TextFormField(
           decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             label: Text(label),
             helper: helper,
             hintText: hintText,
@@ -175,6 +178,29 @@ class NormalTextFormField extends _CustomFormField {
     super.buildCounter,
     super.maxLength,
     super.textCapitalization,
+    super.suffix,
+  });
+
+  @override
+  TextInputType? get keyboardType => TextInputType.text;
+}
+
+class TextAreaFormField extends _CustomFormField {
+  TextAreaFormField({
+    super.key,
+    super.controller,
+    super.label = "Header",
+    super.hintText,
+    super.keyboardType = TextInputType.emailAddress,
+    super.textInputAction = TextInputAction.next,
+    super.validator,
+    super.buildCounter,
+    super.maxLength,
+    super.textCapitalization,
+    super.constraints,
+    super.suffix,
+    super.suffixIcon,
+    super.isExpandable,
   });
 
   @override

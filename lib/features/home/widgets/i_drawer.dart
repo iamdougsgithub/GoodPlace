@@ -3,10 +3,12 @@ import 'package:good_place/features/My%20Habits/pages/my_habits_page.dart';
 import 'package:good_place/features/auth/firebase/authService.dart';
 import 'package:good_place/features/home/pages/home_page.dart';
 import 'package:good_place/features/home/widgets/welcome_text.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/extensions/context_extension.dart';
 
 import '../../../config/theme.dart';
 import '../../../core/constants/app_assets.dart';
+import '../../user_data/user_database_service.dart';
 
 class IDrawer extends StatefulWidget {
   const IDrawer({
@@ -21,11 +23,13 @@ class IDrawer extends StatefulWidget {
   State<IDrawer> createState() => _IDrawerState();
 }
 
-class _IDrawerState extends State<IDrawer> {
+class _IDrawerState extends State<IDrawer> with SingleTickerProviderStateMixin {
   late int selectedIndex;
+  late AnimationController controller;
   @override
   void initState() {
     super.initState();
+    controller = AnimationController(vsync: this);
     selectedIndex = widget.selectedIndex;
   }
 
@@ -38,8 +42,14 @@ class _IDrawerState extends State<IDrawer> {
       children: [
         userTile(context),
         const Divider(),
+
+        /// Home
         NavigationDrawerDestination(
-          icon: AppAssets.homeIcon,
+          icon: Lottie.asset(
+            AppAssets.homeIconPath,
+            width: 24,
+            repeat: false,
+          ),
           label: const Text(
             "Home",
           ),
@@ -50,14 +60,48 @@ class _IDrawerState extends State<IDrawer> {
           icon: SizedBox(),
           label: Text("My Habits"),
         ),
+
+        /// Danger Zone
+        ExpansionTile(
+          textColor: AppColors.errDark,
+          iconColor: AppColors.errDark,
+          collapsedIconColor: AppColors.errDark,
+          expandedAlignment: Alignment.centerLeft,
+          leading: Icon(
+            Icons.dangerous_outlined,
+            color: AppColors.errDark,
+          ),
+          title: Text(
+            "Danger Zone",
+            style: context.textTheme.labelLarge
+                ?.copyWith(color: AppColors.errDark),
+          ),
+          children: [
+            /// Delete Account
+            ListTile(
+              leading: const Icon(
+                Icons.delete_forever_outlined,
+              ),
+              title: Text(
+                "Delete My Account",
+                style: context.textTheme.labelMedium
+                    ?.copyWith(color: AppColors.errDark),
+              ),
+              splashColor: AppColors.errLight,
+              iconColor: AppColors.errDark,
+              onTap: () => showAdaptiveDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => const _AreYouSureDialog(),
+              ),
+            )
+          ],
+        )
       ],
     );
   }
 
   void onDestinationSelected(value) {
-    // setState(() {
-    //   // selectedIndex = value;
-    // });
     switch (value) {
       case 0:
         context.navigator.pushReplacementNamed(HomePage.routeName);
@@ -93,6 +137,53 @@ class _IDrawerState extends State<IDrawer> {
                 ),
         icon: AppAssets.logOutIcon,
       ),
+    );
+  }
+}
+
+class _AreYouSureDialog extends StatelessWidget {
+  const _AreYouSureDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppColors.errLight,
+      titleTextStyle: context.textTheme.headlineSmall?.copyWith(
+        color: Colors.white,
+      ),
+      contentTextStyle: context.textTheme.bodyLarge?.copyWith(
+        foreground: Paint()..color = Colors.white,
+      ),
+      title: const Text("Are You Sure ? "),
+      content: const Text(
+        "After you clicked confirm your account will be deleted permanently and you will not be able to recover.",
+      ),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actions: <Widget>[
+        /// Delete Button
+        TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.errDark,
+          ),
+          onPressed: () async => await onIamSureTapped(context),
+          child: const Text("I do want to delete"),
+        ),
+
+        /// Cancel Button
+        ElevatedButton(
+          onPressed: () => context.pop(),
+          child: const Text("I don't want to delete"),
+        ),
+      ],
+    );
+  }
+
+  onIamSureTapped(BuildContext context) async {
+    await UserDatabaseService().deleteUser().whenComplete(
+      () {
+        context.navigator.pop();
+        context.navigator.pushReplacementNamed("/");
+      },
     );
   }
 }

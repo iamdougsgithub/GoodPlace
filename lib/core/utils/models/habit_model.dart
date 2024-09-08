@@ -10,14 +10,6 @@ class HabitModel {
   List<DateTime> completionDates;
   bool done;
   int longestStreak;
-  /*
-  TODO:
-  
-  en uzun streakCount sayısını alan olarak firebase de tutmak mı?
-
-  yoksa completionDates e bakıp her uygulamayı açtığımda en uzun zinciri hesaplasam mı?
-
-  */
 
   HabitModel({
     this.id,
@@ -28,18 +20,35 @@ class HabitModel {
     required this.streakCount,
     required this.longestStreak,
     required this.completionDates,
-  }) : done = _calculateDone(completionDates);
+  }) : done = _calculateDone(completionDates) {
+    _updateStreakCount();
+  }
 
-  static bool _calculateDone(List<DateTime> completionDates) {
+  void _updateStreakCount() {
+    if (completionDates.isNotEmpty) {
+      final lastCompletionDate = stripTime(completionDates.last);
+
+      final now = stripTime(DateTime.now());
+
+      final difference = now.difference(lastCompletionDate).inDays;
+      if (difference > 1) {
+        streakCount = 0;
+      }
+    }
+  }
+
+  static _calculateDone(List<DateTime> completionDates) {
     if (completionDates.isEmpty) return false;
+    final today = stripTime(DateTime.now());
 
-    final lastCompletionDate = completionDates.last;
-    print("lastCompletionDate:$lastCompletionDate");
-    final today = DateTime.now();
+    final lastCompletionDate = stripTime(completionDates.last);
 
-    return lastCompletionDate.day == today.day &&
-        lastCompletionDate.month == today.month &&
-        lastCompletionDate.year == today.year;
+    return lastCompletionDate == today;
+  }
+
+  /// Strips the time part from a DateTime object, leaving only the date
+  static DateTime stripTime(DateTime dateTime) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
   // From json
@@ -71,5 +80,16 @@ class HabitModel {
           : [],
       'longestStreak': longestStreak,
     };
+  }
+
+// "title:Koşu,purpose:günde 30 dk koşmak,mevcut streakCount:10,longestStreak:100,bugün ki görevimi yaptım."
+  @override
+  String toString() {
+    String doneStatus = done
+        ? "I completed today's task."
+        : "I haven't completed today's task yet.";
+    String purposeText = purpose != null ? "purpose:$purpose," : "";
+
+    return "Habit title:$title,$purposeText Current daily streakCount:$streakCount,longestStreak:$longestStreak,$doneStatus";
   }
 }
