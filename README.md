@@ -7,6 +7,7 @@ GoodPlace - Get inspired by yesterday, focus on tomorrow!
 - [GoodPlace](#goodplace)
 - [Features](#features)
 - [App Teaser](#app-teaser)
+- [Application Screenshots](#application-screenshots)
 - [Plugins](#plugins)
 - [Usage](#usage)
 
@@ -31,6 +32,38 @@ Additionally, with **GoodPlaceT**, you can engage in conversations about your ha
 
 ## App Teaser
 [![App Teaser](https://img.youtube.com/vi/x11NhJtpc4I/maxresdefault.jpg)](https://www.youtube.com/watch?v=x11NhJtpc4I)
+<details>
+  <summary><h2>Application Screenshots</h2></summary> 
+
+  <div style="display: flex; flex-wrap: wrap;">
+    <img src="https://github.com/user-attachments/assets/16489848-82a0-476b-aa18-a76ba01a6fea" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/80b549ba-6f50-422c-8ba9-5d2da9c33d4a" width="200" style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/af3a7f8a-42b3-478e-b249-56bd31680db3" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/dca53611-65cb-4f18-9389-221fdc107703" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/dd1e0ee2-0fb4-498a-8551-889f547e2618" width="200" style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/de226b50-6122-41cf-bd2a-f553796e23d1" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/7139228a-4270-4757-8d81-654da3307743" width="200" style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/5d4bd10b-f38e-4e63-b403-4d80638e84f0" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/3acade66-f663-47c7-b451-7c88bbbcd2e0" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/1ba8e3c5-0e6f-44ec-b48d-a3940515a380" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/f75bbe4b-eed1-4dc6-9983-ddd174185401" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/94d00158-fdcb-4f3c-b292-a9ebd15e5cda" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/8da4da95-3001-4fae-8016-edf3fe5ebdb1" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/0080fec0-dc9c-41f8-8890-b0a807363d94" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/7e37c387-c66a-4d56-a687-f7a9392f5baa" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/c67600fe-141b-465f-9ad7-0f53feea355d" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/8d95d7e3-d121-49fc-a2d9-0bf83ec8b7ec" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/271413eb-5c79-4144-871a-e7a6127f9b10" width="200" style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/c1276ac8-881e-46ea-8e15-9022c4c1d4d3" width="200" style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/dfd03ac9-0d20-467c-8a4d-3e02ee7f37a7" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/6b19990b-0a01-4601-ba03-e9eafd5ebdfc" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/8524f32c-77e1-4122-a482-e964730acb10" width="200"  style="margin: 5px;" />
+    <img src="https://github.com/user-attachments/assets/0b04d830-84e9-47b3-9511-5f779a4be50e" width="200"  style="margin: 5px;" />
+  </div>
+
+</details>
+
+
 
 <details>
     <summary><h2>Plugins</h2></summary>
