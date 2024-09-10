@@ -119,7 +119,7 @@ The Flutter plugins used in this project are as follows:
 
 In order to run this project, you have to follow the steps below:
 
-1. Clone the project:
+1. **Clone** the project:
 
    ```bash
    git clone https://github.com/havva-nur-ezginci/GoodPlace.git
@@ -137,13 +137,20 @@ In order to run this project, you have to follow the steps below:
 - [Firebase iOS setup guide](https://firebase.google.com/docs/ios/setup)
 - [Google Sign-In setup guide for iOS](https://developers.google.com/identity/sign-in/ios/start)
 
-5. Get Flutter packages:
+5. Create a **.env file** in the root of your project and add your API keys and endpoint URLs:
+   
+```bash
+API_KEY=your_api_key_here
+API_URL=https://your-endpoint-here
+```
+
+6. Get Flutter packages:
 
    ```bash
    flutter pub get
    ```
 
-6. Run the app:
+7. Run the app:
 
    ```bash
    flutter run
