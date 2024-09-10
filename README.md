@@ -137,7 +137,7 @@ In order to run this project, you have to follow the steps below:
 - [Firebase iOS setup guide](https://firebase.google.com/docs/ios/setup)
 - [Google Sign-In setup guide for iOS](https://developers.google.com/identity/sign-in/ios/start)
 
-5. Create a **.env file** in the root of your project and add your API keys and endpoint URLs:
+5. Create a **.env file** in the root of your project and add your OpenAI API keys and endpoint URL:
    
 ```bash
 API_KEY=your_api_key_here
