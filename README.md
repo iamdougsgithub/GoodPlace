@@ -139,10 +139,10 @@ In order to run this project, you have to follow the steps below:
 
 5. Create a **.env file** in the root of your project and add your OpenAI API keys and endpoint URL:
    
-```bash
-API_KEY=your_api_key_here
-API_URL=https://your-endpoint-here
-```
+   ```bash
+   API_KEY=your_api_key_here
+   API_URL=https://your-endpoint-here
+   ```
 
 6. Get Flutter packages:
 
