@@ -163,3 +163,8 @@ Thanks for taking the time to read through this README! 🦸‍♂️🦸‍♀�
 Feel free to dive into the code, break things, fix things, and have fun. If you encounter any bugs or just want to share your thoughts, don’t hesitate to reach out.☕💻
 
 Happy coding and good luck with your habit tracking adventures!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
